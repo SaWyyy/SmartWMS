@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using SmartWMS.Data;
+using Npgsql;
+using SmartWMS.Models;
+using SmartWMS.Models.Enums;
 using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,12 +22,21 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 
-builder.Services.AddDbContext<AuthDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+var ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var dataSourceBuilder = new NpgsqlDataSourceBuilder(ConnectionString);
 
-builder.Services.AddAuthorization();
-builder.Services.AddIdentityApiEndpoints<IdentityUser>()
-    .AddEntityFrameworkStores<AuthDbContext>();
+dataSourceBuilder.MapEnum<ActionType>("action_type");
+dataSourceBuilder.MapEnum<AlertType>("alert_type");
+dataSourceBuilder.MapEnum<LevelType>("level_type");
+dataSourceBuilder.MapEnum<OrderName>("order_name");
+dataSourceBuilder.MapEnum<OrderType>("order_type");
+dataSourceBuilder.MapEnum<ReportType>("report_type");
+dataSourceBuilder.MapEnum<ReportPeriod>("report_period");
+
+var dataSource = dataSourceBuilder.Build();
+
+builder.Services.AddDbContext<SmartwmsDbContext>(options =>
+    options.UseNpgsql(dataSource));
 
 builder.Services.AddCors(options =>
 {
@@ -46,8 +57,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.MapIdentityApi<IdentityUser>();
 
 app.UseCors();
 
