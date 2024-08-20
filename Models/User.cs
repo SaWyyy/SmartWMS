@@ -1,19 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 namespace SmartWMS.Models;
 
-public partial class User
+public partial class User : IdentityUser
 {
-    public int UserId { get; set; }
-
-    public string Login { get; set; } = null!;
-
-    public string Password { get; set; } = null!;
-
-    public string Email { get; set; } = null!;
-
-    public int? ManagerId { get; set; }
+    public string? ManagerId { get; set; }
 
     public int WarehousesWarehouseId { get; set; }
 

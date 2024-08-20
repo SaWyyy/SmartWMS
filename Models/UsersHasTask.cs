@@ -4,7 +4,7 @@ namespace SmartWMS.Models;
 
 public partial class UsersHasTask
 {
-    public int UsersUserId { get; set; }
+    public string UsersUserId { get; set; }
     
     public int TasksTaskId { get; set; }
     

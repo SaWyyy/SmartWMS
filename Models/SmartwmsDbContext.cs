@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using SmartWMS.Models.Enums;
 
 namespace SmartWMS.Models;
 
-public partial class SmartwmsDbContext : DbContext
+public partial class SmartwmsDbContext : IdentityDbContext<User>
 {
-    public SmartwmsDbContext()
-    {
-    }
-
     public SmartwmsDbContext(DbContextOptions<SmartwmsDbContext> options)
         : base(options)
     {
@@ -51,6 +49,8 @@ public partial class SmartwmsDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+        
         modelBuilder
             .HasPostgresEnum<ActionType>() //Done
             .HasPostgresEnum<AlertType>() //Done
@@ -375,27 +375,9 @@ public partial class SmartwmsDbContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("users_id_unique");
-
             entity.ToTable("users");
-
-            entity.HasIndex(e => e.Email, "email_unique").IsUnique();
-
-            entity.HasIndex(e => e.Login, "login_unique").IsUnique();
-
-            entity.Property(e => e.UserId)
-                .ValueGeneratedNever()
-                .HasColumnName("user_id");
-            entity.Property(e => e.Email)
-                .HasMaxLength(45)
-                .HasColumnName("email");
-            entity.Property(e => e.Login)
-                .HasMaxLength(45)
-                .HasColumnName("login");
+            
             entity.Property(e => e.ManagerId).HasColumnName("manager_id");
-            entity.Property(e => e.Password)
-                .HasMaxLength(45)
-                .HasColumnName("password");
             entity.Property(e => e.WarehousesWarehouseId).HasColumnName("warehouses_warehouse_id");
 
             entity.HasOne(d => d.Manager).WithMany(p => p.InverseManager)

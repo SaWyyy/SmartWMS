@@ -38,6 +38,15 @@ var dataSource = dataSourceBuilder.Build();
 builder.Services.AddDbContext<SmartwmsDbContext>(options =>
     options.UseNpgsql(dataSource));
 
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<SmartwmsDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication();
+builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+    .AddEntityFrameworkStores<SmartwmsDbContext>();
+
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
