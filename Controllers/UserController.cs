@@ -26,13 +26,18 @@ public class UserController : ControllerBase
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> RegisterManager(Registration model)
     {
+        var warehouse = await _dbContext.Warehouses.FirstOrDefaultAsync(x => x.WarehouseId == 1);
+        if (warehouse is null)
+        {
+            return BadRequest("Warehouse not found");
+        }
+        
         var user = new User()
         {
             Email = model.Email,
             UserName = model.UserName,
             PasswordHash = model.Password,
-            WarehousesWarehouseId = _dbContext.Warehouses.FirstOrDefaultAsync(x => x.WarehouseId == 1).Id,
-            ManagerId = null
+            WarehousesWarehouseId = warehouse.WarehouseId
         };
         var result = await _userManager.CreateAsync(user, user.PasswordHash!);
         if (result.Succeeded)
@@ -48,12 +53,18 @@ public class UserController : ControllerBase
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> RegisterEmployee(Registration model)
     {
+        var warehouse = await _dbContext.Warehouses.FirstOrDefaultAsync(x => x.WarehouseId == 1);
+        if (warehouse is null)
+        {
+            return BadRequest("Warehouse not found");
+        }
+        
         var user = new User()
         {
             Email = model.Email,
             UserName = model.UserName,
             PasswordHash = model.Password,
-            WarehousesWarehouseId = _dbContext.Warehouses.FirstOrDefaultAsync(x => x.WarehouseId == 1).Id,
+            WarehousesWarehouseId = warehouse.WarehouseId,
             ManagerId = model.ManagerId
         };
         var result = await _userManager.CreateAsync(user, user.PasswordHash!);
