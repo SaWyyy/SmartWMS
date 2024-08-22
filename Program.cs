@@ -4,6 +4,7 @@ using Microsoft.OpenApi.Models;
 using Npgsql;
 using SmartWMS.Models;
 using SmartWMS.Models.Enums;
+using SmartWMS.Repositories;
 using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,8 @@ builder.Services.AddSwaggerGen(options =>
     });
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
+
+builder.Services.AddTransient<IUserRepository, UserRepository>();
 
 var ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 var dataSourceBuilder = new NpgsqlDataSourceBuilder(ConnectionString);
