@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using SmartWMS.Models;
 
@@ -24,7 +25,7 @@ public class UserRepository : IUserRepository
         var warehouse = await _dbContext.Warehouses.FirstOrDefaultAsync(x => x.WarehouseId == 1);
         if (warehouse is null)
         {
-            return IdentityResult.Failed();
+            return IdentityResult.Failed(new IdentityError{Description = "Warehouse is mandatory!"});
         }
         
         var user = new User()
@@ -41,7 +42,7 @@ public class UserRepository : IUserRepository
             return result;
         }
         
-        return IdentityResult.Failed();
+        return IdentityResult.Failed(new IdentityError{ Description = "Registration failed"} );
     }
     
     public async Task<IdentityResult> RegisterEmployee(Registration model)
@@ -49,7 +50,7 @@ public class UserRepository : IUserRepository
         var warehouse = await _dbContext.Warehouses.FirstOrDefaultAsync(x => x.WarehouseId == 1);
         if (warehouse is null)
         {
-            return IdentityResult.Failed();
+            return IdentityResult.Failed(new IdentityError{Description = "Warehouse is mandatory!"});
         }
         
         var user = new User()
@@ -67,6 +68,6 @@ public class UserRepository : IUserRepository
             return result;
         }
 
-        return IdentityResult.Failed();
+        return IdentityResult.Failed(new IdentityError{Description = "Registration failed"});
     }
 }

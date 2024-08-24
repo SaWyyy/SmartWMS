@@ -1,133 +1,156 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using NLog.Web;
+using NLog;
 using Npgsql;
 using SmartWMS.Models;
 using SmartWMS.Models.Enums;
 using SmartWMS.Repositories;
 using Swashbuckle.AspNetCore.Filters;
 
-var builder = WebApplication.CreateBuilder(args);
+var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+logger.Debug("init main");
+
+try
+{
+    var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+    builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
-{
-    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen(options =>
     {
-        In = ParameterLocation.Header,
-        Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey
+        options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+        {
+            In = ParameterLocation.Header,
+            Name = "Authorization",
+            Type = SecuritySchemeType.ApiKey
+        });
+        options.OperationFilter<SecurityRequirementsOperationFilter>();
     });
-    options.OperationFilter<SecurityRequirementsOperationFilter>();
-});
 
-builder.Services.AddTransient<IUserRepository, UserRepository>();
+    builder.Logging.ClearProviders();
+    builder.Host.UseNLog();
 
-var ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-var dataSourceBuilder = new NpgsqlDataSourceBuilder(ConnectionString);
+    builder.Services.AddTransient<IUserRepository, UserRepository>();
 
-dataSourceBuilder.MapEnum<ActionType>("action_type");
-dataSourceBuilder.MapEnum<AlertType>("alert_type");
-dataSourceBuilder.MapEnum<LevelType>("level_type");
-dataSourceBuilder.MapEnum<OrderName>("order_name");
-dataSourceBuilder.MapEnum<OrderType>("order_type");
-dataSourceBuilder.MapEnum<ReportType>("report_type");
-dataSourceBuilder.MapEnum<ReportPeriod>("report_period");
+    var ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    var dataSourceBuilder = new NpgsqlDataSourceBuilder(ConnectionString);
 
-var dataSource = dataSourceBuilder.Build();
+    dataSourceBuilder.MapEnum<ActionType>("action_type");
+    dataSourceBuilder.MapEnum<AlertType>("alert_type");
+    dataSourceBuilder.MapEnum<LevelType>("level_type");
+    dataSourceBuilder.MapEnum<OrderName>("order_name");
+    dataSourceBuilder.MapEnum<OrderType>("order_type");
+    dataSourceBuilder.MapEnum<ReportType>("report_type");
+    dataSourceBuilder.MapEnum<ReportPeriod>("report_period");
 
-builder.Services.AddDbContext<SmartwmsDbContext>(options =>
-    options.UseNpgsql(dataSource));
+    var dataSource = dataSourceBuilder.Build();
+
+    builder.Services.AddDbContext<SmartwmsDbContext>(options =>
+        options.UseNpgsql(dataSource));
 /*
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<SmartwmsDbContext>()
     .AddDefaultTokenProviders();
 */
 
-builder.Services.AddAuthorization();
+    builder.Services.AddAuthorization();
 
-builder.Services.AddAuthentication();
+    builder.Services.AddAuthentication();
 
-builder.Services.AddIdentityApiEndpoints<User>()
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<SmartwmsDbContext>();
+    builder.Services.AddIdentityApiEndpoints<User>()
+        .AddRoles<IdentityRole>()
+        .AddEntityFrameworkStores<SmartwmsDbContext>();
 
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(policy =>
+    builder.Services.AddCors(options =>
     {
-        policy.AllowAnyMethod()
-            .AllowAnyHeader()
-            .AllowAnyOrigin();
+        options.AddDefaultPolicy(policy =>
+        {
+            policy.AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowAnyOrigin();
+        });
     });
-});
 
-var app = builder.Build();
+    var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    string[] roleNames = { "Admin", "Manager", "Employee" };
-    IdentityResult roleResult;
-
-    foreach (var roleName in roleNames)
+    using (var scope = app.Services.CreateScope())
     {
-        var roleExist = await roleManager.RoleExistsAsync(roleName);
-        if (!roleExist)
+        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        string[] roleNames = { "Admin", "Manager", "Employee" };
+        IdentityResult roleResult;
+
+        foreach (var roleName in roleNames)
         {
-            roleResult = await roleManager.CreateAsync(new IdentityRole(roleName));
+            var roleExist = await roleManager.RoleExistsAsync(roleName);
+            if (!roleExist)
+            {
+                roleResult = await roleManager.CreateAsync(new IdentityRole(roleName));
+            }
         }
     }
-}
 
-using (var scope = app.Services.CreateScope())
-{
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
-    var dbContext = scope.ServiceProvider.GetRequiredService<SmartwmsDbContext>();
-    
-    string email = "admin@admin.com";
-    string userName = "Admin";
-    string password = "Admin123@";
-
-    if (await userManager.FindByEmailAsync(email) == null)
+    using (var scope = app.Services.CreateScope())
     {
-        var user = new User()
-        {
-            Email = email,
-            UserName = userName,
-            PasswordHash = password,
-            WarehousesWarehouseId = dbContext.Warehouses.FirstOrDefaultAsync(x => x.WarehouseId == 1).Id
-        };
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+        var dbContext = scope.ServiceProvider.GetRequiredService<SmartwmsDbContext>();
 
-        var result = await userManager.CreateAsync(user, password);
+        string email = "admin@admin.com";
+        string userName = "Admin";
+        string password = "Admin123@";
 
-        if (result.Succeeded)
+        if (await userManager.FindByEmailAsync(email) == null)
         {
-            await userManager.AddToRoleAsync(user, "Admin");
+            var user = new User()
+            {
+                Email = email,
+                UserName = userName,
+                PasswordHash = password,
+                WarehousesWarehouseId = dbContext.Warehouses.FirstOrDefaultAsync(x => x.WarehouseId == 1).Id
+            };
+
+            var result = await userManager.CreateAsync(user, password);
+
+            if (result.Succeeded)
+            {
+                await userManager.AddToRoleAsync(user, "Admin");
+            }
         }
     }
-}
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+
+    app.UseCors();
+
+    app.UseAuthentication();
+
+    app.UseAuthorization();
+
+    app.MapIdentityApi<User>();
+
+    app.MapControllers().RequireAuthorization();
+
+    app.UseHttpsRedirection();
+
+    app.Run();
 }
 
-app.UseCors();
-
-app.UseAuthentication();
-
-app.UseAuthorization();
-
-app.MapIdentityApi<User>();
-
-app.MapControllers().RequireAuthorization();
-
-app.UseHttpsRedirection();
-
-app.Run();
+catch (Exception exception)
+{
+    // NLog: catch setup errors
+    logger.Error(exception, "Stopped program because of exception");
+    throw;
+}
+finally
+{
+    // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
+    NLog.LogManager.Shutdown();
+}
