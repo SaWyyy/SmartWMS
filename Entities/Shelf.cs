@@ -6,7 +6,8 @@ namespace SmartWMS.Models;
 
 public partial class Shelf
 {
-    public int WarehouseLocalizationId { get; set; }
+
+    public int ShelfId { get; set; }
 
     public string Lane { get; set; } = null!;
 
@@ -22,3 +23,4 @@ public partial class Shelf
 
     public virtual Product? ProductsProduct { get; set; }
 }
+ 
