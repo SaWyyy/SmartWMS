@@ -31,10 +31,13 @@ try
         options.OperationFilter<SecurityRequirementsOperationFilter>();
     });
 
+    builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
     builder.Logging.ClearProviders();
     builder.Host.UseNLog();
 
     builder.Services.AddTransient<IUserRepository, UserRepository>();
+    builder.Services.AddTransient<IShelfRepository, ShelfRepository>();
 
     var ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
     var dataSourceBuilder = new NpgsqlDataSourceBuilder(ConnectionString);
@@ -136,7 +139,7 @@ builder.Services.AddIdentity<User, IdentityRole>()
 
     app.MapIdentityApi<User>();
 
-    app.MapControllers().RequireAuthorization();
+    app.MapControllers();
 
     app.UseHttpsRedirection();
 
