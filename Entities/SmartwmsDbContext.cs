@@ -67,7 +67,7 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
             entity.ToTable("alerts");
 
             entity.Property(e => e.AlertId)
-                .ValueGeneratedNever()
+                //.ValueGeneratedNever()
                 .HasColumnName("alert_id");
             entity.Property(e => e.AlertDate)
                 .HasColumnType("timestamp without time zone")
@@ -92,7 +92,7 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
             entity.ToTable("categories");
 
             entity.Property(e => e.CategoryId)
-                .ValueGeneratedNever()
+                //.ValueGeneratedNever()
                 .HasColumnName("category_id");
             entity.Property(e => e.CategoryName)
                 .HasMaxLength(45)
@@ -110,7 +110,7 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
             entity.HasIndex(e => e.CountryName, "countryname_unique").IsUnique();
 
             entity.Property(e => e.CountryId)
-                .ValueGeneratedNever()
+                //.ValueGeneratedNever()
                 .HasColumnName("country_id");
             entity.Property(e => e.CountryCode).HasColumnName("country_code");
             entity.Property(e => e.CountryName)
@@ -125,7 +125,7 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
             entity.ToTable("order_details");
 
             entity.Property(e => e.OrderDetailId)
-                .ValueGeneratedNever()
+                //.ValueGeneratedNever()
                 .HasColumnName("order_detail_id");
             entity.Property(e => e.OrderHeadersOrdersHeaderId).HasColumnName("order_headers_orders_header_id");
             entity.Property(e => e.ProductsProductId).HasColumnName("products_product_id");
@@ -149,7 +149,7 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
             entity.ToTable("order_headers");
 
             entity.Property(e => e.OrdersHeaderId)
-                .ValueGeneratedNever()
+                //.ValueGeneratedNever()
                 .HasColumnName("orders_header_id");
             entity.Property(e => e.DeliveryDate)
                 .HasColumnType("timestamp without time zone")
@@ -181,7 +181,7 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
             entity.ToTable("products");
 
             entity.Property(e => e.ProductId)
-                .ValueGeneratedNever()
+                //.ValueGeneratedNever()
                 .HasColumnName("product_id");
             entity.Property(e => e.Price)
                 .HasMaxLength(45)
@@ -219,7 +219,7 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
             entity.ToTable("product_details");
 
             entity.Property(e => e.ProductDetailId)
-                .ValueGeneratedNever()
+                //.ValueGeneratedNever()
                 .HasColumnName("product_detail_id");
             entity.Property(e => e.Barcode)
                 .HasMaxLength(8)
@@ -282,7 +282,7 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
             entity.ToTable("reports");
 
             entity.Property(e => e.ReportId)
-                .ValueGeneratedNever()
+                //.ValueGeneratedNever()
                 .HasColumnName("report_id");
             entity.Property(e => e.ReportType)
                 .HasColumnName("report_type")
@@ -304,18 +304,18 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
 
         modelBuilder.Entity<Shelf>(entity =>
         {
-            entity.HasKey(e => e.WarehouseLocalizationId).HasName("warehouse_localization_id_unique");
+            entity.HasKey(e => e.ShelfId).HasName("shelf_id_unique");
 
             entity.ToTable("shelf");
 
-            entity.HasIndex(e => e.Lane, "lane_unique").IsUnique();
+            //entity.HasIndex(e => e.Lane, "lane_unique").IsUnique();
 
-            entity.Property(e => e.WarehouseLocalizationId)
-                .ValueGeneratedNever()
-                .HasColumnName("warehouse_localization_id");
+            entity.Property(e => e.ShelfId)
+                //.ValueGeneratedNever()
+                .HasColumnName("shelf_id");
             entity.Property(e => e.CurrentQuant).HasColumnName("current_quant");
             entity.Property(e => e.Lane)
-                .HasMaxLength(2)
+                .HasMaxLength(3)
                 .HasColumnName("lane");
             entity.Property(e => e.MaxQuant).HasColumnName("max_quant");
             entity.Property(e => e.ProductsProductId).HasColumnName("products_product_id");
@@ -335,7 +335,7 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
             entity.ToTable("subcategories");
 
             entity.Property(e => e.SubcategoryId)
-                .ValueGeneratedNever()
+                //.ValueGeneratedNever()
                 .HasColumnName("subcategory_id");
             entity.Property(e => e.CategoriesCategoryId).HasColumnName("categories_category_id");
             entity.Property(e => e.SubcategoryName)
@@ -355,7 +355,7 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
             entity.ToTable("tasks");
 
             entity.Property(e => e.TaskId)
-                .ValueGeneratedNever()
+                //.ValueGeneratedNever()
                 .HasColumnName("task_id");
             entity.Property(e => e.FinishDate)
                 .HasMaxLength(45)
@@ -397,7 +397,7 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
             entity.ToTable("warehouses");
 
             entity.Property(e => e.WarehouseId)
-                .ValueGeneratedNever()
+                //.ValueGeneratedNever()
                 .HasColumnName("warehouse_id");
             entity.Property(e => e.Address)
                 .HasMaxLength(45)
@@ -411,7 +411,7 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
             entity.ToTable("waybills");
 
             entity.Property(e => e.WaybillId)
-                .ValueGeneratedNever()
+                //.ValueGeneratedNever()
                 .HasColumnName("waybill_id");
             entity.Property(e => e.CountriesCountryId).HasColumnName("countries_country_id");
             entity.Property(e => e.LoadingDate)

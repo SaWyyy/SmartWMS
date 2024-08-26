@@ -165,8 +165,11 @@ namespace SmartWMS.Migrations
             modelBuilder.Entity("SmartWMS.Models.Alert", b =>
                 {
                     b.Property<int>("AlertId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("alert_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AlertId"));
 
                     b.Property<DateTime>("AlertDate")
                         .HasColumnType("timestamp without time zone")
@@ -195,8 +198,11 @@ namespace SmartWMS.Migrations
             modelBuilder.Entity("SmartWMS.Models.Category", b =>
                 {
                     b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("category_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CategoryId"));
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
@@ -213,8 +219,11 @@ namespace SmartWMS.Migrations
             modelBuilder.Entity("SmartWMS.Models.Country", b =>
                 {
                     b.Property<int>("CountryId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("country_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CountryId"));
 
                     b.Property<int>("CountryCode")
                         .HasColumnType("integer")
@@ -241,8 +250,11 @@ namespace SmartWMS.Migrations
             modelBuilder.Entity("SmartWMS.Models.OrderDetail", b =>
                 {
                     b.Property<int>("OrderDetailId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("order_detail_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("OrderDetailId"));
 
                     b.Property<int>("OrderHeadersOrdersHeaderId")
                         .HasColumnType("integer")
@@ -269,8 +281,11 @@ namespace SmartWMS.Migrations
             modelBuilder.Entity("SmartWMS.Models.OrderHeader", b =>
                 {
                     b.Property<int>("OrdersHeaderId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("orders_header_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("OrdersHeaderId"));
 
                     b.Property<DateTime?>("DeliveryDate")
                         .HasColumnType("timestamp without time zone")
@@ -309,8 +324,11 @@ namespace SmartWMS.Migrations
             modelBuilder.Entity("SmartWMS.Models.Product", b =>
                 {
                     b.Property<int>("ProductId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("product_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ProductId"));
 
                     b.Property<string>("Price")
                         .IsRequired()
@@ -356,8 +374,11 @@ namespace SmartWMS.Migrations
             modelBuilder.Entity("SmartWMS.Models.ProductDetail", b =>
                 {
                     b.Property<int>("ProductDetailId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("product_detail_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ProductDetailId"));
 
                     b.Property<string>("Barcode")
                         .IsRequired()
@@ -406,8 +427,11 @@ namespace SmartWMS.Migrations
             modelBuilder.Entity("SmartWMS.Models.Report", b =>
                 {
                     b.Property<int>("ReportId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("report_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ReportId"));
 
                     b.Property<DateTime>("ReportDate")
                         .HasColumnType("timestamp without time zone")
@@ -440,9 +464,12 @@ namespace SmartWMS.Migrations
 
             modelBuilder.Entity("SmartWMS.Models.Shelf", b =>
                 {
-                    b.Property<int>("WarehouseLocalizationId")
+                    b.Property<int>("ShelfId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("warehouse_localization_id");
+                        .HasColumnName("shelf_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ShelfId"));
 
                     b.Property<int>("CurrentQuant")
                         .HasColumnType("integer")
@@ -450,8 +477,8 @@ namespace SmartWMS.Migrations
 
                     b.Property<string>("Lane")
                         .IsRequired()
-                        .HasMaxLength(2)
-                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(3)
+                        .HasColumnType("character varying(3)")
                         .HasColumnName("lane");
 
                     b.Property<LevelType>("Level")
@@ -470,13 +497,10 @@ namespace SmartWMS.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("rack");
 
-                    b.HasKey("WarehouseLocalizationId")
-                        .HasName("warehouse_localization_id_unique");
+                    b.HasKey("ShelfId")
+                        .HasName("shelf_id_unique");
 
                     b.HasIndex("ProductsProductId");
-
-                    b.HasIndex(new[] { "Lane" }, "lane_unique")
-                        .IsUnique();
 
                     b.ToTable("shelf", (string)null);
                 });
@@ -484,8 +508,11 @@ namespace SmartWMS.Migrations
             modelBuilder.Entity("SmartWMS.Models.Subcategory", b =>
                 {
                     b.Property<int>("SubcategoryId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("subcategory_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("SubcategoryId"));
 
                     b.Property<int>("CategoriesCategoryId")
                         .HasColumnType("integer")
@@ -508,8 +535,11 @@ namespace SmartWMS.Migrations
             modelBuilder.Entity("SmartWMS.Models.Task", b =>
                 {
                     b.Property<int>("TaskId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("task_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TaskId"));
 
                     b.Property<string>("FinishDate")
                         .HasMaxLength(45)
@@ -641,8 +671,11 @@ namespace SmartWMS.Migrations
             modelBuilder.Entity("SmartWMS.Models.Warehouse", b =>
                 {
                     b.Property<int>("WarehouseId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("warehouse_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("WarehouseId"));
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -659,8 +692,11 @@ namespace SmartWMS.Migrations
             modelBuilder.Entity("SmartWMS.Models.Waybill", b =>
                 {
                     b.Property<int>("WaybillId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("waybill_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("WaybillId"));
 
                     b.Property<int>("CountriesCountryId")
                         .HasColumnType("integer")
