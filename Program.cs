@@ -38,6 +38,13 @@ try
 
     builder.Services.AddTransient<IUserRepository, UserRepository>();
     builder.Services.AddTransient<IShelfRepository, ShelfRepository>();
+    builder.Services.AddTransient<ICountryRepository, CountryRepository>();
+    //builder.Services.AddTransient<IWaybillRepository, WaybillRepository>();
+    
+    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+    
+    
+   
 
     var ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
     var dataSourceBuilder = new NpgsqlDataSourceBuilder(ConnectionString);
