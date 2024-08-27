@@ -7,8 +7,10 @@ public class MappingProfiles : Profile
 {
     public MappingProfiles()
     {
-        CreateMap<Shelf, ShelfDto>();
-        CreateMap<Product, ProductDto>();
-        CreateMap<CreateShelfDto, Shelf>();
+        CreateMap<Shelf, ShelfDto>().ReverseMap();
+        CreateMap<Product, ProductDto>().ReverseMap();
+        CreateMap<Country, CountryDto>().ReverseMap();
+        CreateMap<Waybill, WaybillDto>().ReverseMap();
+
     }
 }

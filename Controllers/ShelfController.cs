@@ -22,7 +22,7 @@ public class ShelfController : ControllerBase
 
     [HttpPost("")]
     //[Authorize(Roles = "Manager, Admin")]
-    public async Task<IActionResult> addShelf(CreateShelfDto dto)
+    public async Task<IActionResult> addShelf(ShelfDto dto)
     {
         var result = await _shelfRepository.AddShelf(dto);
 
@@ -32,7 +32,7 @@ public class ShelfController : ControllerBase
             return BadRequest("Error has occured while adding shelf");
         }
         
-        _logger.LogInformation($"Shelf nr. {dto.Rack} has been added");
+        _logger.LogInformation($"Shelf nr. {result.ShelfId} has been added");
         return Ok($"Adding shelf completed, Id: {result.ShelfId}");
     }
 
@@ -51,7 +51,7 @@ public class ShelfController : ControllerBase
 
         if (result is null)
         {
-            _logger.LogError("Error has occured while adding shelf");
+            _logger.LogError("Error has occured while looking for shelf");
             return BadRequest("Error has occured while looking for shelf");
 
         }
@@ -61,17 +61,35 @@ public class ShelfController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> delete(int id)
     {
         var deletedShelf = await _shelfRepository.Delete(id);
 
         if (deletedShelf is null)
         {
+            _logger.LogError("Shelf with specified ID hasnt been found");
             return NotFound();
         }
 
         _logger.LogInformation("Shelf removed");
         return Ok(deletedShelf);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> update(int id, ShelfDto dto)
+    {
+        var updatedShelf = await _shelfRepository.Update(id, dto);
+
+        if (updatedShelf is null)
+        {
+            _logger.LogError("Shelf with specified ID hasnt been edited");
+            return BadRequest("Error has occured while editing shelf");
+        }
+        
+        _logger.LogInformation("Shelf edited");
+        return Ok(updatedShelf);
+
+
     }
 
 }

@@ -18,7 +18,7 @@ public class ShelfRepository : IShelfRepository
         this._mapper = mapper;
     }
 
-    public async Task<Shelf> AddShelf(CreateShelfDto dto) 
+    public async Task<Shelf> AddShelf(ShelfDto dto) 
     {
 
         var shelf = _mapper.Map<Shelf>(dto); 
@@ -77,7 +77,34 @@ public class ShelfRepository : IShelfRepository
         return shelf;
 
     }
-    
+
+    public async Task<Shelf> Update(int id, ShelfDto dto)
+    {
+        var shelf = await _dbContext.Shelves.FirstOrDefaultAsync(r => r.ShelfId == id);
+
+        if (shelf is null)
+        {
+            return null;
+        }
+
+        shelf.ProductsProduct = dto.ProductsProduct;
+        shelf.ProductsProductId = dto.ProductsProductId;
+        shelf.CurrentQuant = dto.CurrentQuant;
+        shelf.Lane = dto.Lane;
+        shelf.Rack = dto.Rack;
+        shelf.MaxQuant = dto.MaxQuant;
+        shelf.Level = dto.Level;
+
+        var result = await _dbContext.SaveChangesAsync();
+        
+        if (result > 0)
+        {
+            return shelf;
+        }
+
+        return null;
+        
+    }
     
     
 }
