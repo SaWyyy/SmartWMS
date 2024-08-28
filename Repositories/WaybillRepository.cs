@@ -15,22 +15,19 @@ public class WaybillRepository : IWaybillRepository
         this._mapper = mapper;
     }
 
-    public async Task<Waybill> AddWaybill(WaybillDto dto)
+    public async Task<Waybill?> AddWaybill(WaybillDto dto)
     {
         var country = await _dbContext.Countries.FirstOrDefaultAsync(r => r.CountryId == dto.CountriesCountryId);
 
         if (country is null)
-        {
             return null;
-        }
         
         var waybill = _mapper.Map<Waybill>(dto);
         await _dbContext.Waybills.AddAsync(waybill);
         var result = await _dbContext.SaveChangesAsync();
+        
         if (result > 0)
-        {
             return waybill;
-        }
 
         return null;
     }
@@ -42,48 +39,39 @@ public class WaybillRepository : IWaybillRepository
         return waybillsDto;
     }
 
-    public async Task<WaybillDto> Get(int id)
+    public async Task<WaybillDto?> Get(int id)
     {
         var waybill = await _dbContext.Waybills.FirstOrDefaultAsync(r => r.WaybillId == id);
 
         if (waybill is null)
-        {
             return null;
-        }
 
         var result = _mapper.Map<WaybillDto>(waybill);
         return result;
-
     }
 
-    public async Task<Waybill> Delete(int id)
+    public async Task<Waybill?> Delete(int id)
     {
         var waybill = await _dbContext.Waybills.FirstOrDefaultAsync(r => r.WaybillId == id);
 
         if (waybill is null)
-        {
             return null;
-        }
 
         _dbContext.Waybills.Remove(waybill);
         var result = await _dbContext.SaveChangesAsync();
 
-        if (waybill is null)
-        {
-            return null;
-        }
+        if (result > 0)
+            return waybill;
 
-        return waybill;
+        return null;
     }
 
-    public async Task<Waybill> Update(int id, WaybillDto dto)
+    public async Task<Waybill?> Update(int id, WaybillDto dto)
     {
         var waybill = await _dbContext.Waybills.FirstOrDefaultAsync(r => r.WaybillId == id);
 
         if (waybill is null)
-        {
             return null;
-        }
 
         waybill.CountriesCountryId = dto.CountriesCountryId;
         waybill.LoadingDate = dto.LoadingDate;
@@ -94,9 +82,7 @@ public class WaybillRepository : IWaybillRepository
         var result = await _dbContext.SaveChangesAsync();
 
         if (result > 0)
-        {
             return waybill;
-        }
 
         return null;
     }
