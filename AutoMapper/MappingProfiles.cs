@@ -11,6 +11,7 @@ public class MappingProfiles : Profile
         CreateMap<Product, ProductDto>().ReverseMap();
         CreateMap<Country, CountryDto>().ReverseMap();
         CreateMap<Waybill, WaybillDto>().ReverseMap();
+        CreateMap<OrderHeader, OrderHeaderDto>().ReverseMap();
 
     }
 }

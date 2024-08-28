@@ -35,11 +35,12 @@ try
 
     builder.Logging.ClearProviders();
     builder.Host.UseNLog();
-
+    
     builder.Services.AddTransient<IUserRepository, UserRepository>();
     builder.Services.AddTransient<IShelfRepository, ShelfRepository>();
     builder.Services.AddTransient<ICountryRepository, CountryRepository>();
     builder.Services.AddTransient<IWaybillRepository, WaybillRepository>();
+    builder.Services.AddTransient<IOrderHeaderRepository, OrderHeaderRepository>();
     
     AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
     
