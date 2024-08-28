@@ -48,7 +48,7 @@ public class WaybillController : ControllerBase
         if (result is null)
         {
             _logger.LogError("Error has occured while looking for waybill");
-            return BadRequest("Error has occured while looking for waybill");
+            return NotFound("Error has occured while looking for waybill");
         }
         
         _logger.LogInformation("Waybill found");
@@ -62,8 +62,8 @@ public class WaybillController : ControllerBase
 
         if (deletedWaybill is null)
         {
-            _logger.LogError("Waybill with specified ID hasnt been found");
-            return NotFound();
+            _logger.LogError("Waybill with specified ID hasn't been found");
+            return NotFound("Waybill with specified ID hasn't been found");
         }
         
         _logger.LogInformation("Waybill removed");
