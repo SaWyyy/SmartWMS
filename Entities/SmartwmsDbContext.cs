@@ -358,7 +358,7 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
                 //.ValueGeneratedNever()
                 .HasColumnName("task_id");
             entity.Property(e => e.FinishDate)
-                .HasMaxLength(45)
+                .HasColumnType("timestamp without time zone")
                 .HasColumnName("finish_date");
             entity.Property(e => e.OrderHeadersOrdersHeaderId).HasColumnName("order_headers_orders_header_id");
             entity.Property(e => e.Priority).HasColumnName("priority");
