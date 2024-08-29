@@ -9,46 +9,74 @@ using SmartWMS.Models.Enums;
 using SmartWMS.Repositories;
 using Swashbuckle.AspNetCore.Filters;
 
+  //====================================================================================================//
+ //Configure logging for the application and init log//
+//==================================================//
 var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 logger.Debug("init main");
+//===================================================================================================//
+
+
+
+  //====================================================================================================//
+ //Try-catch block to handle application errors//
+//============================================//
 
 try
 {
     var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+    
+      //====================================================================================================//
+     //Add services to the dependency injection container//
+    //==================================================//
+    
     builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddEndpointsApiExplorer(); // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddSwaggerGen(options =>
     {
-        options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+        options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme //Adds security definition
         {
             In = ParameterLocation.Header,
             Name = "Authorization",
             Type = SecuritySchemeType.ApiKey
         });
-        options.OperationFilter<SecurityRequirementsOperationFilter>();
+        options.OperationFilter<SecurityRequirementsOperationFilter>(); //Adds an operation filter to Swagger
     });
+    builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); //Adds support for AutoMapper
+    //===================================================================================================//
 
-    builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-    builder.Logging.ClearProviders();
-    builder.Host.UseNLog();
+    builder.Logging.ClearProviders(); //Remove default logging providers
+    builder.Host.UseNLog(); //Sets Nlog as the logging provider
 
+      //====================================================================================================//
+     //Register repositories for Dependency Injection//
+    //===============================================//
     builder.Services.AddTransient<IUserRepository, UserRepository>();
     builder.Services.AddTransient<IShelfRepository, ShelfRepository>();
     builder.Services.AddTransient<ICountryRepository, CountryRepository>();
     builder.Services.AddTransient<IWaybillRepository, WaybillRepository>();
+    //====================================================================================================//
     
-    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
     
     
-   
-
+    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true); //Set a legacy behaviour for timestamp handling in Npsql
+    
+    
+    
+      //====================================================================================================//
+     //Configure the database connection//
+    //=================================//
     var ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
     var dataSourceBuilder = new NpgsqlDataSourceBuilder(ConnectionString);
+    //====================================================================================================//
 
+    
+    
+    //====================================================================================================//
+    //Map enum types to the corresponding types in Psql database//
+    //=========================================================//
     dataSourceBuilder.MapEnum<ActionType>("action_type");
     dataSourceBuilder.MapEnum<AlertType>("alert_type");
     dataSourceBuilder.MapEnum<LevelType>("level_type");
@@ -56,25 +84,23 @@ try
     dataSourceBuilder.MapEnum<OrderType>("order_type");
     dataSourceBuilder.MapEnum<ReportType>("report_type");
     dataSourceBuilder.MapEnum<ReportPeriod>("report_period");
+    //====================================================================================================//
+    
+    
+    
+    var dataSource = dataSourceBuilder.Build();//Build the source based on the settings
 
-    var dataSource = dataSourceBuilder.Build();
-
-    builder.Services.AddDbContext<SmartwmsDbContext>(options =>
-        options.UseNpgsql(dataSource));
-/*
-builder.Services.AddIdentity<User, IdentityRole>()
-    .AddEntityFrameworkStores<SmartwmsDbContext>()
-    .AddDefaultTokenProviders();
-*/
-
-    builder.Services.AddAuthorization();
-
-    builder.Services.AddAuthentication();
-
-    builder.Services.AddIdentityApiEndpoints<User>()
-        .AddRoles<IdentityRole>()
-        .AddEntityFrameworkStores<SmartwmsDbContext>();
-
+    
+    
+    //====================================================================================================//
+    //Add services//
+    //===========//
+    builder.Services.AddDbContext<SmartwmsDbContext>(options => options.UseNpgsql(dataSource));//Add the database context
+    builder.Services.AddAuthorization();//Adds authorization service
+    builder.Services.AddAuthentication();//Adds authentication service
+    builder.Services.AddIdentityApiEndpoints<User>().AddRoles<IdentityRole>().AddEntityFrameworkStores<SmartwmsDbContext>();//Adds Identity API endpoints with the roles and database stores
+    
+    //Configure CORS, to allow API access from any source
     builder.Services.AddCors(options =>
     {
         options.AddDefaultPolicy(policy =>
@@ -84,9 +110,17 @@ builder.Services.AddIdentity<User, IdentityRole>()
                 .AllowAnyOrigin();
         });
     });
+    //====================================================================================================//
 
-    var app = builder.Build();
+    
+    
+    var app = builder.Build();//Build the application based on current settings
 
+    
+    
+      //====================================================================================================//
+     //Create roles//
+    //============//
     using (var scope = app.Services.CreateScope())
     {
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -102,7 +136,13 @@ builder.Services.AddIdentity<User, IdentityRole>()
             }
         }
     }
-
+    //====================================================================================================//
+    
+    
+    
+      //====================================================================================================//
+     //Admin user//
+    //==========//
     using (var scope = app.Services.CreateScope())
     {
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
@@ -130,8 +170,14 @@ builder.Services.AddIdentity<User, IdentityRole>()
             }
         }
     }
+    //====================================================================================================//
+    
+    
+    
 
-// Configure the HTTP request pipeline.
+      //====================================================================================================//
+     //Middleware pipeline configuraion//
+    //===================================//
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
@@ -151,16 +197,14 @@ builder.Services.AddIdentity<User, IdentityRole>()
     app.UseHttpsRedirection();
 
     app.Run();
+    //====================================================================================================//
 }
-
 catch (Exception exception)
 {
-    // NLog: catch setup errors
-    logger.Error(exception, "Stopped program because of exception");
+    logger.Error(exception, "Stopped program because of exception"); // NLog: catch setup errors
     throw;
 }
 finally
 {
-    // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
-    NLog.LogManager.Shutdown();
+    NLog.LogManager.Shutdown();// Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
 }
