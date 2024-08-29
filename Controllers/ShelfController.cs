@@ -52,8 +52,7 @@ public class ShelfController : ControllerBase
         if (result is null)
         {
             _logger.LogError("Error has occured while looking for shelf");
-            return BadRequest("Error has occured while looking for shelf");
-
+            return NotFound("Error has occured while looking for shelf");
         }
         
         _logger.LogInformation("Shelf found");
@@ -67,8 +66,8 @@ public class ShelfController : ControllerBase
 
         if (deletedShelf is null)
         {
-            _logger.LogError("Shelf with specified ID hasnt been found");
-            return NotFound();
+            _logger.LogError("Shelf with specified ID hasn't been found");
+            return NotFound("Shelf with specified ID hasn't been found");
         }
 
         _logger.LogInformation("Shelf removed");
@@ -82,7 +81,7 @@ public class ShelfController : ControllerBase
 
         if (updatedShelf is null)
         {
-            _logger.LogError("Shelf with specified ID hasnt been edited");
+            _logger.LogError("Shelf with specified ID hasn't been edited");
             return BadRequest("Error has occured while editing shelf");
         }
         

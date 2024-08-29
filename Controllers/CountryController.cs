@@ -51,7 +51,7 @@ public class CountryController : ControllerBase
         if (result is null)
         {
             _logger.LogError("Error has occured while looking for country");
-            return BadRequest("Error has occured while looking for shelf");
+            return NotFound("Error has occured while looking for shelf");
         }
         
         _logger.LogInformation("Country found");
@@ -66,8 +66,8 @@ public class CountryController : ControllerBase
 
         if (deletedCountry is null)
         {
-            _logger.LogError("Country with specified ID hasnt been found");
-            return NotFound();
+            _logger.LogError("Country with specified ID hasn't been found");
+            return NotFound("Country with specified ID hasn't been found");
         }
         
         _logger.LogInformation("Shelf removed");
@@ -80,7 +80,7 @@ public class CountryController : ControllerBase
         var updatedCountry = await _countryRepository.Update(id, dto);
         if (updatedCountry is null)
         {
-            _logger.LogError("Country with specified ID hasnt been edited");
+            _logger.LogError("Country with specified ID hasn't been edited");
             return BadRequest("Error has occured while editing country");
         }
         

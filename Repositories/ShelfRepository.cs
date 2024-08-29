@@ -18,7 +18,7 @@ public class ShelfRepository : IShelfRepository
         this._mapper = mapper;
     }
 
-    public async Task<Shelf> AddShelf(ShelfDto dto) 
+    public async Task<Shelf?> AddShelf(ShelfDto dto) 
     {
 
         var shelf = _mapper.Map<Shelf>(dto); 
@@ -27,11 +27,9 @@ public class ShelfRepository : IShelfRepository
 
         var result = await _dbContext.SaveChangesAsync();
         
-
+        
         if (result > 0)
-        {
             return shelf;
-        }
 
         return null;
     }
@@ -44,48 +42,40 @@ public class ShelfRepository : IShelfRepository
         return shelfDtos;
     }
 
-    public async Task<ShelfDto> Get(int id)
+    public async Task<ShelfDto?> Get(int id)
     {
         var shelf = await _dbContext.Shelves.FirstOrDefaultAsync(r => r.ShelfId == id);
 
         if (shelf is null)
-        {
             return null;
-        }
 
         var result = _mapper.Map<ShelfDto>(shelf);
         return result;
     }
 
-    public async Task<Shelf> Delete(int id)
+    public async Task<Shelf?> Delete(int id)
     {
         var shelf = await _dbContext.Shelves.FirstOrDefaultAsync(r => r.ShelfId == id);
 
         if (shelf is null)
-        {
             return null;
-        }
 
         _dbContext.Shelves.Remove(shelf);
         var result = await _dbContext.SaveChangesAsync();
 
-        if (shelf is null)
-        {
-            return null;
-        }
+        if (result > 0)
+            return shelf;
 
-        return shelf;
+        return null;
 
     }
 
-    public async Task<Shelf> Update(int id, ShelfDto dto)
+    public async Task<Shelf?> Update(int id, ShelfDto dto)
     {
         var shelf = await _dbContext.Shelves.FirstOrDefaultAsync(r => r.ShelfId == id);
 
         if (shelf is null)
-        {
             return null;
-        }
 
         shelf.ProductsProduct = dto.ProductsProduct;
         shelf.ProductsProductId = dto.ProductsProductId;
@@ -98,13 +88,8 @@ public class ShelfRepository : IShelfRepository
         var result = await _dbContext.SaveChangesAsync();
         
         if (result > 0)
-        {
             return shelf;
-        }
 
         return null;
-        
     }
-    
-    
 }
