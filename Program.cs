@@ -57,6 +57,7 @@ try
     builder.Services.AddTransient<IShelfRepository, ShelfRepository>();
     builder.Services.AddTransient<ICountryRepository, CountryRepository>();
     builder.Services.AddTransient<IWaybillRepository, WaybillRepository>();
+    builder.Services.AddTransient<ITaskRepository, TaskRepository>();
     //====================================================================================================//
     
     
@@ -99,6 +100,7 @@ try
     builder.Services.AddAuthorization();//Adds authorization service
     builder.Services.AddAuthentication();//Adds authentication service
     builder.Services.AddIdentityApiEndpoints<User>().AddRoles<IdentityRole>().AddEntityFrameworkStores<SmartwmsDbContext>();//Adds Identity API endpoints with the roles and database stores
+    builder.Services.AddHttpContextAccessor();
     
     //Configure CORS, to allow API access from any source
     builder.Services.AddCors(options =>

@@ -1,5 +1,6 @@
 using AutoMapper;
 using SmartWMS.Models;
+using Task = SmartWMS.Models.Task;
 
 namespace SmartWMS;
 
@@ -12,6 +13,6 @@ public class MappingProfiles : Profile
         CreateMap<Country, CountryDto>().ReverseMap();
         CreateMap<Waybill, WaybillDto>().ReverseMap();
         CreateMap<OrderHeader, OrderHeaderDto>().ReverseMap();
-
+        CreateMap<Task, TaskDto>().ReverseMap();
     }
 }
