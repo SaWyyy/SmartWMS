@@ -89,4 +89,34 @@ public class TaskController : ControllerBase
         _logger.LogInformation("Task edited");
         return Ok(result);
     }
+
+    [Authorize(Roles = "Employee")]
+    [HttpPost("take/{id}")]
+    public async Task<IActionResult> takeTask(int id)
+    {
+        var result = await _repository.TakeTask(id);
+        if (result is null)
+        {
+            _logger.LogError("Unable to find task with given id");
+            return NotFound("Task with specified ID hasn't been found");
+        }
+        
+        _logger.LogInformation("User has taken task with specified ID");
+        return Ok(result);
+    }
+
+    [HttpGet("usertasks")]
+    [Authorize(Roles = "Employee,Manager")]
+    public async Task<IActionResult> getUserTasks()
+    {
+        var result = await _repository.userTasks();
+        if (result is null)
+        {
+            _logger.LogError("Cannot find tasks for currently logged user");
+            return NotFound("Cannot find tasks for user");
+        }
+        
+        _logger.LogInformation("User's tasks fetched successfully");
+        return Ok(result);
+    }
 }

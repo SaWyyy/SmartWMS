@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace SmartWMS.Models;
@@ -15,7 +16,6 @@ public class TaskDto
 
     [Range(0, int.MaxValue, ErrorMessage = "Must be integer value grater than 0")]
     public int OrderHeadersOrdersHeaderId { get; set; }
-
-    [Range(typeof(bool), "true", "false", ErrorMessage = "Fiels must be either true or false")]
+    [DefaultValue(false)]
     public bool? Seen { get; set; }
 }

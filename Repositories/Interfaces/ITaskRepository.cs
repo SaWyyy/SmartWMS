@@ -12,4 +12,6 @@ public interface ITaskRepository
     Task<TaskDto?> Get(int id);
     Task<Task?> Delete(int id);
     Task<Task?> Update(int id, TaskDto dto);
+    Task<TaskDto?> TakeTask(int id);
+    Task<IEnumerable<TaskDto>?> userTasks();
 }

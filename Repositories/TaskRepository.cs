@@ -1,3 +1,4 @@
+using System.Data.SqlTypes;
 using System.Security.Claims;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -150,5 +151,66 @@ public class TaskRepository : ITaskRepository
             return task;
 
         return null;
+    }
+
+    public async Task<TaskDto?> TakeTask(int id)
+    {
+        var task = await _dbContext.Tasks.FirstOrDefaultAsync(x => x.TaskId == id);
+
+        if (task is null)
+            return null;
+
+        var duplicateTask =
+            await _dbContext.UsersHasTasks.FirstOrDefaultAsync(x =>
+                x.TasksTaskId == id && x.Action == ActionType.Taken);
+        
+        if (duplicateTask is not null)
+            return null;
+        
+        var user = _accessor.HttpContext?.User;
+        var userId = user?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        if (userId is null)
+            return null;
+
+        var userHasTask = new UsersHasTask
+        {
+            UsersUserId = userId!,
+            TasksTaskId = task.TaskId,
+            Action = ActionType.Taken
+        };
+        
+        await _dbContext.UsersHasTasks.AddAsync(userHasTask);
+        var result = await _dbContext.SaveChangesAsync();
+
+        if (result > 0)
+        {
+            var taskDto = _mapper.Map<TaskDto>(task);
+            return taskDto;
+        }
+        
+
+        return null;
+    }
+
+    public async Task<IEnumerable<TaskDto>?> userTasks()
+    {
+        var user = _accessor.HttpContext?.User;
+        var userId = user?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        if (user is null)
+            return null;
+
+        var userHasTasks =
+            await _dbContext.Tasks
+                .Where(task => _dbContext.UsersHasTasks
+                    .Any(ut => ut.UsersUserId == userId && ut.Action == ActionType.Taken))
+                .ToListAsync();
+        
+        if (!userHasTasks.Any())
+            return null;
+
+        var tasks = _mapper.Map<List<TaskDto>>(userHasTasks);
+        return tasks;
     }
 }
