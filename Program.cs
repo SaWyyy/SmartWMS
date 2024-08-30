@@ -58,6 +58,7 @@ try
     builder.Services.AddTransient<ICountryRepository, CountryRepository>();
     builder.Services.AddTransient<IWaybillRepository, WaybillRepository>();
     builder.Services.AddTransient<ITaskRepository, TaskRepository>();
+    builder.Services.AddTransient<IOrderHeaderRepository, OrderHeaderRepository>();
     //====================================================================================================//
     
     
