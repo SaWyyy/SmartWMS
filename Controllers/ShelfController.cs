@@ -22,7 +22,7 @@ public class ShelfController : ControllerBase
 
     [HttpPost("")]
     //[Authorize(Roles = "Manager, Admin")]
-    public async Task<IActionResult> addShelf(ShelfDto dto)
+    public async Task<IActionResult> AddShelf(ShelfDto dto)
     {
         var result = await _shelfRepository.AddShelf(dto);
 
@@ -37,7 +37,7 @@ public class ShelfController : ControllerBase
     }
 
     [HttpGet()]
-    public async Task<IActionResult> getAll()
+    public async Task<IActionResult> GetAll()
     {
         var result = await _shelfRepository.GetAll();
 
@@ -45,7 +45,7 @@ public class ShelfController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> get(int id)
+    public async Task<IActionResult> Get(int id)
     {
         var result = await _shelfRepository.Get(id);
 
@@ -60,7 +60,7 @@ public class ShelfController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
         var deletedShelf = await _shelfRepository.Delete(id);
 
@@ -75,7 +75,7 @@ public class ShelfController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> update(int id, ShelfDto dto)
+    public async Task<IActionResult> Update(int id, ShelfDto dto)
     {
         var updatedShelf = await _shelfRepository.Update(id, dto);
 

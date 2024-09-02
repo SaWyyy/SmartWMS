@@ -20,7 +20,7 @@ public class CountryController : ControllerBase
     }
 
     [HttpPost("")]
-    public async Task<IActionResult> addCountry(CountryDto dto)
+    public async Task<IActionResult> AddCountry(CountryDto dto)
     {
         var result = await _countryRepository.Add(dto);
         
@@ -36,7 +36,7 @@ public class CountryController : ControllerBase
     }
 
     [HttpGet()]
-    public async Task<IActionResult> getAll()
+    public async Task<IActionResult> GetAll()
     {
         var result = await _countryRepository.GetAll();
 
@@ -44,7 +44,7 @@ public class CountryController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> get(int id)
+    public async Task<IActionResult> Get(int id)
     {
         var result = await _countryRepository.Get(id);
 
@@ -60,7 +60,7 @@ public class CountryController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
         var deletedCountry = await _countryRepository.Delete(id);
 
@@ -75,7 +75,7 @@ public class CountryController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> update(int id, CountryDto dto)
+    public async Task<IActionResult> Update(int id, CountryDto dto)
     {
         var updatedCountry = await _countryRepository.Update(id, dto);
         if (updatedCountry is null)

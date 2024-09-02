@@ -18,7 +18,7 @@ public class OrderHeaderController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> addOrderHeader(OrderHeaderDto dto)
+    public async Task<IActionResult> AddOrderHeader(OrderHeaderDto dto)
     {
         var result = await _repository.Add(dto);
 
@@ -33,7 +33,7 @@ public class OrderHeaderController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> getAll()
+    public async Task<IActionResult> GetAll()
     {
         var result = await _repository.GetAll();
 
@@ -42,7 +42,7 @@ public class OrderHeaderController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> get(int id)
+    public async Task<IActionResult> Get(int id)
     {
         var result = await _repository.Get(id);
 
@@ -57,7 +57,7 @@ public class OrderHeaderController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
         var result = await _repository.Delete(id);
 
@@ -72,7 +72,7 @@ public class OrderHeaderController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> update(int id, OrderHeaderDto dto)
+    public async Task<IActionResult> Update(int id, OrderHeaderDto dto)
     {
         var result = await _repository.Update(id, dto);
 

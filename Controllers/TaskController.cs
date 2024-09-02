@@ -23,7 +23,7 @@ public class TaskController : ControllerBase
 
     [Authorize(Roles = "Manager")]
     [HttpPost]
-    public async Task<IActionResult> addTask(TaskDto dto)
+    public async Task<IActionResult> AddTask(TaskDto dto)
     {
         var result = await _repository.AddTask(dto);
 
@@ -38,7 +38,7 @@ public class TaskController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> getAll(ActionType? type)
+    public async Task<IActionResult> GetAll(ActionType? type)
     {
         var result = await _repository.GetAll(type);
         
@@ -46,7 +46,7 @@ public class TaskController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> get(int id)
+    public async Task<IActionResult> Get(int id)
     {
         var result = await _repository.Get(id);
 
@@ -61,7 +61,7 @@ public class TaskController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
         var result = await _repository.Delete(id);
 
@@ -76,7 +76,7 @@ public class TaskController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> update(int id, TaskDto dto)
+    public async Task<IActionResult> Update(int id, TaskDto dto)
     {
         var result = await _repository.Update(id, dto);
 
@@ -92,7 +92,7 @@ public class TaskController : ControllerBase
 
     [Authorize(Roles = "Employee")]
     [HttpPost("take/{id}")]
-    public async Task<IActionResult> takeTask(int id)
+    public async Task<IActionResult> TakeTask(int id)
     {
         var result = await _repository.TakeTask(id);
         if (result is null)
@@ -107,7 +107,7 @@ public class TaskController : ControllerBase
 
     [HttpGet("usertasks")]
     [Authorize(Roles = "Employee,Manager")]
-    public async Task<IActionResult> getUserTasks()
+    public async Task<IActionResult> GetUserTasks()
     {
         var result = await _repository.userTasks();
         if (result is null)

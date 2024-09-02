@@ -18,7 +18,7 @@ public class WaybillController : ControllerBase
     }
 
     [HttpPost("")]
-    public async Task<IActionResult> addWaybill(WaybillDto dto)
+    public async Task<IActionResult> AddWaybill(WaybillDto dto)
     {
         var result = await _waybillRepository.AddWaybill(dto);
         
@@ -33,7 +33,7 @@ public class WaybillController : ControllerBase
     }
 
     [HttpGet()]
-    public async Task<IActionResult> getAll()
+    public async Task<IActionResult> GetAll()
     {
         var result = await _waybillRepository.GetAll();
 
@@ -41,7 +41,7 @@ public class WaybillController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> get(int id)
+    public async Task<IActionResult> Get(int id)
     {
         var result = await _waybillRepository.Get(id);
 
@@ -56,7 +56,7 @@ public class WaybillController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
         var deletedWaybill = await _waybillRepository.Delete(id);
 
@@ -71,7 +71,7 @@ public class WaybillController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> update(int id, WaybillDto dto)
+    public async Task<IActionResult> Update(int id, WaybillDto dto)
     {
         var updatedWaybill = await _waybillRepository.Update(id, dto);
 
