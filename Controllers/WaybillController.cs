@@ -20,16 +20,18 @@ public class WaybillController : ControllerBase
     [HttpPost("")]
     public async Task<IActionResult> AddWaybill(WaybillDto dto)
     {
-        var result = await _waybillRepository.AddWaybill(dto);
-        
-        if (result is null)
+        try
         {
-            _logger.LogError("Error has occured while creating waybill");
-            return BadRequest("Error has occured while adding waybill");
+            var result = await _waybillRepository.AddWaybill(dto);
+            
+            _logger.LogInformation($"Waybill nr. {result.WaybillId}");
+            return Ok($"Adding waybill completed, Id: {result.WaybillId}");
         }
-        
-        _logger.LogInformation($"Waybill nr. {result.WaybillId}");
-        return Ok($"Adding waybill completed, Id: {result.WaybillId}");
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpGet()]
@@ -43,45 +45,51 @@ public class WaybillController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
-        var result = await _waybillRepository.Get(id);
-
-        if (result is null)
+        try
         {
-            _logger.LogError("Error has occured while looking for waybill");
-            return NotFound("Error has occured while looking for waybill");
+            var result = await _waybillRepository.Get(id);
+
+            _logger.LogInformation("Waybill found");
+            return Ok(result);
         }
-        
-        _logger.LogInformation("Waybill found");
-        return Ok(result);
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return NotFound(e.Message);
+        }
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var deletedWaybill = await _waybillRepository.Delete(id);
-
-        if (deletedWaybill is null)
+        try
         {
-            _logger.LogError("Waybill with specified ID hasn't been found");
-            return NotFound("Waybill with specified ID hasn't been found");
+            var deletedWaybill = await _waybillRepository.Delete(id);
+
+            _logger.LogInformation("Waybill removed");
+            return Ok(deletedWaybill);
         }
-        
-        _logger.LogInformation("Waybill removed");
-        return Ok(deletedWaybill);
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return NotFound(e.Message);
+        }
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, WaybillDto dto)
     {
-        var updatedWaybill = await _waybillRepository.Update(id, dto);
-
-        if (updatedWaybill is null)
+        try
         {
-            _logger.LogError("Waybill with specified ID hasnt been edited");
-            return BadRequest("Error has occured while editing waybill");
+            var updatedWaybill = await _waybillRepository.Update(id, dto);
+            
+            _logger.LogInformation("Waybill edited");
+            return Ok(updatedWaybill);
         }
-        
-        _logger.LogInformation("Waybill edited");
-        return Ok(updatedWaybill);
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return BadRequest(e.Message);   
+        }
     }
 }

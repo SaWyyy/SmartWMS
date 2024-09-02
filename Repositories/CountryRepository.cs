@@ -15,7 +15,7 @@ public class CountryRepository : ICountryRepository
         this._mapper = mapper;
     }
 
-    public async Task<Country?> Add(CountryDto dto)
+    public async Task<Country> Add(CountryDto dto)
     {
         var country = _mapper.Map<Country>(dto);
         await _dbContext.Countries.AddAsync(country);
@@ -24,7 +24,7 @@ public class CountryRepository : ICountryRepository
         if (result > 0)
             return country;
 
-        return null;
+        throw new Exception("Error has occured while adding country");
     }
 
     public async Task<IEnumerable<CountryDto>> GetAll()
@@ -35,23 +35,23 @@ public class CountryRepository : ICountryRepository
         return countryDto;
     }
 
-    public async Task<CountryDto?> Get(int id)
+    public async Task<CountryDto> Get(int id)
     {
         var country = await _dbContext.Countries.FirstOrDefaultAsync(r => r.CountryId == id);
 
         if (country is null)
-            return null;
+            throw new Exception("Country with specified id hasn't been found");
 
         var result = _mapper.Map<CountryDto>(country);
         return result; 
     }
 
-    public async Task<Country?> Delete(int id)
+    public async Task<Country> Delete(int id)
     {
         var country = await _dbContext.Countries.FirstOrDefaultAsync(r => r.CountryId == id);
 
         if (country is null)
-            return null;
+            throw new Exception("Country with specified id hasn't been found");
         
         _dbContext.Countries.Remove(country);
         var result = await _dbContext.SaveChangesAsync();
@@ -59,15 +59,15 @@ public class CountryRepository : ICountryRepository
         if (result > 0)
             return country;
 
-        return null;
+        throw new Exception("Error has occured while saving changes to database");
     }
 
-    public async Task<Country?> Update(int id, CountryDto dto)
+    public async Task<Country> Update(int id, CountryDto dto)
     {
         var country = await _dbContext.Countries.FirstOrDefaultAsync(r => r.CountryId == id);
 
         if (country is null)
-            return null;
+            throw new Exception("Country with specified id hasn't been found");
 
         country.CountryCode = dto.CountryCode;
         country.CountryName = dto.CountryName;
@@ -77,7 +77,7 @@ public class CountryRepository : ICountryRepository
         if (result > 0)
             return country;
 
-        return null;
+        throw new Exception("Error has occured while saving changes to database");
     }
     
 }

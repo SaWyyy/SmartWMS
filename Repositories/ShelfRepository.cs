@@ -18,9 +18,8 @@ public class ShelfRepository : IShelfRepository
         this._mapper = mapper;
     }
 
-    public async Task<Shelf?> AddShelf(ShelfDto dto) 
+    public async Task<Shelf> AddShelf(ShelfDto dto) 
     {
-
         var shelf = _mapper.Map<Shelf>(dto); 
         
         await _dbContext.Shelves.AddAsync(shelf);
@@ -31,7 +30,7 @@ public class ShelfRepository : IShelfRepository
         if (result > 0)
             return shelf;
 
-        return null;
+        throw new Exception("Error has occured while saving changes");
     }
 
     public async Task<IEnumerable<ShelfDto>> GetAll()
@@ -42,23 +41,23 @@ public class ShelfRepository : IShelfRepository
         return shelfDtos;
     }
 
-    public async Task<ShelfDto?> Get(int id)
+    public async Task<ShelfDto> Get(int id)
     {
         var shelf = await _dbContext.Shelves.FirstOrDefaultAsync(r => r.ShelfId == id);
 
         if (shelf is null)
-            return null;
+            throw new Exception("Shelf with specified id hasn't been found");
 
         var result = _mapper.Map<ShelfDto>(shelf);
         return result;
     }
 
-    public async Task<Shelf?> Delete(int id)
+    public async Task<Shelf> Delete(int id)
     {
         var shelf = await _dbContext.Shelves.FirstOrDefaultAsync(r => r.ShelfId == id);
 
         if (shelf is null)
-            return null;
+            throw new Exception("Shelf with specified id hasn't been found");
 
         _dbContext.Shelves.Remove(shelf);
         var result = await _dbContext.SaveChangesAsync();
@@ -66,16 +65,15 @@ public class ShelfRepository : IShelfRepository
         if (result > 0)
             return shelf;
 
-        return null;
-
+        throw new Exception("Error has occured while saving changes");
     }
 
-    public async Task<Shelf?> Update(int id, ShelfDto dto)
+    public async Task<Shelf> Update(int id, ShelfDto dto)
     {
         var shelf = await _dbContext.Shelves.FirstOrDefaultAsync(r => r.ShelfId == id);
 
         if (shelf is null)
-            return null;
+            throw new Exception("Shelf with specified id hasn't been found");
 
         shelf.ProductsProduct = dto.ProductsProduct;
         shelf.ProductsProductId = dto.ProductsProductId;
@@ -90,6 +88,6 @@ public class ShelfRepository : IShelfRepository
         if (result > 0)
             return shelf;
 
-        return null;
+        throw new Exception("Error has occured while saving changes");
     }
 }

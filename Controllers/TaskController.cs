@@ -25,16 +25,18 @@ public class TaskController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> AddTask(TaskDto dto)
     {
-        var result = await _repository.AddTask(dto);
-
-        if (result is null)
+        try
         {
-            _logger.LogError("Error has occured while adding task");
-            return BadRequest("Error has occured while adding task");
+            var result = await _repository.AddTask(dto);
+            
+            _logger.LogInformation($"Task nr. {result.TaskId} has been added");
+            return Ok($"Task nr. {result.TaskId} has been added");
         }
-        
-        _logger.LogInformation($"Task nr. {result.TaskId} has been added");
-        return Ok($"Task nr. {result.TaskId} has been added");
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpGet]
@@ -48,75 +50,87 @@ public class TaskController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
-        var result = await _repository.Get(id);
-
-        if (result is null)
+        try
         {
-            _logger.LogError("Error has occured while looking for task");
-            return NotFound("Error has occured while looking for task");
+            var result = await _repository.Get(id);
+            
+            _logger.LogInformation("Task found");
+            return Ok(result);
         }
-        
-        _logger.LogInformation("Task found");
-        return Ok(result);
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return NotFound(e.Message);
+        }
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var result = await _repository.Delete(id);
-
-        if (result is null)
+        try
         {
-            _logger.LogError("Task with specified ID hasn't been found");
-            return NotFound("Task with specified ID hasn't been found");
+            var result = await _repository.Delete(id);
+            
+            _logger.LogInformation("Task removed");
+            return Ok(result);
         }
-        
-        _logger.LogInformation("Task removed");
-        return Ok(result);
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return NotFound(e.Message);
+        }
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, TaskDto dto)
     {
-        var result = await _repository.Update(id, dto);
-
-        if (result is null)
+        try
         {
-            _logger.LogError("Task with specified ID hasn't been edited");
-            return BadRequest("Error has occured while editing waybill");
+            var result = await _repository.Update(id, dto);
+            
+            _logger.LogInformation("Task edited");
+            return Ok(result);
         }
-        
-        _logger.LogInformation("Task edited");
-        return Ok(result);
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return BadRequest(e.Message);
+        }
     }
 
     [Authorize(Roles = "Employee")]
     [HttpPost("take/{id}")]
     public async Task<IActionResult> TakeTask(int id)
     {
-        var result = await _repository.TakeTask(id);
-        if (result is null)
+        try
         {
-            _logger.LogError("Unable to find task with given id");
-            return NotFound("Task with specified ID hasn't been found");
+            var result = await _repository.TakeTask(id);
+            
+            _logger.LogInformation("User has taken task with specified ID");
+            return Ok(result);
         }
-        
-        _logger.LogInformation("User has taken task with specified ID");
-        return Ok(result);
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return NotFound(e.Message);
+        }
     }
 
     [HttpGet("usertasks")]
     [Authorize(Roles = "Employee,Manager")]
     public async Task<IActionResult> GetUserTasks()
     {
-        var result = await _repository.userTasks();
-        if (result is null)
+        try
         {
-            _logger.LogError("Cannot find tasks for currently logged user");
-            return NotFound("Cannot find tasks for user");
+            var result = await _repository.UserTasks();
+            
+            _logger.LogInformation("User's tasks fetched successfully");
+            return Ok(result);
         }
-        
-        _logger.LogInformation("User's tasks fetched successfully");
-        return Ok(result);
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return NotFound(e.Message);
+        }
     }
 }

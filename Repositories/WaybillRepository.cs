@@ -15,12 +15,12 @@ public class WaybillRepository : IWaybillRepository
         this._mapper = mapper;
     }
 
-    public async Task<Waybill?> AddWaybill(WaybillDto dto)
+    public async Task<Waybill> AddWaybill(WaybillDto dto)
     {
         var country = await _dbContext.Countries.FirstOrDefaultAsync(r => r.CountryId == dto.CountriesCountryId);
 
         if (country is null)
-            return null;
+            throw new Exception("Country with specified id hasn't been found");
         
         var waybill = _mapper.Map<Waybill>(dto);
         await _dbContext.Waybills.AddAsync(waybill);
@@ -29,7 +29,7 @@ public class WaybillRepository : IWaybillRepository
         if (result > 0)
             return waybill;
 
-        return null;
+        throw new Exception("Error has occured while saving changes");
     }
 
     public async Task<IEnumerable<WaybillDto>> GetAll()
@@ -39,23 +39,23 @@ public class WaybillRepository : IWaybillRepository
         return waybillsDto;
     }
 
-    public async Task<WaybillDto?> Get(int id)
+    public async Task<WaybillDto> Get(int id)
     {
         var waybill = await _dbContext.Waybills.FirstOrDefaultAsync(r => r.WaybillId == id);
 
         if (waybill is null)
-            return null;
+            throw new Exception("Waybill with specified id hasn't been found");
 
         var result = _mapper.Map<WaybillDto>(waybill);
         return result;
     }
 
-    public async Task<Waybill?> Delete(int id)
+    public async Task<Waybill> Delete(int id)
     {
         var waybill = await _dbContext.Waybills.FirstOrDefaultAsync(r => r.WaybillId == id);
 
         if (waybill is null)
-            return null;
+            throw new Exception("Waybill with specified id hasn't been found");
 
         _dbContext.Waybills.Remove(waybill);
         var result = await _dbContext.SaveChangesAsync();
@@ -63,15 +63,15 @@ public class WaybillRepository : IWaybillRepository
         if (result > 0)
             return waybill;
 
-        return null;
+        throw new Exception("Error has occured while saving changes");
     }
 
-    public async Task<Waybill?> Update(int id, WaybillDto dto)
+    public async Task<Waybill> Update(int id, WaybillDto dto)
     {
         var waybill = await _dbContext.Waybills.FirstOrDefaultAsync(r => r.WaybillId == id);
 
         if (waybill is null)
-            return null;
+            throw new Exception("Waybill with specified id hasn't been found");
 
         waybill.CountriesCountryId = dto.CountriesCountryId;
         waybill.LoadingDate = dto.LoadingDate;
@@ -84,7 +84,7 @@ public class WaybillRepository : IWaybillRepository
         if (result > 0)
             return waybill;
 
-        return null;
+        throw new Exception("Error has occured while saving changes");
     }
     
 }

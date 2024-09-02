@@ -22,17 +22,18 @@ public class CountryController : ControllerBase
     [HttpPost("")]
     public async Task<IActionResult> AddCountry(CountryDto dto)
     {
-        var result = await _countryRepository.Add(dto);
-        
-        if (result is null)
+        try
         {
-            _logger.LogError("Error has occured while adding country");
-            return BadRequest("Error has occured while adding country");
+            var result = await _countryRepository.Add(dto);
+            
+            _logger.LogInformation($"Country {dto.CountryCode} has been added");
+            return Ok($"Adding country completed, Id: {result.CountryId}");
         }
-        
-        _logger.LogInformation($"Country {dto.CountryCode} has been added");
-        return Ok($"Adding country completed, Id: {result.CountryId}");
-        
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpGet()]
@@ -46,47 +47,51 @@ public class CountryController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
-        var result = await _countryRepository.Get(id);
-
-        if (result is null)
+        try
         {
-            _logger.LogError("Error has occured while looking for country");
-            return NotFound("Error has occured while looking for shelf");
+            var result = await _countryRepository.Get(id);
+            
+            _logger.LogInformation("Country found");
+            return Ok(result);
         }
-        
-        _logger.LogInformation("Country found");
-        return Ok(result);
-        
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return NotFound(e.Message);
+        }
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var deletedCountry = await _countryRepository.Delete(id);
-
-        if (deletedCountry is null)
+        try
         {
-            _logger.LogError("Country with specified ID hasn't been found");
-            return NotFound("Country with specified ID hasn't been found");
+            var deletedCountry = await _countryRepository.Delete(id);
+
+            _logger.LogInformation("Shelf removed");
+            return Ok(deletedCountry);
         }
-        
-        _logger.LogInformation("Shelf removed");
-        return Ok(deletedCountry);
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return NotFound(e.Message);
+        }
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, CountryDto dto)
     {
-        var updatedCountry = await _countryRepository.Update(id, dto);
-        if (updatedCountry is null)
+        try
         {
-            _logger.LogError("Country with specified ID hasn't been edited");
-            return BadRequest("Error has occured while editing country");
+            var updatedCountry = await _countryRepository.Update(id, dto);
+
+            _logger.LogInformation("Country edited");
+            return Ok(updatedCountry);
         }
-        
-        _logger.LogInformation("Country edited");
-        return Ok(updatedCountry);
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return BadRequest(e.Message);
+        }
     }
-    
-    
 }

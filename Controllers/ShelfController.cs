@@ -24,16 +24,18 @@ public class ShelfController : ControllerBase
     //[Authorize(Roles = "Manager, Admin")]
     public async Task<IActionResult> AddShelf(ShelfDto dto)
     {
-        var result = await _shelfRepository.AddShelf(dto);
-
-        if (result is null)
+        try
         {
-            _logger.LogError("Error has occured while adding shelf");
-            return BadRequest("Error has occured while adding shelf");
+            var result = await _shelfRepository.AddShelf(dto);
+            
+            _logger.LogInformation($"Shelf nr. {result.ShelfId} has been added");
+            return Ok($"Adding shelf completed, Id: {result.ShelfId}");
         }
-        
-        _logger.LogInformation($"Shelf nr. {result.ShelfId} has been added");
-        return Ok($"Adding shelf completed, Id: {result.ShelfId}");
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpGet()]
@@ -47,48 +49,51 @@ public class ShelfController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
-        var result = await _shelfRepository.Get(id);
-
-        if (result is null)
+        try
         {
-            _logger.LogError("Error has occured while looking for shelf");
-            return NotFound("Error has occured while looking for shelf");
+            var result = await _shelfRepository.Get(id);
+            
+            _logger.LogInformation("Shelf found");
+            return Ok(result);
         }
-        
-        _logger.LogInformation("Shelf found");
-        return Ok(result);
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return NotFound(e.Message);
+        }
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var deletedShelf = await _shelfRepository.Delete(id);
-
-        if (deletedShelf is null)
+        try
         {
-            _logger.LogError("Shelf with specified ID hasn't been found");
-            return NotFound("Shelf with specified ID hasn't been found");
+            var deletedShelf = await _shelfRepository.Delete(id);
+            
+            _logger.LogInformation("Shelf removed");
+            return Ok(deletedShelf);
         }
-
-        _logger.LogInformation("Shelf removed");
-        return Ok(deletedShelf);
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return NotFound(e.Message);
+        }
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, ShelfDto dto)
     {
-        var updatedShelf = await _shelfRepository.Update(id, dto);
-
-        if (updatedShelf is null)
+        try
         {
-            _logger.LogError("Shelf with specified ID hasn't been edited");
-            return BadRequest("Error has occured while editing shelf");
+            var updatedShelf = await _shelfRepository.Update(id, dto);
+            
+            _logger.LogInformation("Shelf edited");
+            return Ok(updatedShelf);
         }
-        
-        _logger.LogInformation("Shelf edited");
-        return Ok(updatedShelf);
-
-
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return BadRequest(e.Message);
+        }
     }
-
 }

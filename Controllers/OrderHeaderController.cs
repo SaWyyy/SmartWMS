@@ -20,16 +20,18 @@ public class OrderHeaderController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> AddOrderHeader(OrderHeaderDto dto)
     {
-        var result = await _repository.Add(dto);
-
-        if (result is null)
+        try
         {
-            _logger.LogError("Error has occured while creating order header");
-            return BadRequest("Error has occured while creating order header");
+            var result = await _repository.Add(dto);
+            
+            _logger.LogInformation($"OrderHeader nr. {result.OrdersHeaderId}");
+            return Ok($"OrderHeader nr. {result.OrdersHeaderId}");
         }
-        
-        _logger.LogInformation($"OrderHeader nr. {result.OrdersHeaderId}");
-        return Ok($"OrderHeader nr. {result.OrdersHeaderId}");
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return BadRequest(e.Message);   
+        }
     }
 
     [HttpGet]
@@ -44,45 +46,51 @@ public class OrderHeaderController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
-        var result = await _repository.Get(id);
-
-        if (result is null)
+        try
         {
-            _logger.LogError("Error has occured while looking for Order Header");
-            return NotFound("Error has occured while looking for Order Header");
+            var result = await _repository.Get(id);
+            
+            _logger.LogInformation("Order Header Found");
+            return Ok(result);
         }
-        
-        _logger.LogInformation("Order Header Found");
-        return Ok(result);
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return NotFound(e.Message);
+        }
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var result = await _repository.Delete(id);
-
-        if (result is null)
+        try
         {
-            _logger.LogError("Order Header with specified ID hasn't been found");
-            return NotFound("Order Header with specified ID hasn't been found");
+            var result = await _repository.Delete(id);
+            
+            _logger.LogInformation("Order header deleted");
+            return Ok(result);
         }
-        
-        _logger.LogInformation("Order header deleted");
-        return Ok(result);
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return NotFound(e.Message);
+        }
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, OrderHeaderDto dto)
     {
-        var result = await _repository.Update(id, dto);
-
-        if (result is null)
+        try
         {
-            _logger.LogError("Order Header with specified ID hasn't been edited");
-            return BadRequest("Error has occured while editing waybill");
+            var result = await _repository.Update(id, dto);
+            
+            _logger.LogInformation("Waybill edited");
+            return Ok(result);
         }
-        
-        _logger.LogInformation("Waybill edited");
-        return Ok(result);
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return BadRequest(e.Message);
+        }
     }
 }

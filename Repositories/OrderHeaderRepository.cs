@@ -15,12 +15,12 @@ public class OrderHeaderRepository : IOrderHeaderRepository
         this._mapper = mapper;
     }
     
-    public async Task<OrderHeader?> Add(OrderHeaderDto dto)
+    public async Task<OrderHeader> Add(OrderHeaderDto dto)
     {
         var waybill = await _dbContext.Waybills.FirstOrDefaultAsync(r => r.WaybillId == dto.WaybillsWaybillId);
 
         if (waybill is null)
-            return null;
+            throw new Exception("Waybill with specified id hasn't been found");
         
         var order = _mapper.Map<OrderHeader>(dto);
         await _dbContext.OrderHeaders.AddAsync(order);
@@ -29,7 +29,7 @@ public class OrderHeaderRepository : IOrderHeaderRepository
         if (result > 0)
             return order;
 
-        return null;
+        throw new Exception("Error has occured while saving changes");
     }
 
     public async Task<IEnumerable<OrderHeaderDto>> GetAll()
@@ -41,24 +41,24 @@ public class OrderHeaderRepository : IOrderHeaderRepository
         return ordersDto;
     }
 
-    public async Task<OrderHeaderDto?> Get(int id)
+    public async Task<OrderHeaderDto> Get(int id)
     {
         var order = await _dbContext.OrderHeaders.FirstOrDefaultAsync(r => r.OrdersHeaderId == id);
 
         if (order is null)
-            return null;
+            throw new Exception("OrderHeader with specified id hasn't been found");
 
         var orderDto = _mapper.Map<OrderHeaderDto>(order);
 
         return orderDto;
     }
 
-    public async Task<OrderHeader?> Delete(int id)
+    public async Task<OrderHeader> Delete(int id)
     {
         var order = await _dbContext.OrderHeaders.FirstOrDefaultAsync(r => r.OrdersHeaderId == id);
 
         if (order is null)
-            return null;
+            throw new Exception("OrderHeader with specified id hasn't been found");
         
         _dbContext.OrderHeaders.Remove(order);
 
@@ -67,15 +67,15 @@ public class OrderHeaderRepository : IOrderHeaderRepository
         if (result > 0)
             return order;
 
-        return null;
+        throw new Exception("Error has occured while saving changes");
     }
 
-    public async Task<OrderHeader?> Update(int id, OrderHeaderDto dto)
+    public async Task<OrderHeader> Update(int id, OrderHeaderDto dto)
     {
         var order = await _dbContext.OrderHeaders.FirstOrDefaultAsync(r => r.OrdersHeaderId == id);
 
         if (order is null)
-            return null;
+            throw new Exception("OrderHeader with specified id hasn't been found");
 
         order.OrderDate = dto.OrderDate;
         order.DeliveryDate = dto.DeliveryDate;
@@ -89,6 +89,6 @@ public class OrderHeaderRepository : IOrderHeaderRepository
         if (result > 0)
             return order;
 
-        return null;
+        throw new Exception("Error has occured while saving changes");
     }
 }

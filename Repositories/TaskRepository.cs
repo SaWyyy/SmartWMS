@@ -22,19 +22,19 @@ public class TaskRepository : ITaskRepository
         this._accessor = accessor;
     }
     
-    public async Task<Task?> AddTask(TaskDto dto)
+    public async Task<Task> AddTask(TaskDto dto)
     {
         var orderHeader =
             await _dbContext.OrderHeaders.FirstOrDefaultAsync(x => x.OrdersHeaderId == dto.OrderHeadersOrdersHeaderId);
 
         if (orderHeader is null)
-            return null;
+            throw new Exception("OrderHeader with specified id hasn't been found");
         
         var user = _accessor.HttpContext?.User;
         var userId = user?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
         if (userId is null)
-            return null;
+            throw new Exception("User id not found");
 
         var task = _mapper.Map<Task>(dto);
 
@@ -63,7 +63,7 @@ public class TaskRepository : ITaskRepository
             await _dbContext.SaveChangesAsync();
         }
 
-        return null;
+        throw new Exception("Error has occured while saving changes");
     }
 
     public async Task<IEnumerable<TaskDto>> GetAll(ActionType? type)
@@ -94,27 +94,27 @@ public class TaskRepository : ITaskRepository
         return _mapper.Map<List<TaskDto>>(result);
     }
 
-    public async Task<TaskDto?> Get(int id)
+    public async Task<TaskDto> Get(int id)
     {
         var result = await _dbContext.Tasks.FirstOrDefaultAsync(x => x.TaskId == id);
 
         if (result is null)
-            return null;
+            throw new Exception("Task with specified id hasn't been found");
 
         return _mapper.Map<TaskDto>(result);
     }
 
-    public async Task<Task?> Delete(int id)
+    public async Task<Task> Delete(int id)
     {
         var task = await _dbContext.Tasks.FirstOrDefaultAsync(x => x.TaskId == id);
 
         if (task is null)
-            return null;
+            throw new Exception("Task with specified id hasn't been found");
 
         var userHasTask = await _dbContext.UsersHasTasks.FirstOrDefaultAsync(x => x.TasksTaskId == task.TaskId);
 
         if (userHasTask is null)
-            return null;
+            throw new Exception("Relation between task and user not found");
         
         _dbContext.UsersHasTasks.Remove(userHasTask);
 
@@ -130,15 +130,15 @@ public class TaskRepository : ITaskRepository
                 return task;
         }
 
-        return null;
+        throw new Exception("Error has occured while saving changes");
     }
 
-    public async Task<Task?> Update(int id, TaskDto dto)
+    public async Task<Task> Update(int id, TaskDto dto)
     {
         var task = await _dbContext.Tasks.FirstOrDefaultAsync(x => x.TaskId == id);
 
         if (task is null)
-            return null;
+            throw new Exception("Task with specified id hasn't been found");
 
         task.Priority = dto.Priority;
         task.Seen = dto.Seen;
@@ -150,28 +150,28 @@ public class TaskRepository : ITaskRepository
         if (result > 0)
             return task;
 
-        return null;
+        throw new Exception("Error has occured while saving changes");
     }
 
-    public async Task<TaskDto?> TakeTask(int id)
+    public async Task<TaskDto> TakeTask(int id)
     {
         var task = await _dbContext.Tasks.FirstOrDefaultAsync(x => x.TaskId == id);
 
         if (task is null)
-            return null;
+            throw new Exception("Task with specified id hasn't been found");
 
         var duplicateTask =
             await _dbContext.UsersHasTasks.FirstOrDefaultAsync(x =>
                 x.TasksTaskId == id && x.Action == ActionType.Taken);
         
         if (duplicateTask is not null)
-            return null;
+            throw new Exception("Task with specified id is assigned to another user");
         
         var user = _accessor.HttpContext?.User;
         var userId = user?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
         if (userId is null)
-            return null;
+            throw new Exception("User id not found");
 
         var userHasTask = new UsersHasTask
         {
@@ -189,17 +189,16 @@ public class TaskRepository : ITaskRepository
             return taskDto;
         }
         
-
-        return null;
+        throw new Exception("Error has occured while saving changes");
     }
 
-    public async Task<IEnumerable<TaskDto>?> userTasks()
+    public async Task<IEnumerable<TaskDto>> UserTasks()
     {
         var user = _accessor.HttpContext?.User;
         var userId = user?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-        if (user is null)
-            return null;
+        if (userId is null)
+            throw new Exception("User id not found");
 
         var userHasTasks =
             await _dbContext.Tasks
@@ -208,7 +207,7 @@ public class TaskRepository : ITaskRepository
                 .ToListAsync();
         
         if (!userHasTasks.Any())
-            return null;
+            throw new Exception("User has no tasks");
 
         var tasks = _mapper.Map<List<TaskDto>>(userHasTasks);
         return tasks;
