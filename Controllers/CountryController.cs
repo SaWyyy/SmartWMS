@@ -19,14 +19,14 @@ public class CountryController : ControllerBase
         this._logger = logger;
     }
 
-    [HttpPost("")]
+    [HttpPost]
     public async Task<IActionResult> AddCountry(CountryDto dto)
     {
         try
         {
             var result = await _countryRepository.Add(dto);
             
-            _logger.LogInformation($"Country {dto.CountryCode} has been added");
+            _logger.LogInformation($"Country {result.CountryCode} has been added");
             return Ok($"Adding country completed, Id: {result.CountryId}");
         }
         catch (Exception e)
@@ -36,7 +36,7 @@ public class CountryController : ControllerBase
         }
     }
 
-    [HttpGet()]
+    [HttpGet]
     public async Task<IActionResult> GetAll()
     {
         var result = await _countryRepository.GetAll();

@@ -20,7 +20,7 @@ public class ShelfController : ControllerBase
         this._logger = logger;
     }
 
-    [HttpPost("")]
+    [HttpPost]
     //[Authorize(Roles = "Manager, Admin")]
     public async Task<IActionResult> AddShelf(ShelfDto dto)
     {

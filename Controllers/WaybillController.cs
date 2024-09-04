@@ -17,7 +17,7 @@ public class WaybillController : ControllerBase
         _logger = logger;
     }
 
-    [HttpPost("")]
+    [HttpPost]
     public async Task<IActionResult> AddWaybill(WaybillDto dto)
     {
         try
