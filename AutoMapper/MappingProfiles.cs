@@ -14,5 +14,6 @@ public class MappingProfiles : Profile
         CreateMap<Waybill, WaybillDto>().ReverseMap();
         CreateMap<OrderHeader, OrderHeaderDto>().ReverseMap();
         CreateMap<Task, TaskDto>().ReverseMap();
+        CreateMap<Category, CategoryDto>().ReverseMap();
     }
 }

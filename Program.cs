@@ -59,6 +59,7 @@ try
     builder.Services.AddTransient<IWaybillRepository, WaybillRepository>();
     builder.Services.AddTransient<ITaskRepository, TaskRepository>();
     builder.Services.AddTransient<IOrderHeaderRepository, OrderHeaderRepository>();
+    builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
     //====================================================================================================//
     
     
