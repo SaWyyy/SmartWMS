@@ -73,6 +73,11 @@ public class WaybillRepository : IWaybillRepository
         if (waybill is null)
             throw new Exception("Waybill with specified id hasn't been found");
 
+        var countryId = await _dbContext.Countries.FirstOrDefaultAsync(r => r.CountryId == dto.CountriesCountryId);
+
+        if (countryId is null)
+            throw new Exception("Cannot assign new CountryId because provided one doesn't exist");
+
         waybill.CountriesCountryId = dto.CountriesCountryId;
         waybill.LoadingDate = dto.LoadingDate;
         waybill.SupplierName = dto.SupplierName;
