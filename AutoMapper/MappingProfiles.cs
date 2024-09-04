@@ -1,4 +1,5 @@
 using AutoMapper;
+using SmartWMS.Controllers;
 using SmartWMS.Models;
 using Task = SmartWMS.Models.Task;
 
@@ -15,5 +16,6 @@ public class MappingProfiles : Profile
         CreateMap<OrderHeader, OrderHeaderDto>().ReverseMap();
         CreateMap<Task, TaskDto>().ReverseMap();
         CreateMap<Category, CategoryDto>().ReverseMap();
+        CreateMap<Subcategory, SubcategoryDto>().ReverseMap();
     }
 }

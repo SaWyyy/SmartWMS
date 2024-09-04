@@ -60,6 +60,7 @@ try
     builder.Services.AddTransient<ITaskRepository, TaskRepository>();
     builder.Services.AddTransient<IOrderHeaderRepository, OrderHeaderRepository>();
     builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+    builder.Services.AddTransient<ISubcategoryRepository, SubcategoryRepository>();
     //====================================================================================================//
     
     
