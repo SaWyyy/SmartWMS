@@ -16,9 +16,6 @@ public class OrderHeaderDto
     [MaxLength(45, ErrorMessage = "Address too long")]
     public string DestinationAddress { get; set; } = null!;
     
-    [Range(1, int.MaxValue, ErrorMessage = "Must be integer value grater than 0")]
-    public int WaybillsWaybillId { get; set; }
-    
     [Range(0, 1, ErrorMessage = "Type name must be 0 or 1")]
     public OrderType TypeName { get; set; }
     

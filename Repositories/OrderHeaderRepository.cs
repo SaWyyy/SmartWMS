@@ -17,11 +17,6 @@ public class OrderHeaderRepository : IOrderHeaderRepository
     
     public async Task<OrderHeader> Add(OrderHeaderDto dto)
     {
-        var waybill = await _dbContext.Waybills.FirstOrDefaultAsync(r => r.WaybillId == dto.WaybillsWaybillId);
-
-        if (waybill is null)
-            throw new Exception("Waybill with specified id hasn't been found");
-        
         var order = _mapper.Map<OrderHeader>(dto);
         await _dbContext.OrderHeaders.AddAsync(order);
         var result = await _dbContext.SaveChangesAsync();
@@ -80,7 +75,6 @@ public class OrderHeaderRepository : IOrderHeaderRepository
         order.OrderDate = dto.OrderDate;
         order.DeliveryDate = dto.DeliveryDate;
         order.DestinationAddress = dto.DestinationAddress;
-        order.WaybillsWaybillId = dto.WaybillsWaybillId;
         order.TypeName = dto.TypeName;
         order.StatusName = dto.StatusName;
 

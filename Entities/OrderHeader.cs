@@ -13,9 +13,7 @@ public partial class OrderHeader
     public DateTime? DeliveryDate { get; set; }
 
     public string DestinationAddress { get; set; } = null!;
-
-    public int WaybillsWaybillId { get; set; }
-
+    
     public OrderType TypeName { get; set; }
 
     public OrderName StatusName { get; set; }

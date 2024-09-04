@@ -12,6 +12,8 @@ public partial class Waybill
     public DateTime LoadingDate { get; set; }
 
     public int CountriesCountryId { get; set; }
+    
+    public int OrderHeadersOrderHeaderId { get; set; }
 
     public string PostalCode { get; set; } = null!;
 
@@ -19,5 +21,5 @@ public partial class Waybill
 
     public virtual Country CountriesCountry { get; set; } = null!;
 
-    public virtual ICollection<OrderHeader> OrderHeaders { get; set; } = new List<OrderHeader>();
+    public virtual OrderHeader OrderHeadersOrderHeader { get; set; } = null!;
 }

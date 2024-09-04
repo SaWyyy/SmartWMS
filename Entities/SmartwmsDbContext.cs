@@ -166,10 +166,8 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
             entity.Property(e => e.StatusName)
                 .HasColumnName("status_name")
                 .HasColumnType("order_name");
-            entity.Property(e => e.WaybillsWaybillId).HasColumnName("waybills_waybill_id");
-
-            entity.HasOne(d => d.WaybillsWaybill).WithMany(p => p.OrderHeaders)
-                .HasForeignKey(d => d.WaybillsWaybillId)
+            entity.HasOne<Waybill>(d => d.WaybillsWaybill).WithOne(p => p.OrderHeadersOrderHeader)
+                .HasForeignKey<Waybill>(d => d.OrderHeadersOrderHeaderId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_order_headers_waybills1");
         });
@@ -196,11 +194,6 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
             entity.Property(e => e.SubcategoriesSubcategoryId).HasColumnName("subcategories_subcategory_id");
             entity.Property(e => e.WarehousesWarehouseId).HasColumnName("warehouses_warehouse_id");
 
-            entity.HasOne(d => d.ProductDetailsProductDetail).WithMany(p => p.Products)
-                .HasForeignKey(d => d.ProductDetailsProductDetailId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_products_product_details1");
-
             entity.HasOne(d => d.SubcategoriesSubcategory).WithMany(p => p.Products)
                 .HasForeignKey(d => d.SubcategoriesSubcategoryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -211,7 +204,7 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_products_warehouses1");
         });
-
+        
         modelBuilder.Entity<ProductDetail>(entity =>
         {
             entity.HasKey(e => e.ProductDetailId).HasName("warehouse_state_id_unique");
@@ -225,6 +218,10 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
                 .HasMaxLength(8)
                 .HasColumnName("barcode");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
+            entity.HasOne<Product>(d => d.ProductsProduct).WithOne(p => p.ProductDetailsProductDetail)
+                .HasForeignKey<Product>(d => d.ProductDetailsProductDetailId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_products_product_details1");
         });
 
         modelBuilder.Entity<ProductsHasTask>(entity =>
