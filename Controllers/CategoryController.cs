@@ -74,7 +74,7 @@ public class CategoryController : ControllerBase
         }
     }
 
-    [HttpPut]
+    [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, CategoryDto dto)
     {
         try
