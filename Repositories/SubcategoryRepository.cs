@@ -15,17 +15,18 @@ public class SubcategoryRepository: ISubcategoryRepository
         _mapper = mapper;
     }
 
-    public async Task<SubcategoryDto> Add(SubcategoryDto dto)
+    public async Task<Subcategory> Add(SubcategoryDto dto)
     {
         var category = await _dbContext.Categories.FirstOrDefaultAsync(r => r.CategoryId == dto.CategoriesCategoryId);
         if (category is null)
             throw new Exception("Wrong category's id has been passed while creating new subcategory");
 
-        await _dbContext.AddAsync(_mapper.Map<Subcategory>(dto));
+        var subcategory = _mapper.Map<Subcategory>(dto);
+        await _dbContext.AddAsync(subcategory);
         var result = await _dbContext.SaveChangesAsync();
 
         if (result > 0)
-            return dto;
+            return subcategory;
 
         throw new Exception("Error has occured while adding country");
     }

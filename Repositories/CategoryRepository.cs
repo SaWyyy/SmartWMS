@@ -27,13 +27,13 @@ public class CategoryRepository: ICategoryRepository
         throw new Exception("Error has occured while saving changes");
     }
 
-    public async Task<Category> GetCategory(int id)
+    public async Task<CategoryDto> GetCategory(int id)
     {
         var category = await _dbContext.Categories.FirstOrDefaultAsync(r => r.CategoryId == id);
         if (category is null)
             throw new Exception("Category with specified id hasn't been found");
         
-        var result = _mapper.Map<Category>(category);
+        var result = _mapper.Map<CategoryDto>(category);
         return result;
     }
 

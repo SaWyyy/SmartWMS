@@ -5,7 +5,7 @@ namespace SmartWMS.Repositories;
 public interface ICategoryRepository
 {
     Task<Category> AddCategory(CategoryDto dto);
-    Task<Category> GetCategory(int id);
+    Task<CategoryDto> GetCategory(int id);
     Task<IEnumerable<CategoryDto>> GetAll();
     Task<Category> Delete(int id);
 
