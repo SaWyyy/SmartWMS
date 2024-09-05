@@ -11,5 +11,5 @@ public partial class ProductDetail
 
     public string Barcode { get; set; } = null!;
 
-    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+    public virtual Product ProductsProduct { get; set; } = null!;
 }
