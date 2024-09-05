@@ -67,7 +67,7 @@ public class OrderHeaderController : ControllerBase
         {
             var result = await _repository.Delete(id);
             
-            _logger.LogInformation("Order header deleted");
+            _logger.LogInformation("Order Header deleted");
             return Ok(result);
         }
         catch (Exception e)
@@ -84,7 +84,7 @@ public class OrderHeaderController : ControllerBase
         {
             var result = await _repository.Update(id, dto);
             
-            _logger.LogInformation("Waybill edited");
+            _logger.LogInformation("Order Header edited");
             return Ok(result);
         }
         catch (Exception e)

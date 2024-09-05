@@ -24,8 +24,8 @@ public class SubcategoryController : ControllerBase
         {
             var result = await _repository.Add(dto);
 
-            _logger.LogInformation(("Subcategory added successfully"));
-            return Ok(result);
+            _logger.LogInformation($"Subcategory {result.SubcategoryId} has been added");
+            return Ok($"Adding subcategory completed, Id: {result.SubcategoryId}");
         }
         catch (Exception e)
         {

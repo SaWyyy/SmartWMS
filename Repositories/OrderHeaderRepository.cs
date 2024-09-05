@@ -50,6 +50,17 @@ public class OrderHeaderRepository : IOrderHeaderRepository
 
     public async Task<OrderHeader> Delete(int id)
     {
+        var waybill = await _dbContext.Waybills.FirstOrDefaultAsync(r => r.OrderHeadersOrderHeaderId == id);
+
+        if (waybill is null)
+            throw new Exception("Cannot delete specified Order Header due to constraint violation");
+
+        _dbContext.Waybills.Remove(waybill);
+        var result = await _dbContext.SaveChangesAsync();
+
+        if (result <= 0)
+            throw new Exception("Error has occured while saving changes");
+        
         var order = await _dbContext.OrderHeaders.FirstOrDefaultAsync(r => r.OrdersHeaderId == id);
 
         if (order is null)
@@ -57,9 +68,9 @@ public class OrderHeaderRepository : IOrderHeaderRepository
         
         _dbContext.OrderHeaders.Remove(order);
 
-        var result = await _dbContext.SaveChangesAsync();
+        var result2 = await _dbContext.SaveChangesAsync();
 
-        if (result > 0)
+        if (result2 > 0)
             return order;
 
         throw new Exception("Error has occured while saving changes");
