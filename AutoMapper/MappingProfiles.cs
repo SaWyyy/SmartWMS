@@ -18,5 +18,6 @@ public class MappingProfiles : Profile
         CreateMap<Category, CategoryDto>().ReverseMap();
         CreateMap<Subcategory, SubcategoryDto>().ReverseMap();
         CreateMap<ProductDetail, ProductDetailDto>().ReverseMap();
+        CreateMap<Alert, AlertDto>().ReverseMap();
     }
 }
