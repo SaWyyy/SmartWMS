@@ -32,7 +32,7 @@ public class TaskController : ControllerBase
             _logger.LogInformation($"Task nr. {result.TaskId} has been added");
             return Ok($"Task nr. {result.TaskId} has been added");
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return BadRequest(e.Message);
@@ -57,7 +57,7 @@ public class TaskController : ControllerBase
             _logger.LogInformation("Task found");
             return Ok(result);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return NotFound(e.Message);
@@ -74,7 +74,7 @@ public class TaskController : ControllerBase
             _logger.LogInformation("Task removed");
             return Ok(result);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return NotFound(e.Message);
@@ -91,7 +91,7 @@ public class TaskController : ControllerBase
             _logger.LogInformation("Task edited");
             return Ok(result);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return BadRequest(e.Message);
@@ -109,7 +109,7 @@ public class TaskController : ControllerBase
             _logger.LogInformation("User has taken task with specified ID");
             return Ok(result);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return NotFound(e.Message);
@@ -127,7 +127,7 @@ public class TaskController : ControllerBase
             _logger.LogInformation("User's tasks fetched successfully");
             return Ok(result);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return NotFound(e.Message);

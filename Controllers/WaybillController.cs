@@ -27,7 +27,7 @@ public class WaybillController : ControllerBase
             _logger.LogInformation($"Waybill nr. {result.WaybillId}");
             return Ok($"Adding waybill completed, Id: {result.WaybillId}");
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return BadRequest(e.Message);
@@ -52,7 +52,7 @@ public class WaybillController : ControllerBase
             _logger.LogInformation("Waybill found");
             return Ok(result);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return NotFound(e.Message);
@@ -69,7 +69,7 @@ public class WaybillController : ControllerBase
             _logger.LogInformation("Waybill removed");
             return Ok(deletedWaybill);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return NotFound(e.Message);
@@ -86,7 +86,7 @@ public class WaybillController : ControllerBase
             _logger.LogInformation("Waybill edited");
             return Ok(updatedWaybill);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return BadRequest(e.Message);   

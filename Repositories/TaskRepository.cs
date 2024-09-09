@@ -28,13 +28,13 @@ public class TaskRepository : ITaskRepository
             await _dbContext.OrderHeaders.FirstOrDefaultAsync(x => x.OrdersHeaderId == dto.OrderHeadersOrdersHeaderId);
 
         if (orderHeader is null)
-            throw new Exception("OrderHeader with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("OrderHeader with specified id hasn't been found");
         
         var user = _accessor.HttpContext?.User;
         var userId = user?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
         if (userId is null)
-            throw new Exception("User id not found");
+            throw new SmartWMSExceptionHandler("User id not found");
 
         var task = _mapper.Map<Task>(dto);
 
@@ -63,7 +63,7 @@ public class TaskRepository : ITaskRepository
             await _dbContext.SaveChangesAsync();
         }
 
-        throw new Exception("Error has occured while saving changes");
+        throw new SmartWMSExceptionHandler("Error has occured while saving changes to task table");
     }
 
     public async Task<IEnumerable<TaskDto>> GetAll(ActionType? type)
@@ -99,7 +99,7 @@ public class TaskRepository : ITaskRepository
         var result = await _dbContext.Tasks.FirstOrDefaultAsync(x => x.TaskId == id);
 
         if (result is null)
-            throw new Exception("Task with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("Task with specified id hasn't been found");
 
         return _mapper.Map<TaskDto>(result);
     }
@@ -109,12 +109,12 @@ public class TaskRepository : ITaskRepository
         var task = await _dbContext.Tasks.FirstOrDefaultAsync(x => x.TaskId == id);
 
         if (task is null)
-            throw new Exception("Task with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("Task with specified id hasn't been found");
 
         var userHasTask = await _dbContext.UsersHasTasks.FirstOrDefaultAsync(x => x.TasksTaskId == task.TaskId);
 
         if (userHasTask is null)
-            throw new Exception("Relation between task and user not found");
+            throw new SmartWMSExceptionHandler("Constraint violation: Relation between task and user not found");
         
         _dbContext.UsersHasTasks.Remove(userHasTask);
 
@@ -130,7 +130,7 @@ public class TaskRepository : ITaskRepository
                 return task;
         }
 
-        throw new Exception("Error has occured while saving changes");
+        throw new SmartWMSExceptionHandler("Error has occured while saving changes to task table");
     }
 
     public async Task<Task> Update(int id, TaskDto dto)
@@ -138,7 +138,7 @@ public class TaskRepository : ITaskRepository
         var task = await _dbContext.Tasks.FirstOrDefaultAsync(x => x.TaskId == id);
 
         if (task is null)
-            throw new Exception("Task with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("Task with specified id hasn't been found");
 
         task.Priority = dto.Priority;
         task.Seen = dto.Seen;
@@ -150,7 +150,7 @@ public class TaskRepository : ITaskRepository
         if (result > 0)
             return task;
 
-        throw new Exception("Error has occured while saving changes");
+        throw new SmartWMSExceptionHandler("Error has occured while saving changes to task table");
     }
 
     public async Task<TaskDto> TakeTask(int id)
@@ -158,20 +158,20 @@ public class TaskRepository : ITaskRepository
         var task = await _dbContext.Tasks.FirstOrDefaultAsync(x => x.TaskId == id);
 
         if (task is null)
-            throw new Exception("Task with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("Task with specified id hasn't been found");
 
         var duplicateTask =
             await _dbContext.UsersHasTasks.FirstOrDefaultAsync(x =>
                 x.TasksTaskId == id && x.Action == ActionType.Taken);
         
         if (duplicateTask is not null)
-            throw new Exception("Task with specified id is assigned to another user");
+            throw new SmartWMSExceptionHandler("Task with specified id is assigned to another user");
         
         var user = _accessor.HttpContext?.User;
         var userId = user?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
         if (userId is null)
-            throw new Exception("User id not found");
+            throw new SmartWMSExceptionHandler("User id not found");
 
         var userHasTask = new UsersHasTask
         {
@@ -189,7 +189,7 @@ public class TaskRepository : ITaskRepository
             return taskDto;
         }
         
-        throw new Exception("Error has occured while saving changes");
+        throw new SmartWMSExceptionHandler("Error has occured while saving changes to task table");
     }
 
     public async Task<IEnumerable<TaskDto>> UserTasks()
@@ -198,7 +198,7 @@ public class TaskRepository : ITaskRepository
         var userId = user?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
         if (userId is null)
-            throw new Exception("User id not found");
+            throw new SmartWMSExceptionHandler("User id not found");
 
         var userHasTasks =
             await _dbContext.Tasks
@@ -207,7 +207,7 @@ public class TaskRepository : ITaskRepository
                 .ToListAsync();
         
         if (!userHasTasks.Any())
-            throw new Exception("User has no tasks");
+            throw new SmartWMSExceptionHandler("User has no tasks");
 
         var tasks = _mapper.Map<List<TaskDto>>(userHasTasks);
         return tasks;

@@ -27,7 +27,7 @@ public class SubcategoryController : ControllerBase
             _logger.LogInformation($"Subcategory {result.SubcategoryId} has been added");
             return Ok($"Adding subcategory completed, Id: {result.SubcategoryId}");
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return BadRequest(e.Message);
@@ -44,7 +44,7 @@ public class SubcategoryController : ControllerBase
             _logger.LogInformation("Subcategory found");
             return Ok(result);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return BadRequest(e.Message);
@@ -67,7 +67,7 @@ public class SubcategoryController : ControllerBase
             _logger.LogInformation("Subcategory removed");
             return Ok(result);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return BadRequest(e.Message);
@@ -84,7 +84,7 @@ public class SubcategoryController : ControllerBase
             _logger.LogInformation("Subcategory edited");
             return Ok("Subcategory edited");
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return BadRequest(e.Message);

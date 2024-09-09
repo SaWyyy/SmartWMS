@@ -1,3 +1,4 @@
+using System.Security;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SmartWMS.Models;
@@ -20,7 +21,20 @@ public class WaybillRepository : IWaybillRepository
         var country = await _dbContext.Countries.FirstOrDefaultAsync(r => r.CountryId == dto.CountriesCountryId);
 
         if (country is null)
-            throw new Exception("Country with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("Country with specified id hasn't been found");
+
+        var orderHeader =
+            await _dbContext.OrderHeaders.FirstOrDefaultAsync(r => r.OrdersHeaderId == dto.OrderHeadersOrderHeaderId);
+
+        if (orderHeader is null)
+            throw new SmartWMSExceptionHandler("Order header with specified id hasn't been found while trying to create waybill record");
+
+        var duplicated_waybill =
+            await _dbContext.Waybills.FirstOrDefaultAsync(r =>
+                r.OrderHeadersOrderHeaderId == dto.OrderHeadersOrderHeaderId);
+
+        if (duplicated_waybill is not null)
+            throw new SmartWMSExceptionHandler("Cannot assign order header's id to more than one waybill");
         
         var waybill = _mapper.Map<Waybill>(dto);
         await _dbContext.Waybills.AddAsync(waybill);
@@ -29,7 +43,7 @@ public class WaybillRepository : IWaybillRepository
         if (result > 0)
             return waybill;
 
-        throw new Exception("Error has occured while saving changes");
+        throw new SmartWMSExceptionHandler("Error has occured while saving changes to waybill table");
     }
 
     public async Task<IEnumerable<WaybillDto>> GetAll()
@@ -44,7 +58,7 @@ public class WaybillRepository : IWaybillRepository
         var waybill = await _dbContext.Waybills.FirstOrDefaultAsync(r => r.WaybillId == id);
 
         if (waybill is null)
-            throw new Exception("Waybill with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("Waybill with specified id hasn't been found");
 
         var result = _mapper.Map<WaybillDto>(waybill);
         return result;
@@ -55,15 +69,21 @@ public class WaybillRepository : IWaybillRepository
         var waybill = await _dbContext.Waybills.FirstOrDefaultAsync(r => r.WaybillId == id);
 
         if (waybill is null)
-            throw new Exception("Waybill with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("Waybill with specified id hasn't been found");
+        
+        var orderHeader = await _dbContext.OrderHeaders.FirstOrDefaultAsync(r => r.OrdersHeaderId == waybill.OrderHeadersOrderHeaderId);
+        
+        if (orderHeader is null)
+            throw new SmartWMSExceptionHandler("Internal error: waybill cannot exist without order header");
 
         _dbContext.Waybills.Remove(waybill);
-        var result = await _dbContext.SaveChangesAsync();
+        
+        var result2 = await _dbContext.SaveChangesAsync();
 
-        if (result > 0)
+        if (result2 > 0)
             return waybill;
 
-        throw new Exception("Error has occured while saving changes");
+        throw new SmartWMSExceptionHandler("Error has occured while saving changes to waybill table");
     }
 
     public async Task<Waybill> Update(int id, WaybillDto dto)
@@ -71,12 +91,12 @@ public class WaybillRepository : IWaybillRepository
         var waybill = await _dbContext.Waybills.FirstOrDefaultAsync(r => r.WaybillId == id);
 
         if (waybill is null)
-            throw new Exception("Waybill with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("Waybill with specified id hasn't been found");
 
         var countryId = await _dbContext.Countries.FirstOrDefaultAsync(r => r.CountryId == dto.CountriesCountryId);
 
         if (countryId is null)
-            throw new Exception("Cannot assign new CountryId because provided one doesn't exist");
+            throw new SmartWMSExceptionHandler("Cannot assign new CountryId because provided one doesn't exist");
 
         waybill.CountriesCountryId = dto.CountriesCountryId;
         waybill.LoadingDate = dto.LoadingDate;
@@ -89,7 +109,7 @@ public class WaybillRepository : IWaybillRepository
         if (result > 0)
             return waybill;
 
-        throw new Exception("Error has occured while saving changes");
+        throw new SmartWMSExceptionHandler("Error has occured while saving changes to waybill table");
     }
     
 }

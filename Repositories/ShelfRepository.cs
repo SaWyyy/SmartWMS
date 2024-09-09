@@ -30,7 +30,7 @@ public class ShelfRepository : IShelfRepository
         if (result > 0)
             return shelf;
 
-        throw new Exception("Error has occured while saving changes");
+        throw new SmartWMSExceptionHandler("Error has occured while saving changes to shelf table");
     }
 
     public async Task<IEnumerable<ShelfDto>> GetAll()
@@ -46,7 +46,7 @@ public class ShelfRepository : IShelfRepository
         var shelf = await _dbContext.Shelves.FirstOrDefaultAsync(r => r.ShelfId == id);
 
         if (shelf is null)
-            throw new Exception("Shelf with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("Shelf with specified id hasn't been found");
 
         var result = _mapper.Map<ShelfDto>(shelf);
         return result;
@@ -57,7 +57,7 @@ public class ShelfRepository : IShelfRepository
         var shelf = await _dbContext.Shelves.FirstOrDefaultAsync(r => r.ShelfId == id);
 
         if (shelf is null)
-            throw new Exception("Shelf with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("Shelf with specified id hasn't been found");
 
         _dbContext.Shelves.Remove(shelf);
         var result = await _dbContext.SaveChangesAsync();
@@ -65,7 +65,7 @@ public class ShelfRepository : IShelfRepository
         if (result > 0)
             return shelf;
 
-        throw new Exception("Error has occured while saving changes");
+        throw new SmartWMSExceptionHandler("Error has occured while saving changes to shelf table");
     }
 
     public async Task<Shelf> Update(int id, ShelfDto dto)
@@ -73,9 +73,8 @@ public class ShelfRepository : IShelfRepository
         var shelf = await _dbContext.Shelves.FirstOrDefaultAsync(r => r.ShelfId == id);
 
         if (shelf is null)
-            throw new Exception("Shelf with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("Shelf with specified id hasn't been found");
 
-        shelf.ProductsProduct = dto.ProductsProduct;
         shelf.ProductsProductId = dto.ProductsProductId;
         shelf.CurrentQuant = dto.CurrentQuant;
         shelf.Lane = dto.Lane;
@@ -88,6 +87,6 @@ public class ShelfRepository : IShelfRepository
         if (result > 0)
             return shelf;
 
-        throw new Exception("Error has occured while saving changes");
+        throw new SmartWMSExceptionHandler("Error has occured while saving changes to shelf table");
     }
 }

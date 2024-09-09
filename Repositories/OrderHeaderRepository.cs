@@ -24,7 +24,7 @@ public class OrderHeaderRepository : IOrderHeaderRepository
         if (result > 0)
             return order;
 
-        throw new Exception("Error has occured while saving changes");
+        throw new SmartWMSExceptionHandler("Error has occured while saving changes");
     }
 
     public async Task<IEnumerable<OrderHeaderDto>> GetAll()
@@ -41,7 +41,7 @@ public class OrderHeaderRepository : IOrderHeaderRepository
         var order = await _dbContext.OrderHeaders.FirstOrDefaultAsync(r => r.OrdersHeaderId == id);
 
         if (order is null)
-            throw new Exception("OrderHeader with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("OrderHeader with specified id hasn't been found");
 
         var orderDto = _mapper.Map<OrderHeaderDto>(order);
 
@@ -52,19 +52,19 @@ public class OrderHeaderRepository : IOrderHeaderRepository
     {
         var waybill = await _dbContext.Waybills.FirstOrDefaultAsync(r => r.OrderHeadersOrderHeaderId == id);
 
-        if (waybill is null)
-            throw new Exception("Cannot delete specified Order Header due to constraint violation");
+        if (waybill is not null)
+        {
+            _dbContext.Waybills.Remove(waybill);
+            var result = await _dbContext.SaveChangesAsync();
 
-        _dbContext.Waybills.Remove(waybill);
-        var result = await _dbContext.SaveChangesAsync();
-
-        if (result <= 0)
-            throw new Exception("Error has occured while saving changes");
+            if (result <= 0)
+                throw new SmartWMSExceptionHandler("Error has occured while saving changes to waybill table");
+        }
         
         var order = await _dbContext.OrderHeaders.FirstOrDefaultAsync(r => r.OrdersHeaderId == id);
 
         if (order is null)
-            throw new Exception("OrderHeader with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("OrderHeader with specified id hasn't been found");
         
         _dbContext.OrderHeaders.Remove(order);
 
@@ -73,7 +73,7 @@ public class OrderHeaderRepository : IOrderHeaderRepository
         if (result2 > 0)
             return order;
 
-        throw new Exception("Error has occured while saving changes");
+        throw new SmartWMSExceptionHandler("Error has occured while saving changes to order header table");
     }
 
     public async Task<OrderHeader> Update(int id, OrderHeaderDto dto)
@@ -81,7 +81,7 @@ public class OrderHeaderRepository : IOrderHeaderRepository
         var order = await _dbContext.OrderHeaders.FirstOrDefaultAsync(r => r.OrdersHeaderId == id);
 
         if (order is null)
-            throw new Exception("OrderHeader with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("OrderHeader with specified id hasn't been found");
 
         order.OrderDate = dto.OrderDate;
         order.DeliveryDate = dto.DeliveryDate;
@@ -94,6 +94,6 @@ public class OrderHeaderRepository : IOrderHeaderRepository
         if (result > 0)
             return order;
 
-        throw new Exception("Error has occured while saving changes");
+        throw new SmartWMSExceptionHandler("Error has occured while saving changes to order header table");
     }
 }

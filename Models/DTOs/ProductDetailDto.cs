@@ -9,6 +9,6 @@ public class ProductDetailDto
     
     [MinLength(8)]
     [MaxLength(8)]
-    [Range(int.MinValue,int.MaxValue, ErrorMessage = "Only integers are permitted")]
+    [Range(int.MinValue,int.MaxValue, ErrorMessage = "Only integers are permitted")]    
     public string Barcode { get; set; } = null!;
 }

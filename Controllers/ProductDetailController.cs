@@ -28,7 +28,7 @@ public class ProductDetailController: ControllerBase
             _logger.LogInformation($"ProductDetail nr. {result.ProductDetailId}");
             return Ok(result);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return StatusCode(500, e.Message);
@@ -52,7 +52,7 @@ public class ProductDetailController: ControllerBase
             _logger.LogInformation("Product Detail found");
             return Ok(result);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return NotFound(e.Message);
@@ -69,7 +69,7 @@ public class ProductDetailController: ControllerBase
             _logger.LogInformation("Product Detail deleted");
             return Ok(result);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return BadRequest(e.Message);
@@ -86,7 +86,7 @@ public class ProductDetailController: ControllerBase
             _logger.LogInformation("Product Detail edited");
             return Ok(result);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return BadRequest(e.Message);

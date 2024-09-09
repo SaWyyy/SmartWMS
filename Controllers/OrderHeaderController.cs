@@ -27,7 +27,7 @@ public class OrderHeaderController : ControllerBase
             _logger.LogInformation($"OrderHeader nr. {result.OrdersHeaderId}");
             return Ok($"OrderHeader nr. {result.OrdersHeaderId}");
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return BadRequest(e.Message);   
@@ -53,7 +53,7 @@ public class OrderHeaderController : ControllerBase
             _logger.LogInformation("Order Header Found");
             return Ok(result);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return NotFound(e.Message);
@@ -70,7 +70,7 @@ public class OrderHeaderController : ControllerBase
             _logger.LogInformation("Order Header deleted");
             return Ok(result);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return NotFound(e.Message);
@@ -87,7 +87,7 @@ public class OrderHeaderController : ControllerBase
             _logger.LogInformation("Order Header edited");
             return Ok(result);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return BadRequest(e.Message);

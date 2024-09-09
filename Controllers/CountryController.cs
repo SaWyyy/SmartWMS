@@ -29,7 +29,7 @@ public class CountryController : ControllerBase
             _logger.LogInformation($"Country {result.CountryCode} has been added");
             return Ok($"Adding country completed, Id: {result.CountryId}");
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return BadRequest(e.Message);
@@ -54,7 +54,7 @@ public class CountryController : ControllerBase
             _logger.LogInformation("Country found");
             return Ok(result);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return NotFound(e.Message);
@@ -71,7 +71,7 @@ public class CountryController : ControllerBase
             _logger.LogInformation("Shelf removed");
             return Ok(deletedCountry);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return NotFound(e.Message);
@@ -88,7 +88,7 @@ public class CountryController : ControllerBase
             _logger.LogInformation("Country edited");
             return Ok(updatedCountry);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return BadRequest(e.Message);

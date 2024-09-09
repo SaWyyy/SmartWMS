@@ -25,7 +25,7 @@ public class ProductDetailRepository : IProductDetailRepository
         if (result > 0)
             return productDetail;
 
-        throw new Exception("Error has occured while saving changes");
+        throw new SmartWMSExceptionHandler("Error has occured while saving changes to product detail table");
     }
 
     public async Task<IEnumerable<ProductDetailDto>> GetAll()
@@ -40,7 +40,7 @@ public class ProductDetailRepository : IProductDetailRepository
         var productDetail = await _dbContext.ProductDetails.FirstOrDefaultAsync(r => r.ProductDetailId == id);
 
         if (productDetail is null)
-            throw new Exception("ProductDetail with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("ProductDetail with specified id hasn't been found");
         var productDetailDto = _mapper.Map<ProductDetailDto>(productDetail);
         return productDetailDto;
     }
@@ -50,7 +50,7 @@ public class ProductDetailRepository : IProductDetailRepository
         var productDetail = await _dbContext.ProductDetails.FirstOrDefaultAsync(r => r.ProductDetailId == id);
         
         if (productDetail is null)
-            throw new Exception("Product Detail with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("Product Detail with specified id hasn't been found");
 
         _dbContext.Remove(productDetail);
         var result = await _dbContext.SaveChangesAsync();
@@ -58,7 +58,7 @@ public class ProductDetailRepository : IProductDetailRepository
         if (result > 0)
             return productDetail;
 
-        throw new Exception("Error has occured while saving changes");
+        throw new SmartWMSExceptionHandler("Error has occured while saving changes to product detail table");
     }
 
     public async Task<ProductDetail> Update(int id, ProductDetailDto dto)
@@ -66,7 +66,7 @@ public class ProductDetailRepository : IProductDetailRepository
         var productDetail = await _dbContext.ProductDetails.FirstOrDefaultAsync(r => r.ProductDetailId == id);
 
         if (productDetail is null)
-            throw new Exception("Product Detail with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("Product Detail with specified id hasn't been found");
 
         productDetail.Barcode = dto.Barcode;
         productDetail.Quantity = dto.Quantity;
@@ -76,6 +76,6 @@ public class ProductDetailRepository : IProductDetailRepository
         if (result > 0)
             return productDetail;
 
-        throw new Exception("Error has occured while saving changes");
+        throw new SmartWMSExceptionHandler("Error has occured while saving changes to product detail table");
     }
 }

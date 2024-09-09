@@ -27,7 +27,7 @@ public class CategoryController : ControllerBase
             _logger.LogInformation($"Category {dto.CategoryName} has been added");
             return Ok($"Adding category completed, Id: {result.CategoryId}");
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
            _logger.LogError(e.Message);
            return StatusCode(500, e.Message);
@@ -43,7 +43,7 @@ public class CategoryController : ControllerBase
             _logger.LogInformation("Category found");
             return Ok(result);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return NotFound(e.Message);
@@ -67,7 +67,7 @@ public class CategoryController : ControllerBase
             _logger.LogInformation("Category removed");
             return Ok(result);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return BadRequest(e.Message);
@@ -84,12 +84,10 @@ public class CategoryController : ControllerBase
             _logger.LogInformation("Category edited");
             return Ok(updatedCategory);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return BadRequest(e.Message);
         }
-        
-        
     }
 }

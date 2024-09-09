@@ -31,7 +31,7 @@ public class ShelfController : ControllerBase
             _logger.LogInformation($"Shelf nr. {result.ShelfId} has been added");
             return Ok($"Adding shelf completed, Id: {result.ShelfId}");
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return BadRequest(e.Message);
@@ -56,7 +56,7 @@ public class ShelfController : ControllerBase
             _logger.LogInformation("Shelf found");
             return Ok(result);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return NotFound(e.Message);
@@ -73,7 +73,7 @@ public class ShelfController : ControllerBase
             _logger.LogInformation("Shelf removed");
             return Ok(deletedShelf);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return NotFound(e.Message);
@@ -90,7 +90,7 @@ public class ShelfController : ControllerBase
             _logger.LogInformation("Shelf edited");
             return Ok(updatedShelf);
         }
-        catch (Exception e)
+        catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
             return BadRequest(e.Message);

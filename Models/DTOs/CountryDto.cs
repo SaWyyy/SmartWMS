@@ -4,11 +4,11 @@ namespace SmartWMS.Models;
 
 public class CountryDto
 {
-    [StringLength(40, ErrorMessage = "Country name is to long")]
-    [RegularExpression("^[a-zA-Z]+$", ErrorMessage = "Country name should contain only letters")]
+    [Required(ErrorMessage = "Country name is required")]
+    [RegularExpression("^[a-zA-Z]{2,40}$", ErrorMessage = "Country name should contain only letters and its length should range from 4 to 40")]
     public string CountryName { get; set; } = null!;
 
-    [RegularExpression("^\\d{1,2}$", ErrorMessage = "Country code should have one or two digit.")]
+    [RegularExpression("^[1-9]{1}\\d?", ErrorMessage = "Country code should have one or two digit.")]
     public int CountryCode { get; set; }
 
 }

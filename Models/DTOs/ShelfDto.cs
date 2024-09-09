@@ -22,6 +22,4 @@ public class ShelfDto
     public int CurrentQuant { get; set; }
 
     public int? ProductsProductId { get; set; }
-
-    public virtual Product? ProductsProduct { get; set; }
 }

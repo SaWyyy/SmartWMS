@@ -24,7 +24,7 @@ public class CountryRepository : ICountryRepository
         if (result > 0)
             return country;
 
-        throw new Exception("Error has occured while adding country");
+        throw new SmartWMSExceptionHandler("Error has occured while adding country");
     }
 
     public async Task<IEnumerable<CountryDto>> GetAll()
@@ -40,7 +40,7 @@ public class CountryRepository : ICountryRepository
         var country = await _dbContext.Countries.FirstOrDefaultAsync(r => r.CountryId == id);
 
         if (country is null)
-            throw new Exception("Country with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("Country with specified id hasn't been found");
 
         var result = _mapper.Map<CountryDto>(country);
         return result; 
@@ -51,7 +51,7 @@ public class CountryRepository : ICountryRepository
         var country = await _dbContext.Countries.FirstOrDefaultAsync(r => r.CountryId == id);
 
         if (country is null)
-            throw new Exception("Country with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("Country with specified id hasn't been found");
         
         _dbContext.Countries.Remove(country);
         var result = await _dbContext.SaveChangesAsync();
@@ -59,7 +59,7 @@ public class CountryRepository : ICountryRepository
         if (result > 0)
             return country;
 
-        throw new Exception("Error has occured while saving changes to database");
+        throw new SmartWMSExceptionHandler("Error has occured while saving changes to country table");
     }
 
     public async Task<Country> Update(int id, CountryDto dto)
@@ -67,7 +67,7 @@ public class CountryRepository : ICountryRepository
         var country = await _dbContext.Countries.FirstOrDefaultAsync(r => r.CountryId == id);
 
         if (country is null)
-            throw new Exception("Country with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("Country with specified id hasn't been found");
 
         country.CountryCode = dto.CountryCode;
         country.CountryName = dto.CountryName;
@@ -77,7 +77,7 @@ public class CountryRepository : ICountryRepository
         if (result > 0)
             return country;
 
-        throw new Exception("Error has occured while saving changes to database");
+        throw new SmartWMSExceptionHandler("Error has occured while saving changes to country table");
     }
     
 }

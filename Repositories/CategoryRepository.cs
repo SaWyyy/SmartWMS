@@ -24,14 +24,14 @@ public class CategoryRepository: ICategoryRepository
         if (result > 0)
             return category;
         
-        throw new Exception("Error has occured while saving changes");
+        throw new SmartWMSExceptionHandler("Error has occured while saving changes to category table");
     }
 
     public async Task<CategoryDto> GetCategory(int id)
     {
         var category = await _dbContext.Categories.FirstOrDefaultAsync(r => r.CategoryId == id);
         if (category is null)
-            throw new Exception("Category with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("Category with specified id hasn't been found");
         
         var result = _mapper.Map<CategoryDto>(category);
         return result;
@@ -49,7 +49,7 @@ public class CategoryRepository: ICategoryRepository
         var category = await _dbContext.Categories.FirstOrDefaultAsync(r => r.CategoryId == id);
         
         if (category is null)
-            throw new Exception("Category with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("Category with specified id hasn't been found");
         
         _dbContext.Categories.Remove(category);
         var result = await _dbContext.SaveChangesAsync();
@@ -57,7 +57,7 @@ public class CategoryRepository: ICategoryRepository
         if (result > 0)
             return category;
 
-        throw new Exception("Error has occured while saving changes to database");
+        throw new SmartWMSExceptionHandler("Error has occured while saving changes to category table");
     }
 
     public async Task<Category> Update(int id, CategoryDto dto)
@@ -65,7 +65,7 @@ public class CategoryRepository: ICategoryRepository
         var category = await _dbContext.Categories.FirstOrDefaultAsync(r => r.CategoryId == id);
 
         if (category is null)
-            throw new Exception("Category with specified id hasn't been found");
+            throw new SmartWMSExceptionHandler("Category with specified id hasn't been found");
 
         category.CategoryName = dto.CategoryName;
         var result = await _dbContext.SaveChangesAsync();
@@ -73,6 +73,6 @@ public class CategoryRepository: ICategoryRepository
         if (result > 0)
             return _mapper.Map<Category>(category);
 
-        throw new Exception("Error has occured while saving changes to database");
+        throw new SmartWMSExceptionHandler("Error has occured while saving changes to category table");
     }
 }
