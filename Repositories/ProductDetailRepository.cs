@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SmartWMS.Entities;
 using SmartWMS.Models;
+using SmartWMS.Models.DTOs;
+using SmartWMS.Repositories.Interfaces;
 
 namespace SmartWMS.Repositories;
 

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartWMS.Models;
 using SmartWMS.Repositories;
+using SmartWMS.Repositories.Interfaces;
 using Task = System.Threading.Tasks.Task;
 
 namespace SmartWMS.Controllers;

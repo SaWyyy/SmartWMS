@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SmartWMS.Entities.Enums;
 using SmartWMS.Models;
-using SmartWMS.Models.Enums;
+using SmartWMS.Models.DTOs;
 using SmartWMS.Repositories;
-using Task = SmartWMS.Models.Task;
+using SmartWMS.Repositories.Interfaces;
+using Task = SmartWMS.Entities.Task;
 
 namespace SmartWMS.Controllers;
 

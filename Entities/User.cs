@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using SmartWMS.Models;
 
-namespace SmartWMS.Models;
+namespace SmartWMS.Entities;
 
 public partial class User : IdentityUser
 {

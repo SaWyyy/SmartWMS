@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SmartWMS.Models;
 
-namespace SmartWMS.Models;
+namespace SmartWMS.Entities;
 
 public partial class Product
 {

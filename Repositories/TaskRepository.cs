@@ -3,9 +3,12 @@ using System.Security.Claims;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using NLog.LayoutRenderers.Wrappers;
+using SmartWMS.Entities;
+using SmartWMS.Entities.Enums;
 using SmartWMS.Models;
-using SmartWMS.Models.Enums;
-using Task = SmartWMS.Models.Task;
+using SmartWMS.Models.DTOs;
+using SmartWMS.Repositories.Interfaces;
+using Task = SmartWMS.Entities.Task;
 
 namespace SmartWMS.Repositories;
 

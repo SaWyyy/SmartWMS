@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace SmartWMS.Models;
+﻿namespace SmartWMS.Entities;
 
 public partial class Waybill
 {

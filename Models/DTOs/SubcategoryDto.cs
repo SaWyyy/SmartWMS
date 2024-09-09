@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SmartWMS.Models;
+namespace SmartWMS.Models.DTOs;
 
 public class SubcategoryDto
 {

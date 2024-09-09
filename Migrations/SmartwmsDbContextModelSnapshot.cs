@@ -4,8 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using SmartWMS.Entities;
+using SmartWMS.Entities.Enums;
 using SmartWMS.Models;
-using SmartWMS.Models.Enums;
 
 #nullable disable
 

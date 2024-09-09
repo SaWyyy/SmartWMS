@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using SmartWMS.Models;
 
-namespace SmartWMS.Repositories;
+namespace SmartWMS.Repositories.Interfaces;
 
 public interface IUserRepository
 {

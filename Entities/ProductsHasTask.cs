@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Task = SmartWMS.Entities.Task;
 
-namespace SmartWMS.Models;
+namespace SmartWMS.Entities;
 
 public partial class ProductsHasTask
 {

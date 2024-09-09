@@ -1,6 +1,7 @@
-﻿using SmartWMS.Models;
+﻿using SmartWMS.Entities;
+using SmartWMS.Models.DTOs;
 
-namespace SmartWMS.Repositories;
+namespace SmartWMS.Repositories.Interfaces;
 
 public interface ICategoryRepository
 {

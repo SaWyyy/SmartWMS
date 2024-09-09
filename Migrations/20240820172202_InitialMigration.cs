@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using SmartWMS.Models.Enums;
+using SmartWMS.Entities.Enums;
 
 #nullable disable
 

@@ -1,4 +1,4 @@
-namespace SmartWMS.Models.Enums;
+namespace SmartWMS.Entities.Enums;
 
 public enum ReportPeriod
 {

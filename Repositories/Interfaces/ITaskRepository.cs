@@ -1,9 +1,9 @@
-using SmartWMS.Models;
-using SmartWMS.Models.Enums;
-using Task = SmartWMS.Models.Task;
+using SmartWMS.Entities.Enums;
+using SmartWMS.Models.DTOs;
+using Task = SmartWMS.Entities.Task;
 
 
-namespace SmartWMS.Repositories;
+namespace SmartWMS.Repositories.Interfaces;
 
 public interface ITaskRepository
 {

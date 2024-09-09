@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using SmartWMS.Models;
+using SmartWMS.Models.DTOs;
 using SmartWMS.Repositories;
+using SmartWMS.Repositories.Interfaces;
 using Task = System.Threading.Tasks.Task;
 
 namespace SmartWMS.Controllers;

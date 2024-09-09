@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Npgsql;
-using SmartWMS.Models.Enums;
+using SmartWMS.Entities.Enums;
+using SmartWMS.Models;
+using Task = SmartWMS.Entities.Task;
 
-namespace SmartWMS.Models;
+namespace SmartWMS.Entities;
 
 public partial class SmartwmsDbContext : IdentityDbContext<User>
 {

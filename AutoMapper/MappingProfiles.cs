@@ -1,7 +1,9 @@
 using AutoMapper;
 using SmartWMS.Controllers;
+using SmartWMS.Entities;
 using SmartWMS.Models;
-using Task = SmartWMS.Models.Task;
+using SmartWMS.Models.DTOs;
+using Task = SmartWMS.Entities.Task;
 
 namespace SmartWMS;
 

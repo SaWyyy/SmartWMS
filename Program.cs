@@ -4,9 +4,11 @@ using Microsoft.OpenApi.Models;
 using NLog.Web;
 using NLog;
 using Npgsql;
+using SmartWMS.Entities;
+using SmartWMS.Entities.Enums;
 using SmartWMS.Models;
-using SmartWMS.Models.Enums;
 using SmartWMS.Repositories;
+using SmartWMS.Repositories.Interfaces;
 using Swashbuckle.AspNetCore.Filters;
 
   //====================================================================================================//

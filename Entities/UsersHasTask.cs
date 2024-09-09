@@ -1,6 +1,6 @@
-using SmartWMS.Models.Enums;
+using SmartWMS.Entities.Enums;
 
-namespace SmartWMS.Models;
+namespace SmartWMS.Entities;
 
 public partial class UsersHasTask
 {

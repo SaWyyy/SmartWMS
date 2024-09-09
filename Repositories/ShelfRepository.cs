@@ -1,7 +1,10 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using SmartWMS.Entities;
 using SmartWMS.Models;
+using SmartWMS.Models.DTOs;
+using SmartWMS.Repositories.Interfaces;
 using Task = System.Threading.Tasks.Task;
 
 namespace SmartWMS.Repositories;

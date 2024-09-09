@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartWMS.Models;
+using SmartWMS.Models.DTOs;
 using SmartWMS.Repositories;
+using SmartWMS.Repositories.Interfaces;
 
 namespace SmartWMS.Controllers;
 

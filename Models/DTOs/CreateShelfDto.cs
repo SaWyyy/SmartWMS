@@ -1,7 +1,8 @@
 using System.ComponentModel.DataAnnotations;
-using SmartWMS.Models.Enums;
+using SmartWMS.Entities;
+using SmartWMS.Entities.Enums;
 
-namespace SmartWMS.Models;
+namespace SmartWMS.Models.DTOs;
 
 public class CreateShelfDto
 {
