@@ -93,4 +93,21 @@ public class AlertController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+
+    [HttpPut("seen/{id}")]
+    public async Task<IActionResult> ChangeSeen(int id)
+    {
+        try
+        {
+            var result = await _repository.ChangeSeen(id);
+
+            _logger.LogInformation("Alert seen");
+            return Ok(result);
+        }
+        catch(SmartWMSExceptionHandler e)
+        {
+            _logger.LogError(e.Message);
+            return BadRequest(e.Message);
+        }
+    }
 }

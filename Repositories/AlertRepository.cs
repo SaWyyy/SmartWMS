@@ -92,4 +92,21 @@ public class AlertRepository : IAlertRepository
 
         throw new SmartWMSExceptionHandler("Error has occured while saving changes to alerts table");
     }
+
+    public async Task<Alert> ChangeSeen(int id)
+    {
+        var result = await _dbContext.Alerts.FirstOrDefaultAsync(x => x.AlertId == id);
+
+        if (result is null)
+            throw new SmartWMSExceptionHandler("Alert hasn't been found");
+
+        result.Seen = true;
+
+        var result2 = await _dbContext.SaveChangesAsync();
+
+        if (result2 > 0)
+            return result;
+
+        throw new SmartWMSExceptionHandler("Error has occured while saving changes to alerts table");
+    }
 }

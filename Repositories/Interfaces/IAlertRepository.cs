@@ -9,4 +9,5 @@ public interface IAlertRepository
     Task<AlertDto> Get(int id);
     Task<Alert> Update(int id, AlertDto dto);
     Task<Alert> Delete(int id);
+    Task<Alert> ChangeSeen(int id);
 }
