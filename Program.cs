@@ -66,6 +66,7 @@ try
     builder.Services.AddTransient<IProductDetailRepository, ProductDetailRepository>();
     builder.Services.AddTransient<IAlertRepository, AlertRepository>();
     builder.Services.AddTransient<IProductRepository, ProductRepository>();
+    builder.Services.AddTransient<IOrderDetailRepository, OrderDetailRepository>();
     //====================================================================================================//
     
     
