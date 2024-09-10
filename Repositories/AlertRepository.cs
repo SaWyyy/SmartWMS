@@ -33,7 +33,7 @@ public class AlertRepository : IAlertRepository
             WarehousesWarehouseId = 1
         };
 
-        _dbContext.Alerts.Add(alert);
+        await _dbContext.Alerts.AddAsync(alert);
 
         var result = await _dbContext.SaveChangesAsync();
 

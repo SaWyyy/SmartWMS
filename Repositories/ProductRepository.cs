@@ -48,7 +48,7 @@ public class ProductRepository : IProductRepository
             SubcategoriesSubcategoryId = dto.SubcategoriesSubcategoryId
         };
 
-        _dbContext.Products.Add(product);
+        await _dbContext.Products.AddAsync(product);
 
         var result = await _dbContext.SaveChangesAsync();
 
