@@ -16,10 +16,13 @@ public class TaskDto
 
     [Range(0, int.MaxValue, ErrorMessage = "Must be integer value grater than 0")]
     public int OrderDetailsOrderDetailId { get; set; }
+    
     [DefaultValue(false)]
     public bool? Seen { get; set; }
     
+    [Range(0, int.MaxValue)]
     public int QuantityCollected { get; set; }
     
+    [Range(0, int.MaxValue)]
     public int QuantityAllocated { get; set; }
 }
