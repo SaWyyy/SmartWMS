@@ -15,7 +15,11 @@ public class TaskDto
     public int Priority { get; set; }
 
     [Range(0, int.MaxValue, ErrorMessage = "Must be integer value grater than 0")]
-    public int OrderHeadersOrdersHeaderId { get; set; }
+    public int OrderDetailsOrderDetailId { get; set; }
     [DefaultValue(false)]
     public bool? Seen { get; set; }
+    
+    public int QuantityCollected { get; set; }
+    
+    public int QuantityAllocated { get; set; }
 }

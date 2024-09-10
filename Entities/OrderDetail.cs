@@ -15,4 +15,6 @@ public partial class OrderDetail
     public virtual OrderHeader OrderHeadersOrdersHeader { get; set; } = null!;
 
     public virtual Product ProductsProduct { get; set; } = null!;
+
+    public virtual Task? TasksTask { get; set; } = null!;
 }

@@ -20,7 +20,7 @@ public partial class OrderHeader
 
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 
-    public virtual ICollection<Task> Tasks { get; set; } = new List<Task>();
+    //public virtual ICollection<Task> Tasks { get; set; } = new List<Task>();
 
     public virtual Waybill WaybillsWaybill { get; set; } = null!;
 }

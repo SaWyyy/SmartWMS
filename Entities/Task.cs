@@ -12,13 +12,15 @@ public partial class Task
 
     public int Priority { get; set; }
 
-    public int OrderHeadersOrdersHeaderId { get; set; }
-
     public bool? Seen { get; set; }
+    
+    public int QuantityCollected { get; set; }
+    
+    public int QuantityAllocated { get; set; }
+    
+    public int OrderDetailsOrderDetailId { get; set; }
 
-    public virtual OrderHeader OrderHeadersOrdersHeader { get; set; } = null!;
-
-    public virtual ICollection<ProductsHasTask> ProductsHasTasks { get; set; } = new List<ProductsHasTask>();
+    public virtual OrderDetail OrderDetailsOrderDetail { get; set; } = null!;
 
     public virtual ICollection<UsersHasTask> UsersHasTasks { get; set; } = new List<UsersHasTask>();
 }

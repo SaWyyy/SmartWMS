@@ -7,6 +7,7 @@ public class ProductDto
     public string? ProductDescription { get; set; }
 
     public string Price { get; set; } = null!;
+    
     public int ProductDetailsProductDetailId { get; set; }
 
     public int SubcategoriesSubcategoryId { get; set; }

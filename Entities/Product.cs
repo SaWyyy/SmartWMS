@@ -22,7 +22,7 @@ public partial class Product
 
     public virtual ProductDetail ProductDetailsProductDetail { get; set; } = null!;
 
-    public virtual ICollection<ProductsHasTask> ProductsHasTasks { get; set; } = new List<ProductsHasTask>();
+    //public virtual ICollection<ProductsHasTask> ProductsHasTasks { get; set; } = new List<ProductsHasTask>();
 
     public virtual ICollection<Shelf> Shelves { get; set; } = new List<Shelf>();
 

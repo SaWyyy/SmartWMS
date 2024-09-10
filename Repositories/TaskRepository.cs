@@ -27,11 +27,12 @@ public class TaskRepository : ITaskRepository
     
     public async Task<Task> AddTask(TaskDto dto)
     {
-        var orderHeader =
-            await _dbContext.OrderHeaders.FirstOrDefaultAsync(x => x.OrdersHeaderId == dto.OrderHeadersOrdersHeaderId);
+        var orderDetail =
+            await _dbContext.OrderDetails.FirstOrDefaultAsync(x => 
+                x.OrderDetailId == dto.OrderDetailsOrderDetailId);
 
-        if (orderHeader is null)
-            throw new SmartWMSExceptionHandler("OrderHeader with specified id hasn't been found");
+        if (orderDetail is null)
+            throw new SmartWMSExceptionHandler("OrderDetail with specified id hasn't been found");
         
         var user = _accessor.HttpContext?.User;
         var userId = user?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -147,6 +148,8 @@ public class TaskRepository : ITaskRepository
         task.Seen = dto.Seen;
         task.FinishDate = dto.FinishDate;
         task.StartDate = dto.StartDate;
+        task.QuantityAllocated = dto.QuantityAllocated;
+        task.QuantityCollected = dto.QuantityCollected;
 
         var result = await _dbContext.SaveChangesAsync();
 

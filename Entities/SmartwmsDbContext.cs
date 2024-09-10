@@ -27,7 +27,7 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
 
     public virtual DbSet<ProductDetail> ProductDetails { get; set; }
 
-    public virtual DbSet<ProductsHasTask> ProductsHasTasks { get; set; }
+    //public virtual DbSet<ProductsHasTask> ProductsHasTasks { get; set; }
     
     public virtual DbSet<UsersHasTask> UsersHasTasks { get; set; }
 
@@ -138,6 +138,11 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
                 .HasForeignKey(d => d.ProductsProductId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_order_details_products1");
+
+            entity.HasOne<Task>(d => d.TasksTask).WithOne(p => p.OrderDetailsOrderDetail)
+                .HasForeignKey<Task>(d => d.OrderDetailsOrderDetailId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("fk_order_details_tasks1");
         });
 
         modelBuilder.Entity<OrderHeader>(entity =>
@@ -221,7 +226,7 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_products_product_details1");
         });
-
+        /*
         modelBuilder.Entity<ProductsHasTask>(entity =>
         {
             entity.HasKey(e => new { e.ProductsProductId, e.TasksTaskId }).HasName("products_has_tasks_pkey");
@@ -245,6 +250,7 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_products_has_tasks_tasks1");
         });
+        */
 
         modelBuilder.Entity<UsersHasTask>(entity =>
         {
@@ -355,17 +361,21 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
             entity.Property(e => e.FinishDate)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("finish_date");
-            entity.Property(e => e.OrderHeadersOrdersHeaderId).HasColumnName("order_headers_orders_header_id");
+            //entity.Property(e => e.OrderHeadersOrdersHeaderId).HasColumnName("order_headers_orders_header_id");
             entity.Property(e => e.Priority).HasColumnName("priority");
             entity.Property(e => e.Seen).HasColumnName("seen");
             entity.Property(e => e.StartDate)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("start_date");
-
+            entity.Property(e => e.QuantityCollected).HasColumnName("quantity_collected");
+            entity.Property(e => e.QuantityAllocated).HasColumnName("quantity_allocated");
+            entity.Property(e => e.OrderDetailsOrderDetailId).HasColumnName("orderDetails_orderDetail_id");
+            /*
             entity.HasOne(d => d.OrderHeadersOrdersHeader).WithMany(p => p.Tasks)
                 .HasForeignKey(d => d.OrderHeadersOrdersHeaderId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_tasks_order_headers1");
+                */
         });
 
         modelBuilder.Entity<User>(entity =>
