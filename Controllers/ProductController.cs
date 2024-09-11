@@ -67,7 +67,7 @@ public class ProductController : ControllerBase
             var result = await _repository.Delete(id);
 
             _logger.LogInformation("Product deleted");
-            return Ok(result);
+            return Ok($"Product with id: {result.ProductId} has been deleted");
         }
         catch (SmartWMSExceptionHandler e)
         {
@@ -84,7 +84,7 @@ public class ProductController : ControllerBase
             var result = await _repository.Update(id, dto);
 
             _logger.LogInformation("Product updated");
-            return Ok(result);
+            return Ok($"Product with id: {result.ProductId} has been updated");
         }
         catch (SmartWMSExceptionHandler e)
         {

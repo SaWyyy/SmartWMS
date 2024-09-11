@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SmartWMS.Entities;
@@ -12,9 +13,11 @@ using SmartWMS.Entities.Enums;
 namespace SmartWMS.Migrations
 {
     [DbContext(typeof(SmartwmsDbContext))]
-    partial class SmartwmsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240911102820_change_price_type_in_product")]
+    partial class change_price_type_in_product
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -324,12 +327,6 @@ namespace SmartWMS.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ProductId"));
 
-                    b.Property<string>("Barcode")
-                        .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("character varying(8)")
-                        .HasColumnName("barcode");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("money")
                         .HasColumnName("price");
@@ -339,15 +336,15 @@ namespace SmartWMS.Migrations
                         .HasColumnType("character varying(45)")
                         .HasColumnName("product_description");
 
+                    b.Property<int>("ProductDetailsProductDetailId")
+                        .HasColumnType("integer")
+                        .HasColumnName("product_details_product_detail_id");
+
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasMaxLength(45)
                         .HasColumnType("character varying(45)")
                         .HasColumnName("product_name");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer")
-                        .HasColumnName("quantity");
 
                     b.Property<int>("SubcategoriesSubcategoryId")
                         .HasColumnType("integer")
@@ -360,11 +357,39 @@ namespace SmartWMS.Migrations
                     b.HasKey("ProductId")
                         .HasName("idprodukty_unique");
 
+                    b.HasIndex("ProductDetailsProductDetailId")
+                        .IsUnique();
+
                     b.HasIndex("SubcategoriesSubcategoryId");
 
                     b.HasIndex("WarehousesWarehouseId");
 
                     b.ToTable("products", (string)null);
+                });
+
+            modelBuilder.Entity("SmartWMS.Entities.ProductDetail", b =>
+                {
+                    b.Property<int>("ProductDetailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("product_detail_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ProductDetailId"));
+
+                    b.Property<string>("Barcode")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("character varying(8)")
+                        .HasColumnName("barcode");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer")
+                        .HasColumnName("quantity");
+
+                    b.HasKey("ProductDetailId")
+                        .HasName("warehouse_state_id_unique");
+
+                    b.ToTable("product_details", (string)null);
                 });
 
             modelBuilder.Entity("SmartWMS.Entities.Report", b =>
@@ -515,7 +540,8 @@ namespace SmartWMS.Migrations
                     b.HasKey("TaskId")
                         .HasName("task_id_unique");
 
-                    b.HasIndex("OrderDetailsOrderDetailId");
+                    b.HasIndex("OrderDetailsOrderDetailId")
+                        .IsUnique();
 
                     b.ToTable("tasks", (string)null);
                 });
@@ -769,6 +795,12 @@ namespace SmartWMS.Migrations
 
             modelBuilder.Entity("SmartWMS.Entities.Product", b =>
                 {
+                    b.HasOne("SmartWMS.Entities.ProductDetail", "ProductDetailsProductDetail")
+                        .WithOne("ProductsProduct")
+                        .HasForeignKey("SmartWMS.Entities.Product", "ProductDetailsProductDetailId")
+                        .IsRequired()
+                        .HasConstraintName("fk_products_product_details1");
+
                     b.HasOne("SmartWMS.Entities.Subcategory", "SubcategoriesSubcategory")
                         .WithMany("Products")
                         .HasForeignKey("SubcategoriesSubcategoryId")
@@ -780,6 +812,8 @@ namespace SmartWMS.Migrations
                         .HasForeignKey("WarehousesWarehouseId")
                         .IsRequired()
                         .HasConstraintName("fk_products_warehouses1");
+
+                    b.Navigation("ProductDetailsProductDetail");
 
                     b.Navigation("SubcategoriesSubcategory");
 
@@ -821,8 +855,8 @@ namespace SmartWMS.Migrations
             modelBuilder.Entity("SmartWMS.Entities.Task", b =>
                 {
                     b.HasOne("SmartWMS.Entities.OrderDetail", "OrderDetailsOrderDetail")
-                        .WithMany("TasksTask")
-                        .HasForeignKey("OrderDetailsOrderDetailId")
+                        .WithOne("TasksTask")
+                        .HasForeignKey("SmartWMS.Entities.Task", "OrderDetailsOrderDetailId")
                         .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired()
                         .HasConstraintName("fk_order_details_tasks1");
@@ -914,6 +948,12 @@ namespace SmartWMS.Migrations
                     b.Navigation("OrderDetails");
 
                     b.Navigation("Shelves");
+                });
+
+            modelBuilder.Entity("SmartWMS.Entities.ProductDetail", b =>
+                {
+                    b.Navigation("ProductsProduct")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SmartWMS.Entities.Subcategory", b =>

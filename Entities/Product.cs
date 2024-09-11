@@ -10,17 +10,21 @@ public partial class Product
 
     public string? ProductDescription { get; set; }
 
-    public string Price { get; set; } = null!;
+    public decimal Price { get; set; }
 
     public int WarehousesWarehouseId { get; set; }
+    
+    public int Quantity { get; set; }
+    
+    public string Barcode { get; set; }
 
-    public int ProductDetailsProductDetailId { get; set; }
+    //public int ProductDetailsProductDetailId { get; set; }
 
     public int SubcategoriesSubcategoryId { get; set; }
 
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 
-    public virtual ProductDetail ProductDetailsProductDetail { get; set; } = null!;
+    //public virtual ProductDetail ProductDetailsProductDetail { get; set; } = null!;
 
     //public virtual ICollection<ProductsHasTask> ProductsHasTasks { get; set; } = new List<ProductsHasTask>();
 

@@ -24,13 +24,6 @@ public class ProductRepository : IProductRepository
         if (warehouse is null)
             throw new SmartWMSExceptionHandler("Warehouse hasn't been found");
 
-        var productDetail =
-            await _dbContext.ProductDetails.FirstOrDefaultAsync(x =>
-                x.ProductDetailId == dto.ProductDetailsProductDetailId);
-
-        if (productDetail is null)
-            throw new SmartWMSExceptionHandler("Product detail hasn't been found");
-
         var subcategory =
             await _dbContext.Subcategories.FirstOrDefaultAsync(x => 
                 x.SubcategoryId == dto.SubcategoriesSubcategoryId);
@@ -44,7 +37,8 @@ public class ProductRepository : IProductRepository
             ProductDescription = dto.ProductDescription,
             Price = dto.Price,
             WarehousesWarehouseId = 1,
-            ProductDetailsProductDetailId = dto.ProductDetailsProductDetailId,
+            Quantity = dto.Quantity,
+            Barcode = dto.Barcode,
             SubcategoriesSubcategoryId = dto.SubcategoriesSubcategoryId
         };
 
@@ -91,6 +85,8 @@ public class ProductRepository : IProductRepository
         result.ProductName = dto.ProductName;
         result.ProductDescription = dto.ProductDescription;
         result.Price = dto.Price;
+        result.Quantity = dto.Quantity;
+        result.Barcode = dto.Barcode;
         result.SubcategoriesSubcategoryId = dto.SubcategoriesSubcategoryId;
 
         var result2 = await _dbContext.SaveChangesAsync();
@@ -113,17 +109,6 @@ public class ProductRepository : IProductRepository
         var result = await _dbContext.SaveChangesAsync();
 
         if (result <= 0)
-            throw new SmartWMSExceptionHandler("Error has occured while saving changes to products table");
-
-        var productDetail =
-            await _dbContext.ProductDetails.FirstOrDefaultAsync(x =>
-                x.ProductDetailId == product.ProductDetailsProductDetailId);
-        
-        _dbContext.ProductDetails.Remove(productDetail!);
-
-        var result2 = await _dbContext.SaveChangesAsync();
-
-        if (result2 <= 0)
             throw new SmartWMSExceptionHandler("Error has occured while saving changes to products table");
 
         return product;

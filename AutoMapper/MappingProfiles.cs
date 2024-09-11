@@ -19,7 +19,6 @@ public class MappingProfiles : Profile
         CreateMap<Task, TaskDto>().ReverseMap();
         CreateMap<Category, CategoryDto>().ReverseMap();
         CreateMap<Subcategory, SubcategoryDto>().ReverseMap();
-        CreateMap<ProductDetail, ProductDetailDto>().ReverseMap();
         CreateMap<Alert, AlertDto>().ReverseMap();
         CreateMap<OrderDetail, OrderDetailDto>().ReverseMap();
     }
