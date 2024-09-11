@@ -22,5 +22,6 @@ public class MappingProfiles : Profile
         CreateMap<Alert, AlertDto>().ReverseMap();
         CreateMap<OrderDetail, OrderDetailDto>().ReverseMap();
         CreateMap<User, UserDto>().ReverseMap();
+        CreateMap<Report, ReportDto>().ReverseMap();
     }
 }
