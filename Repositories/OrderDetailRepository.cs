@@ -33,6 +33,10 @@ public class OrderDetailRepository : IOrderDetailRepository
         if (product is null)
             throw new SmartWMSExceptionHandler("Product hasn't been found");
 
+        if (product.Quantity < dto.Quantity)
+            throw new SmartWMSExceptionHandler(
+                "Not sufficient amount of product in the warehouse. Cannot create order detail");
+
         var orderDetail = _mapper.Map<OrderDetail>(dto);
 
         await _dbContext.OrderDetails.AddAsync(orderDetail);

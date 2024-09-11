@@ -33,6 +33,13 @@ public class TaskRepository : ITaskRepository
 
         if (orderDetail is null)
             throw new SmartWMSExceptionHandler("OrderDetail with specified id hasn't been found");
+
+        var tasks = await _dbContext.Tasks.Where(e => e.OrderDetailsOrderDetailId == orderDetail.OrderDetailId).ToListAsync();
+
+        var summedQuantity = tasks.Sum(e => e.QuantityAllocated);
+
+        if (summedQuantity >= orderDetail.Quantity || summedQuantity+dto.QuantityAllocated > orderDetail.Quantity)
+            throw new SmartWMSExceptionHandler("Cannot assign new task to specified order detail");
         
         var user = _accessor.HttpContext?.User;
         var userId = user?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
