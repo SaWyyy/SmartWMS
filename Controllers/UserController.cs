@@ -52,4 +52,22 @@ public class UserController : ControllerBase
         _logger.LogInformation($"{model.UserName} has been registered.");
         return Ok("Registration successful");
     }
+
+    [HttpGet("getUsers")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> GetUsers(string roleName)
+    {
+        try
+        {
+            var result = await _userRepository.GetUsers(roleName);
+            
+            _logger.LogInformation("Fetching users with specified role");
+            return Ok(result);
+        }
+        catch(SmartWMSExceptionHandler e)
+        {
+            _logger.LogError(e.Message);
+            return NotFound(e.Message);
+        }
+    }
 }

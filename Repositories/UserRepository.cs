@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -5,21 +6,31 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using SmartWMS.Entities;
 using SmartWMS.Models;
+using SmartWMS.Models.DTOs;
 using SmartWMS.Repositories.Interfaces;
 
 namespace SmartWMS.Repositories;
 
 public class UserRepository : IUserRepository
 {
+    private readonly RoleManager<IdentityRole> _roleManager;
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
     private readonly SmartwmsDbContext _dbContext;
+    private readonly IMapper _mapper;
 
-    public UserRepository(UserManager<User> userManager, SignInManager<User> signInManager, SmartwmsDbContext dbContext)
+    public UserRepository(
+        UserManager<User> userManager, 
+        SignInManager<User> signInManager, 
+        RoleManager<IdentityRole> roleManager, 
+        IMapper mapper, 
+        SmartwmsDbContext dbContext)
     {
         this._userManager = userManager;
         this._signInManager = signInManager;
         this._dbContext = dbContext;
+        this._roleManager = roleManager;
+        this._mapper = mapper;
     }
     
     public async Task<IdentityResult> RegisterManager(Registration model)
@@ -71,5 +82,20 @@ public class UserRepository : IUserRepository
         }
 
         return IdentityResult.Failed(new IdentityError{Description = "Registration failed"});
+    }
+
+    public async Task<IEnumerable<UserDto>> GetUsers(string roleName)
+    {
+        var managerRole = await _roleManager.FindByNameAsync(roleName);
+
+        if (managerRole is null)
+            throw new SmartWMSExceptionHandler("No users with provided role name in the system");
+
+        var users = await _dbContext.Users
+            .Where(user => _dbContext.UserRoles
+                .Any(ur => ur.UserId == user.Id && ur.RoleId == managerRole.Id))
+            .ToListAsync();
+        
+        return _mapper.Map<List<UserDto>>(users);
     }
 }
