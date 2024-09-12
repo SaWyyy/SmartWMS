@@ -53,9 +53,9 @@ public class UserController : ControllerBase
         return Ok("Registration successful");
     }
 
-    [HttpGet("getUsers")]
+    [HttpGet("getUsersByRole")]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> GetUsers(string roleName)
+    public async Task<IActionResult> GetUsersByRole(string roleName)
     {
         try
         {
@@ -68,6 +68,24 @@ public class UserController : ControllerBase
         {
             _logger.LogError(e.Message);
             return NotFound(e.Message);
+        }
+    }
+
+    [HttpGet("getAuthorizedUser")]
+    [Authorize]
+    public async Task<IActionResult> GetUser()
+    {
+        try
+        {
+            var result = await _userRepository.GetUser();
+
+            _logger.LogInformation("Fetching authorized user");
+            return Ok(result);
+        }
+        catch (SmartWMSExceptionHandler e)
+        {
+            _logger.LogError(e.Message);
+            return BadRequest(e.Message);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
@@ -17,20 +18,21 @@ public class UserRepository : IUserRepository
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
     private readonly SmartwmsDbContext _dbContext;
-    private readonly IMapper _mapper;
+    private readonly IHttpContextAccessor _accessor;
 
     public UserRepository(
         UserManager<User> userManager, 
         SignInManager<User> signInManager, 
         RoleManager<IdentityRole> roleManager, 
-        IMapper mapper, 
-        SmartwmsDbContext dbContext)
+        SmartwmsDbContext dbContext,
+        IHttpContextAccessor accessor
+        )
     {
         this._userManager = userManager;
         this._signInManager = signInManager;
         this._dbContext = dbContext;
         this._roleManager = roleManager;
-        this._mapper = mapper;
+        this._accessor = accessor;
     }
     
     public async Task<IdentityResult> RegisterManager(Registration model)
@@ -95,7 +97,49 @@ public class UserRepository : IUserRepository
             .Where(user => _dbContext.UserRoles
                 .Any(ur => ur.UserId == user.Id && ur.RoleId == managerRole.Id))
             .ToListAsync();
+
+        var usersDto = new List<UserDto>();
         
-        return _mapper.Map<List<UserDto>>(users);
+        foreach (var user in users)
+        {
+            var singleUser = new UserDto
+            {
+                Id = user.Id,
+                Email = user.Email,
+                UserName = user.UserName,
+                ManagerId = user.ManagerId,
+                Role = roleName
+            };
+            
+            usersDto.Add(singleUser);
+        }
+
+        return usersDto;
+    }
+
+    public async Task<UserDto> GetUser()
+    {
+        var user = _accessor.HttpContext?.User;
+
+        if (user is null)
+            throw new SmartWMSExceptionHandler("Logged user not found");
+        
+        var userId = user!.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+        var email = user!.FindFirst(ClaimTypes.Email)!.Value;
+        var userName = user!.FindFirst(ClaimTypes.Name)!.Value;
+        var role = user!.FindFirst(ClaimTypes.Role)!.Value;
+        var tempUser = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == userId);
+        var managerId = tempUser!.ManagerId;
+
+        var userDto = new UserDto
+        {
+            Id = userId,
+            Email = email,
+            UserName = userName,
+            ManagerId = managerId,
+            Role = role
+        };
+
+        return userDto;
     }
 }
