@@ -118,7 +118,14 @@ try
         {
             policy.AllowAnyMethod()
                 .AllowAnyHeader()
-                .AllowAnyOrigin();
+                //.AllowAnyOrigin()
+                .AllowCredentials()
+                .SetIsOriginAllowed(origin =>
+                {
+                    if (string.IsNullOrWhiteSpace(origin)) return false;
+                    if (origin.ToLower().StartsWith("")) return true;
+                    return false;
+                });
         });
     });
     //====================================================================================================//
