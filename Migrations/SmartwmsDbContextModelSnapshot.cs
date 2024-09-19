@@ -179,9 +179,19 @@ namespace SmartWMS.Migrations
                         .HasColumnType("alert_type")
                         .HasColumnName("alert_type");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("description");
+
                     b.Property<bool>("Seen")
                         .HasColumnType("boolean")
                         .HasColumnName("seen");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("title");
 
                     b.Property<int>("WarehousesWarehouseId")
                         .HasColumnType("integer")

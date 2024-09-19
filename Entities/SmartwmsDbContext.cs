@@ -65,6 +65,8 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("alert_date");
             entity.Property(e => e.Seen).HasColumnName("seen");
+            entity.Property(e => e.Title).HasColumnName("title");
+            entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.WarehousesWarehouseId).HasColumnName("warehouses_warehouse_id");
 
             entity.HasOne(d => d.WarehousesWarehouse).WithMany(p => p.Alerts)

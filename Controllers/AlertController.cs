@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartWMS.Models;
 using SmartWMS.Models.DTOs;
@@ -8,7 +9,7 @@ namespace SmartWMS.Controllers;
 
 [Route("/api/[controller]")]
 [ApiController]
-
+[Authorize]
 public class AlertController : ControllerBase
 {
     private readonly IAlertRepository _repository;

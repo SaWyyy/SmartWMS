@@ -28,6 +28,8 @@ public class AlertRepository : IAlertRepository
         var alert = new Alert
         {
             Seen = false,
+            Title = dto.Title,
+            Description = dto.Description,
             AlertDate = dto.AlertDate,
             AlertType = dto.AlertType,
             WarehousesWarehouseId = 1
@@ -70,6 +72,8 @@ public class AlertRepository : IAlertRepository
         result.AlertDate = dto.AlertDate;
         result.AlertType = dto.AlertType;
         result.Seen = dto.Seen;
+        result.Title = dto.Title;
+        result.Description = dto.Description;
 
         var result2 = await _dbContext.SaveChangesAsync();
 

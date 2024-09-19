@@ -8,6 +8,10 @@ public partial class Alert
     public int AlertId { get; set; }
 
     public bool Seen { get; set; }
+    
+    public string Title { get; set; }
+    
+    public string Description { get; set; }
 
     public DateTime AlertDate { get; set; }
 
