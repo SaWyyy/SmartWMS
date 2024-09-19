@@ -4,6 +4,7 @@ namespace SmartWMS.Models.DTOs;
 
 public class ProductDto
 {
+    public int? ProductId { get; set; }
     [Required]
     [MinLength(3)]
     [MaxLength(45)]

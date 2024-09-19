@@ -4,6 +4,8 @@ namespace SmartWMS.Models.DTOs;
 
 public class CountryDto
 {
+    public int? CountryId { get; set; }
+
     [Required(ErrorMessage = "Country name is required")]
     [RegularExpression("^[a-zA-Z]{2,40}$", ErrorMessage = "Country name should contain only letters and its length should range from 4 to 40")]
     public string CountryName { get; set; } = null!;

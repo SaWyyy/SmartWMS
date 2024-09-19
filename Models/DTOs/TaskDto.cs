@@ -5,6 +5,7 @@ namespace SmartWMS.Models.DTOs;
 
 public class TaskDto
 {
+    public int? TaskId { get; set; }
     [DataType(DataType.DateTime)]
     public DateTime? StartDate { get; set; }
     

@@ -4,6 +4,7 @@ namespace SmartWMS.Models.DTOs;
 
 public class WaybillDto
 {
+    public int? WaybillId { get; set; }
     [DataType(DataType.DateTime)]
     public DateTime ShippingDate { get; set; }
 

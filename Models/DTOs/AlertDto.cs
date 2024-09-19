@@ -6,6 +6,8 @@ namespace SmartWMS.Models.DTOs;
 
 public class AlertDto
 {
+    public int? AlertId { get; set; }
+    
     [DefaultValue(false)]
     public bool Seen { get; set; }
     

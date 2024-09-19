@@ -5,6 +5,8 @@ namespace SmartWMS.Models.DTOs;
 
 public class OrderHeaderDto
 {
+    public int? OrdersHeaderId { get; set; }
+
     [DataType(DataType.DateTime)]
     public DateTime OrderDate { get; set; }
     
