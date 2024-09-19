@@ -19,6 +19,7 @@ public class OrderDetailRepository : IOrderDetailRepository
     
     public async Task<OrderDetail> Add(OrderDetailDto dto)
     {
+        dto.OrderDetailId = null;
         var orderHeader =
             await _dbContext.OrderHeaders.FirstOrDefaultAsync(x => 
                 x.OrdersHeaderId == dto.OrderHeadersOrdersHeaderId);

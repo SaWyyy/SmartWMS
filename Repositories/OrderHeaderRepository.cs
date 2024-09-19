@@ -20,6 +20,7 @@ public class OrderHeaderRepository : IOrderHeaderRepository
     
     public async Task<OrderHeader> Add(OrderHeaderDto dto)
     {
+        dto.OrdersHeaderId = null;
         var order = _mapper.Map<OrderHeader>(dto);
         await _dbContext.OrderHeaders.AddAsync(order);
         var result = await _dbContext.SaveChangesAsync();

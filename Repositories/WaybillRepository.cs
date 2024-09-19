@@ -21,6 +21,7 @@ public class WaybillRepository : IWaybillRepository
 
     public async Task<Waybill> AddWaybill(WaybillDto dto)
     {
+        dto.WaybillId = null;
         var country = await _dbContext.Countries.FirstOrDefaultAsync(r => r.CountryId == dto.CountriesCountryId);
 
         if (country is null)

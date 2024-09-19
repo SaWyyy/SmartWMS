@@ -21,8 +21,9 @@ public class ShelfRepository : IShelfRepository
         this._mapper = mapper;
     }
 
-    public async Task<Shelf> AddShelf(ShelfDto dto) 
+    public async Task<Shelf> AddShelf(ShelfDto dto)
     {
+        dto.ShelfId = null;
         var shelf = _mapper.Map<Shelf>(dto); 
         
         await _dbContext.Shelves.AddAsync(shelf);

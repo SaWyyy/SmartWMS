@@ -20,6 +20,7 @@ public class CountryRepository : ICountryRepository
 
     public async Task<Country> Add(CountryDto dto)
     {
+        dto.CountryId = null;
         var country = _mapper.Map<Country>(dto);
         await _dbContext.Countries.AddAsync(country);
         var result = await _dbContext.SaveChangesAsync();

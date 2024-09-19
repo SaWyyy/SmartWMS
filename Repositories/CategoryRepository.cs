@@ -20,6 +20,7 @@ public class CategoryRepository: ICategoryRepository
 
     public async Task<Category> AddCategory(CategoryDto dto)
     {
+        dto.CategoryId = null;
         var category = _mapper.Map<Category>(dto);
         await _dbContext.Categories.AddAsync(category);
         var result = await _dbContext.SaveChangesAsync();
@@ -65,6 +66,7 @@ public class CategoryRepository: ICategoryRepository
 
     public async Task<Category> Update(int id, CategoryDto dto)
     {
+        dto.CategoryId = null;
         var category = await _dbContext.Categories.FirstOrDefaultAsync(r => r.CategoryId == id);
 
         if (category is null)

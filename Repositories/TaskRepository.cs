@@ -27,6 +27,7 @@ public class TaskRepository : ITaskRepository
     
     public async Task<Task> AddTask(TaskDto dto)
     {
+        dto.TaskId = null;
         var orderDetail =
             await _dbContext.OrderDetails.FirstOrDefaultAsync(x => 
                 x.OrderDetailId == dto.OrderDetailsOrderDetailId);

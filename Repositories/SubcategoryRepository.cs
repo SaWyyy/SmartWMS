@@ -20,6 +20,7 @@ public class SubcategoryRepository: ISubcategoryRepository
 
     public async Task<Subcategory> Add(SubcategoryDto dto)
     {
+        dto.SubcategoryId = null;
         var category = await _dbContext.Categories.FirstOrDefaultAsync(r => r.CategoryId == dto.CategoriesCategoryId);
         if (category is null)
             throw new SmartWMSExceptionHandler("Wrong category's id has been passed while creating new subcategory");
