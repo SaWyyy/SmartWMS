@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -141,5 +142,19 @@ public class UserRepository : IUserRepository
         };
 
         return userDto;
+    }
+
+    public async Task<IdentityResult> DeleteUser(string id)
+    {
+        var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
+        
+        if (user is null)
+            return IdentityResult.Failed( new IdentityError { Description = "User not found"} );
+
+        var result = await _userManager.DeleteAsync(user);
+        if (result.Succeeded)
+            return result;
+        
+        return IdentityResult.Failed( new IdentityError{ Description = "Deleting failed" } );
     }
 }

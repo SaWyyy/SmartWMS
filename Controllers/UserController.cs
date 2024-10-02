@@ -88,4 +88,20 @@ public class UserController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+
+    [HttpDelete("delete/{id}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> DeleteUser(string id)
+    {
+        var result = await _userRepository.DeleteUser(id);
+
+        if (!result.Succeeded)
+        {
+            _logger.LogError($"{result.Errors}");
+            return BadRequest(result.Errors);
+        }
+        
+        _logger.LogInformation($"Deleted user with id: {id}");
+        return Ok($"Deleted user with id: {id}");
+    }
 }

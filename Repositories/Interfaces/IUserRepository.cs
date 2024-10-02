@@ -11,4 +11,5 @@ public interface IUserRepository
     Task<IdentityResult> RegisterEmployee(Registration model);
     Task<IEnumerable<UserDto>> GetUsers(string roleName);
     Task<UserDto> GetUser();
+    Task<IdentityResult> DeleteUser(string id);
 }
