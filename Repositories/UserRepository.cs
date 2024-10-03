@@ -87,8 +87,41 @@ public class UserRepository : IUserRepository
         return IdentityResult.Failed(new IdentityError{Description = "Registration failed"});
     }
 
-    public async Task<IEnumerable<UserDto>> GetUsers(string roleName)
+    public async Task<IEnumerable<UserDto>> GetUsers(string? roleName)
     {
+        if (roleName is null)
+        {
+            var result = await _dbContext.Users
+                .Where(user => _dbContext.UserRoles
+                    .Any(ur => ur.UserId == user.Id))
+                .Select(user => new {
+                    User = user,
+                    RoleId = _dbContext.UserRoles
+                        .Where(ur => ur.UserId == user.Id)
+                        .Select(ur => ur.RoleId)
+                        .FirstOrDefault()
+                })
+                .ToListAsync();
+
+
+            var userDtos = new List<UserDto>();
+            foreach (var user in result)
+            {
+                var role = await _roleManager.FindByIdAsync(user.RoleId!);
+
+                userDtos.Add(new UserDto
+                {
+                    Id = user.User.Id,
+                    Email = user.User.Email!,
+                    UserName = user.User.UserName!,
+                    Role = role?.Name!,
+                    ManagerId = user.User.ManagerId!
+                });
+            }
+
+            return userDtos;
+        }
+        
         var managerRole = await _roleManager.FindByNameAsync(roleName);
 
         if (managerRole is null)

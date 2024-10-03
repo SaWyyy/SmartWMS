@@ -55,7 +55,7 @@ public class UserController : ControllerBase
 
     [HttpGet("getUsersByRole")]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> GetUsersByRole(string roleName)
+    public async Task<IActionResult> GetUsersByRole(string? roleName)
     {
         try
         {
