@@ -68,6 +68,10 @@ public class UserRepository : IUserRepository
         {
             return IdentityResult.Failed(new IdentityError{Description = "Warehouse is mandatory!"});
         }
+
+        var manager = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == model.ManagerId);
+        if(manager is null)
+            return IdentityResult.Failed(new IdentityError{Description = "Manager does not exist"});
         
         var user = new User()
         {
