@@ -155,9 +155,29 @@ try
         }
     }
     //====================================================================================================//
+
+      //==================================================================================================//
+     //Create warehouse//
+    //================//
+
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<SmartwmsDbContext>();
+        var warehouse = await dbContext.Warehouses.FirstOrDefaultAsync(x => x.WarehouseId == 1);
+        if (warehouse is null)
+        {
+            string address = "Nadbystrzycka 38 a";
+            var newWarehouse = new Warehouse
+            {
+                Address = address
+            };
+
+            await dbContext.AddAsync(newWarehouse);
+        }
+    }
     
-    
-    
+    //====================================================================================================//
+
       //====================================================================================================//
      //Admin user//
     //==========//
