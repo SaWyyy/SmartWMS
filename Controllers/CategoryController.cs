@@ -60,6 +60,13 @@ public class CategoryController : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet("withSubcategories")]
+    public async Task<IActionResult> GetAllWithSubcategories()
+    {
+        var result = await _categoryRepository.GetWithSubcategories();
+        return Ok(result);
+    }
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {

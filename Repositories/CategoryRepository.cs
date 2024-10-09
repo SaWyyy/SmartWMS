@@ -48,6 +48,24 @@ public class CategoryRepository: ICategoryRepository
         return categoriesDto;
     }
 
+    public async Task<IEnumerable<Category>> GetWithSubcategories()
+    {
+        var categories = await _dbContext.Categories
+            .Include(s => s.Subcategories)
+            .Select(c => new Category
+            {
+                CategoryId = c.CategoryId,
+                CategoryName = c.CategoryName,
+                Subcategories = c.Subcategories.Select(s => new Subcategory
+                {
+                    SubcategoryId = s.SubcategoryId,
+                    SubcategoryName = s.SubcategoryName
+                }).ToList()
+            }).ToListAsync();
+        
+        return categories;
+    }
+
     public async Task<Category> Delete(int id)
     {
         var category = await _dbContext.Categories.FirstOrDefaultAsync(r => r.CategoryId == id);
