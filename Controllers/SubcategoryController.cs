@@ -36,6 +36,13 @@ public class SubcategoryController : ControllerBase
         }
     }
 
+    [HttpGet("byCategory/{categoryId}")]
+    public async Task<IActionResult> GetAllByCategory(int categoryId)
+    {
+        var result = await _repository.GetAllByCategory(categoryId);
+        return Ok(result);
+    }
+
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {

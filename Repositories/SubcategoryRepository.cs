@@ -45,6 +45,15 @@ public class SubcategoryRepository: ISubcategoryRepository
         return _mapper.Map<SubcategoryDto>(result);
     }
 
+    public async Task<IEnumerable<SubcategoryDto>> GetAllByCategory(int categoryId)
+    {
+        var subcategories = await _dbContext.Subcategories
+            .Where(x => x.CategoriesCategoryId == categoryId)
+            .ToListAsync();
+
+        return _mapper.Map<IEnumerable<SubcategoryDto>>(subcategories);
+    }
+
     public async Task<IEnumerable<SubcategoryDto>> GetAll()
     {
         return _mapper.Map<IEnumerable<SubcategoryDto>>(await _dbContext.Subcategories.ToListAsync());
