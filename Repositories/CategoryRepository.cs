@@ -48,15 +48,15 @@ public class CategoryRepository: ICategoryRepository
         return categoriesDto;
     }
 
-    public async Task<IEnumerable<Category>> GetWithSubcategories()
+    public async Task<IEnumerable<CategorySubcategoriesDto>> GetWithSubcategories()
     {
         var categories = await _dbContext.Categories
             .Include(s => s.Subcategories)
-            .Select(c => new Category
+            .Select(c => new CategorySubcategoriesDto
             {
                 CategoryId = c.CategoryId,
                 CategoryName = c.CategoryName,
-                Subcategories = c.Subcategories.Select(s => new Subcategory
+                Subcategories = c.Subcategories.Select(s => new SubcategoryDto
                 {
                     SubcategoryId = s.SubcategoryId,
                     SubcategoryName = s.SubcategoryName
