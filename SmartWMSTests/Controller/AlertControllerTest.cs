@@ -1,3 +1,4 @@
+using AutoMapper;
 using FakeItEasy;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
@@ -24,8 +25,30 @@ public class AlertControllerTest
         this._alertController = new AlertController(_alertRepository, _logger);
     }
 
-    private static AlertDto CreateFakeAlertDto() => A.Fake<AlertDto>();
-    private static Alert CreateFakeAlert() => A.Fake<Alert>();
+    private static AlertDto CreateFakeAlertDto()
+    {
+        var alertDto = A.Fake<AlertDto>();
+        alertDto.AlertId = 1;
+        alertDto.Seen = false;
+        alertDto.Title = "Test alert";
+        alertDto.Description = "Test description";
+        alertDto.AlertDate = new DateTime();
+        alertDto.AlertType = AlertType.DeliveryCanceled;
+        return alertDto;
+    }
+
+    private static Alert CreateFakeAlert()
+    {
+        var alert = A.Fake<Alert>();
+        alert.AlertId = 1;
+        alert.Seen = false;
+        alert.Title = "Test alert";
+        alert.Description = "Test description";
+        alert.AlertDate = new DateTime();
+        alert.AlertType = AlertType.DeliveryCanceled;
+        return alert;
+    }
+    
 
     [Fact]
     public async void AlertController_Add_ReturnOk()
@@ -61,18 +84,14 @@ public class AlertControllerTest
     }
 
     [Theory]
+    [InlineData(0)]
     [InlineData(1)]
+    [InlineData(999)]
     public async void AlertController_Get_ReturnsOk(int id)
     {
         // Arrange
         var alertDto = CreateFakeAlertDto();
-        
-        alertDto.AlertId = 0;
-        alertDto.Seen = false;
-        alertDto.Title = "Test alert";
-        alertDto.Description = "Test description";
-        alertDto.AlertDate = new DateTime();
-        alertDto.AlertType = AlertType.DeliveryCanceled;
+        alertDto.AlertId = id;
         
         // Act
         A.CallTo(() => _alertRepository.Get(id)).Returns(alertDto);
@@ -83,49 +102,58 @@ public class AlertControllerTest
         result.Should().NotBeNull();
     }
 
-    [Fact]
-    public async void AlertController_Delete_ReturnsOk()
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    [InlineData(999)]
+    public async void AlertController_Delete_ReturnsOk(int id)
     {
         // Arrange
-        var alertId = 0;
         var alert = CreateFakeAlert();
+        alert.AlertId = id;
         
         // Act
-        A.CallTo(() => _alertRepository.Delete(alertId)).Returns(alert);
-        var result = (OkObjectResult) await _alertController.Delete(alertId);
+        A.CallTo(() => _alertRepository.Delete(id)).Returns(alert);
+        var result = (OkObjectResult) await _alertController.Delete(id);
         
         // Assert
         result.StatusCode.Should().Be(StatusCodes.Status200OK);
         result.Should().NotBeNull();
     }
 
-    [Fact]
-    public async void AlertController_Update_ReturnsOk()
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    [InlineData(999)]
+    public async void AlertController_Update_ReturnsOk(int id)
     {
         // Arrange
-        var alertId = 0;
         var alertDto = CreateFakeAlertDto();
         var alert = CreateFakeAlert();
+        alert.AlertId = id;
         
         // Act
-        A.CallTo(() => _alertRepository.Update(alertId, alertDto)).Returns(alert);
-        var result = (OkObjectResult)await _alertController.Update(alertId, alertDto);
+        A.CallTo(() => _alertRepository.Update(id, alertDto)).Returns(alert);
+        var result = (OkObjectResult)await _alertController.Update(id, alertDto);
         
         // Assert
         result.StatusCode.Should().Be(StatusCodes.Status200OK);
         result.Should().NotBeNull();
     }
 
-    [Fact]
-    public async void AlertController_ChangeSeen_ReturnsOk()
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    [InlineData(999)]
+    public async void AlertController_ChangeSeen_ReturnsOk(int id)
     {
         // Arrange
-        var alertId = 0;
         var alert = CreateFakeAlert();
+        alert.AlertId = id;
         
         // Act
-        A.CallTo(() => _alertRepository.ChangeSeen(alertId)).Returns(alert);
-        var result = (OkObjectResult)await _alertController.ChangeSeen(alertId);
+        A.CallTo(() => _alertRepository.ChangeSeen(id)).Returns(alert);
+        var result = (OkObjectResult)await _alertController.ChangeSeen(id);
         
         // Assert
         result.StatusCode.Should().Be(StatusCodes.Status200OK);
