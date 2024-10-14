@@ -48,15 +48,7 @@ public class AlertControllerTest
     {
         // Arrange
         var alerts = A.Fake<List<AlertDto>>();
-        alerts.Add(new AlertDto
-        {
-            AlertId = 0,
-            Seen = false,
-            Title = "Test alert",
-            Description = "Test description",
-            AlertDate = new DateTime(),
-            AlertType = AlertType.DeliveryCanceled
-        });
+        alerts.Add(CreateFakeAlertDto());
         
         // Act
         A.CallTo(() => _alertRepository.GetAll()).Returns(alerts);
