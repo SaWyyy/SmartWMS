@@ -4,6 +4,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SmartWMS;
 using SmartWMS.Controllers;
 using SmartWMS.Entities;
 using SmartWMS.Entities.Enums;
@@ -65,6 +66,23 @@ public class AlertControllerTest
         result.StatusCode.Should().Be(StatusCodes.Status200OK);
         result.Should().NotBeNull();
     }
+
+    [Fact]
+    public async void AlertController_Add_ReturnsBadRequest()
+    {
+        // Arrange
+        var alertDto = CreateFakeAlertDto();
+        const string exceptionMessage = "An error has occured";
+        
+        // Act
+        A.CallTo(() => _alertRepository.Add(alertDto))
+            .Throws(new SmartWMSExceptionHandler(exceptionMessage));
+        var result = (BadRequestObjectResult)await _alertController.AddAlert(alertDto);
+        
+        // Assert
+        result.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
+        result.Should().NotBeNull();
+    }
     
     [Fact]
     public async void AlertController_GetAll_ReturnsOk()
@@ -106,6 +124,25 @@ public class AlertControllerTest
     [InlineData(0)]
     [InlineData(1)]
     [InlineData(999)]
+    public async void AlertController_Get_ReturnsNotFound(int id)
+    {
+        // Arrange
+        const string exceptionMessage = "An error has occured";
+        
+        // Act
+        A.CallTo(() => _alertRepository.Get(id))
+            .Throws(new SmartWMSExceptionHandler(exceptionMessage));
+        var result = (NotFoundObjectResult)await _alertController.Get(id);
+        
+        // Assert
+        result.StatusCode.Should().Be(StatusCodes.Status404NotFound);
+        result.Should().NotBeNull();
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    [InlineData(999)]
     public async void AlertController_Delete_ReturnsOk(int id)
     {
         // Arrange
@@ -118,6 +155,25 @@ public class AlertControllerTest
         
         // Assert
         result.StatusCode.Should().Be(StatusCodes.Status200OK);
+        result.Should().NotBeNull();
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    [InlineData(999)]
+    public async void AlertController_Delete_ReturnsBadRequest(int id)
+    {
+        // Arrange
+        const string exceptionMessage = "An error has occured";
+        
+        // Act
+        A.CallTo(() => _alertRepository.Delete(id))
+            .Throws(new SmartWMSExceptionHandler(exceptionMessage));
+        var result = (BadRequestObjectResult)await _alertController.Delete(id);
+        
+        // Assert
+        result.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
         result.Should().NotBeNull();
     }
 
@@ -145,6 +201,26 @@ public class AlertControllerTest
     [InlineData(0)]
     [InlineData(1)]
     [InlineData(999)]
+    public async void AlertController_Update_ReturnsBadRequest(int id)
+    {
+        // Arrange
+        var alertDto = CreateFakeAlertDto();
+        const string exceptionMessage = "An error has occured";
+        
+        // Act
+        A.CallTo(() => _alertRepository.Update(id, alertDto))
+            .Throws(new SmartWMSExceptionHandler(exceptionMessage));
+        var result = (BadRequestObjectResult)await _alertController.Update(id, alertDto);
+        
+        // Assert
+        result.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
+        result.Should().NotBeNull();
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    [InlineData(999)]
     public async void AlertController_ChangeSeen_ReturnsOk(int id)
     {
         // Arrange
@@ -157,6 +233,25 @@ public class AlertControllerTest
         
         // Assert
         result.StatusCode.Should().Be(StatusCodes.Status200OK);
+        result.Should().NotBeNull();
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    [InlineData(999)]
+    public async void AlertController_ChangeSeen_ReturnsBadRequest(int id)
+    {
+        // Arrange
+        const string exceptionMessage = "An error has occured";
+
+        // Act
+        A.CallTo(() => _alertRepository.ChangeSeen(id))
+            .Throws(new SmartWMSExceptionHandler(exceptionMessage));
+        var result = (BadRequestObjectResult)await _alertController.ChangeSeen(id);
+        
+        // Assert
+        result.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
         result.Should().NotBeNull();
     }
 }
