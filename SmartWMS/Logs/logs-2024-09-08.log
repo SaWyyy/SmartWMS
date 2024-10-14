@@ -1,0 +1,258 @@
+2024-09-08 16:11:32.5630||DEBUG|SmartWMS.Program|init main 
+2024-09-08 16:11:32.8476||ERROR|SmartWMS.Program|Stopped program because of exception Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.Write[T](DiagnosticListener diagnosticSource, String name, T value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in /Users/kamilsadowski/RiderProjects/SmartWMS/Program.cs:line 123
+2024-09-08 16:11:46.6626||DEBUG|SmartWMS.Program|init main 
+2024-09-08 16:11:46.9560||ERROR|SmartWMS.Program|Stopped program because of exception Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.Write[T](DiagnosticListener diagnosticSource, String name, T value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in /Users/kamilsadowski/RiderProjects/SmartWMS/Program.cs:line 123
+2024-09-08 16:12:54.1166||DEBUG|SmartWMS.Program|init main 
+2024-09-08 16:12:54.4098||ERROR|SmartWMS.Program|Stopped program because of exception Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.Write[T](DiagnosticListener diagnosticSource, String name, T value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in /Users/kamilsadowski/RiderProjects/SmartWMS/Program.cs:line 123
+2024-09-08 16:21:56.2592||DEBUG|SmartWMS.Program|init main 
+2024-09-08 16:21:56.6128||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|An 'IServiceProvider' was created for internal use by Entity Framework. 
+2024-09-08 16:21:56.9272||DEBUG|Microsoft.EntityFrameworkCore.Model|The index {'UserId'} was not created on entity type 'IdentityUserRole<string>' as the properties are already covered by the index {'UserId', 'RoleId'}. 
+2024-09-08 16:21:56.9284||DEBUG|Microsoft.EntityFrameworkCore.Model|The index {'UserId'} was not created on entity type 'IdentityUserToken<string>' as the properties are already covered by the index {'UserId', 'LoginProvider', 'Name'}. 
+2024-09-08 16:21:56.9284||DEBUG|Microsoft.EntityFrameworkCore.Model|The index {'ProductsProductId'} was not created on entity type 'ProductsHasTask' as the properties are already covered by the index {'ProductsProductId', 'TasksTaskId'}. 
+2024-09-08 16:21:56.9284||DEBUG|Microsoft.EntityFrameworkCore.Model|The index {'UsersUserId'} was not created on entity type 'UsersHasTask' as the properties are already covered by the index {'UsersUserId', 'TasksTaskId'}. 
+2024-09-08 16:21:57.0903||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 8.0.8 initialized 'SmartwmsDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:8.0.4+51faf6e9c9c7ef99c3e98d98a96adb8fa8ae4553' with options: None 
+2024-09-08 16:21:57.1147||DEBUG|Microsoft.EntityFrameworkCore.Query|Compiling query expression: 
+'DbSet<IdentityRole>()
+    .FirstOrDefault(r => r.NormalizedName == __normalizedName_0)' 
+2024-09-08 16:21:57.2013||DEBUG|Microsoft.EntityFrameworkCore.Query|Generated query execution expression: 
+'queryContext => ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync<IdentityRole>(
+    asyncEnumerable: new SingleQueryingEnumerable<IdentityRole>(
+        (RelationalQueryContext)queryContext, 
+        RelationalCommandCache.QueryExpression(
+            Projection Mapping:
+                EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: IdentityRole.Id (string) Required PK AfterSave:Throw, 0], [Property: IdentityRole.ConcurrencyStamp (string) Concurrency, 1], [Property: IdentityRole.Name (string) MaxLength(256), 2], [Property: IdentityRole.NormalizedName (string) Index MaxLength(256), 3] }
+            SELECT TOP(1) a.Id, a.ConcurrencyStamp, a.Name, a.NormalizedName
+            FROM AspNetRoles AS a
+            WHERE a.NormalizedName == @__normalizedName_0), 
+        null, 
+        Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, IdentityRole>, 
+        SmartWMS.Models.SmartwmsDbContext, 
+        False, 
+        False, 
+        True
+    ), 
+    cancellationToken: queryContext.CancellationToken)' 
+2024-09-08 16:21:57.2215||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Creating DbConnection. 
+2024-09-08 16:21:57.2245||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Created DbConnection. (1ms). 
+2024-09-08 16:21:57.2261||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-08 16:21:57.2997||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-08 16:21:57.3062||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-08 16:21:57.3100||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (3ms). 
+2024-09-08 16:21:57.3152||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (11ms). 
+2024-09-08 16:21:57.3206||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedName_0
+LIMIT 1 
+2024-09-08 16:21:57.3801||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (60ms) [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedName_0
+LIMIT 1 
+2024-09-08 16:21:57.4179||DEBUG|Microsoft.EntityFrameworkCore.ChangeTracking|Context 'SmartwmsDbContext' started tracking 'IdentityRole' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values. 
+2024-09-08 16:21:57.4321||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-08 16:21:57.4394||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 54ms reading results. 
+2024-09-08 16:21:57.4433||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-08 16:21:57.4472||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (4ms). 
+2024-09-08 16:21:57.4502||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-08 16:21:57.4502||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-08 16:21:57.4502||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-08 16:21:57.4502||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-08 16:21:57.4502||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-08 16:21:57.4502||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedName_0
+LIMIT 1 
+2024-09-08 16:21:57.4544||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (4ms) [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedName_0
+LIMIT 1 
+2024-09-08 16:21:57.4544||DEBUG|Microsoft.EntityFrameworkCore.ChangeTracking|Context 'SmartwmsDbContext' started tracking 'IdentityRole' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values. 
+2024-09-08 16:21:57.4544||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-08 16:21:57.4544||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results. 
+2024-09-08 16:21:57.4544||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-08 16:21:57.4544||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-08 16:21:57.4549||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-08 16:21:57.4549||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-08 16:21:57.4549||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-08 16:21:57.4549||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-08 16:21:57.4549||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-08 16:21:57.4549||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedName_0
+LIMIT 1 
+2024-09-08 16:21:57.4568||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedName_0
+LIMIT 1 
+2024-09-08 16:21:57.4568||DEBUG|Microsoft.EntityFrameworkCore.ChangeTracking|Context 'SmartwmsDbContext' started tracking 'IdentityRole' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values. 
+2024-09-08 16:21:57.4568||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-08 16:21:57.4568||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results. 
+2024-09-08 16:21:57.4568||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-08 16:21:57.4568||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-08 16:21:57.4579||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|'SmartwmsDbContext' disposed. 
+2024-09-08 16:21:57.4590||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-08 16:21:57.4590||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-08 16:21:57.4758||INFO|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|User profile is available. Using '/Users/kamilsadowski/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest. 
+2024-09-08 16:21:57.5049||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 8.0.8 initialized 'SmartwmsDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:8.0.4+51faf6e9c9c7ef99c3e98d98a96adb8fa8ae4553' with options: None 
+2024-09-08 16:21:57.5049||DEBUG|Microsoft.EntityFrameworkCore.Query|Compiling query expression: 
+'DbSet<User>()
+    .SingleOrDefault(u => u.NormalizedEmail == __normalizedEmail_0)' 
+2024-09-08 16:21:57.5094||DEBUG|Microsoft.EntityFrameworkCore.Query|Generated query execution expression: 
+'queryContext => ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync<User>(
+    asyncEnumerable: new SingleQueryingEnumerable<User>(
+        (RelationalQueryContext)queryContext, 
+        RelationalCommandCache.QueryExpression(
+            Projection Mapping:
+                EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: User.Id (string) Required PK AfterSave:Throw, 0], [Property: User.AccessFailedCount (int) Required, 1], [Property: User.ConcurrencyStamp (string) Concurrency, 2], [Property: User.Email (string) MaxLength(256), 3], [Property: User.EmailConfirmed (bool) Required, 4], [Property: User.LockoutEnabled (bool) Required, 5], [Property: User.LockoutEnd (DateTimeOffset?), 6], [Property: User.ManagerId (string) FK Index, 7], [Property: User.NormalizedEmail (string) Index MaxLength(256), 8], [Property: User.NormalizedUserName (string) Index MaxLength(256), 9], [Property: User.PasswordHash (string), 10], [Property: User.PhoneNumber (string), 11], [Property: User.PhoneNumberConfirmed (bool) Required, 12], [Property: User.SecurityStamp (string), 13], [Property: User.TwoFactorEnabled (bool) Required, 14], [Property: User.UserName (string) MaxLength(256), 15], [Property: User.WarehousesWarehouseId (int) Required FK Index, 16] }
+            SELECT TOP(2) u.Id, u.AccessFailedCount, u.ConcurrencyStamp, u.Email, u.EmailConfirmed, u.LockoutEnabled, u.LockoutEnd, u.manager_id, u.NormalizedEmail, u.NormalizedUserName, u.PasswordHash, u.PhoneNumber, u.PhoneNumberConfirmed, u.SecurityStamp, u.TwoFactorEnabled, u.UserName, u.warehouses_warehouse_id
+            FROM users AS u
+            WHERE u.NormalizedEmail == @__normalizedEmail_0), 
+        null, 
+        Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, User>, 
+        SmartWMS.Models.SmartwmsDbContext, 
+        False, 
+        False, 
+        True
+    ), 
+    cancellationToken: queryContext.CancellationToken)' 
+2024-09-08 16:21:57.5094||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Creating DbConnection. 
+2024-09-08 16:21:57.5094||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Created DbConnection. (0ms). 
+2024-09-08 16:21:57.5094||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-08 16:21:57.5094||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-08 16:21:57.5094||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-08 16:21:57.5094||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-08 16:21:57.5094||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-08 16:21:57.5094||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__normalizedEmail_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT u."Id", u."AccessFailedCount", u."ConcurrencyStamp", u."Email", u."EmailConfirmed", u."LockoutEnabled", u."LockoutEnd", u.manager_id, u."NormalizedEmail", u."NormalizedUserName", u."PasswordHash", u."PhoneNumber", u."PhoneNumberConfirmed", u."SecurityStamp", u."TwoFactorEnabled", u."UserName", u.warehouses_warehouse_id
+FROM users AS u
+WHERE u."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2 
+2024-09-08 16:21:57.5144||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (5ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT u."Id", u."AccessFailedCount", u."ConcurrencyStamp", u."Email", u."EmailConfirmed", u."LockoutEnabled", u."LockoutEnd", u.manager_id, u."NormalizedEmail", u."NormalizedUserName", u."PasswordHash", u."PhoneNumber", u."PhoneNumberConfirmed", u."SecurityStamp", u."TwoFactorEnabled", u."UserName", u.warehouses_warehouse_id
+FROM users AS u
+WHERE u."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2 
+2024-09-08 16:21:57.5238||DEBUG|Microsoft.EntityFrameworkCore.ChangeTracking|Context 'SmartwmsDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values. 
+2024-09-08 16:21:57.5385||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-08 16:21:57.5385||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 24ms reading results. 
+2024-09-08 16:21:57.5385||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-08 16:21:57.5385||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-08 16:21:57.5394||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|'SmartwmsDbContext' disposed. 
+2024-09-08 16:21:57.5394||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-08 16:21:57.5394||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-08 16:21:57.6168||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderFactory|Registered model binder providers, in the following order: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider 
+2024-09-08 16:21:57.6900||DEBUG|Microsoft.Extensions.Hosting.Internal.Host|Hosting starting 
+2024-09-08 16:21:57.7024||DEBUG|Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository|Reading data from file '/Users/kamilsadowski/.aspnet/DataProtection-Keys/key-0ffb32d9-8013-4a53-b6ea-d73a13adc424.xml'. 
+2024-09-08 16:21:57.7069||DEBUG|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|Found key {0ffb32d9-8013-4a53-b6ea-d73a13adc424}. 
+2024-09-08 16:21:57.7183||DEBUG|Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver|Considering key {0ffb32d9-8013-4a53-b6ea-d73a13adc424} with expiration date 2024-11-12 15:19:46Z as default key. 
+2024-09-08 16:21:57.7220||DEBUG|Microsoft.AspNetCore.DataProtection.TypeForwardingActivator|Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60 
+2024-09-08 16:21:57.7270||DEBUG|Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ManagedAuthenticatedEncryptorFactory|Using managed symmetric algorithm 'System.Security.Cryptography.Aes'. 
+2024-09-08 16:21:57.7270||DEBUG|Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ManagedAuthenticatedEncryptorFactory|Using managed keyed hash algorithm 'System.Security.Cryptography.HMACSHA256'. 
+2024-09-08 16:21:57.7317||DEBUG|Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider|Using key {0ffb32d9-8013-4a53-b6ea-d73a13adc424} as the default key. 
+2024-09-08 16:21:57.7336||DEBUG|Microsoft.AspNetCore.DataProtection.Internal.DataProtectionHostedService|Key ring with default key {0ffb32d9-8013-4a53-b6ea-d73a13adc424} was loaded during application startup. 
+2024-09-08 16:21:57.9214||INFO|Microsoft.Hosting.Lifetime|Now listening on: http://localhost:5236 
+2024-09-08 16:21:57.9214||DEBUG|Microsoft.AspNetCore.Hosting.Diagnostics|Loaded hosting startup assembly SmartWMS 
+2024-09-08 16:21:57.9223||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2024-09-08 16:21:57.9223||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2024-09-08 16:21:57.9223||INFO|Microsoft.Hosting.Lifetime|Content root path: /Users/kamilsadowski/RiderProjects/SmartWMS 
+2024-09-08 16:21:57.9223||DEBUG|Microsoft.Extensions.Hosting.Internal.Host|Hosting started 
+2024-09-08 16:21:58.3862||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets|Connection id "0HN6G26CJUBSH" received FIN. 
+2024-09-08 16:21:58.3975||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6G26CJUBSH" accepted. 
+2024-09-08 16:21:58.3998||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6G26CJUBSH" started. 
+2024-09-08 16:21:58.4243||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets|Connection id "0HN6G26CJUBSH" sending FIN because: "The Socket transport's send loop completed gracefully." 
+2024-09-08 16:21:58.4256||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6G26CJUBSH" disconnecting. 
+2024-09-08 16:21:58.4329||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6G26CJUBSH" stopped. 
+2024-09-08 16:21:58.4598||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6G26CJUBSI" accepted. 
+2024-09-08 16:21:58.4598||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6G26CJUBSI" started. 
+2024-09-08 16:21:58.5344||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request starting HTTP/1.1 GET http://localhost:5236/swagger/index.html - - - 
+2024-09-08 16:21:58.5362||DEBUG|Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware|Wildcard detected, all requests with hosts will be allowed. 
+2024-09-08 16:21:58.5362||TRACE|Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware|All hosts are allowed. 
+2024-09-08 16:21:58.5669||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|No candidates found for the request path '/swagger/index.html' 
+2024-09-08 16:21:58.5669||DEBUG|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|Request did not match any endpoints 
+2024-09-08 16:21:58.6278||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6G26CJUBSI" completed keep alive response. 
+2024-09-08 16:21:58.6317||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request finished HTTP/1.1 GET http://localhost:5236/swagger/index.html - 200 - text/html;charset=utf-8 102.3707ms 
+2024-09-08 16:21:58.7383||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request starting HTTP/1.1 GET http://localhost:5236/swagger/v1/swagger.json - - - 
+2024-09-08 16:21:58.7383||TRACE|Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware|All hosts are allowed. 
+2024-09-08 16:21:58.7397||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|No candidates found for the request path '/swagger/v1/swagger.json' 
+2024-09-08 16:21:58.7398||DEBUG|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|Request did not match any endpoints 
+2024-09-08 16:21:58.7506||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6G26CJUBSJ" accepted. 
+2024-09-08 16:21:58.7509||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6G26CJUBSJ" started. 
+2024-09-08 16:21:58.7509||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6G26CJUBSK" accepted. 
+2024-09-08 16:21:58.7509||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6G26CJUBSK" started. 
+2024-09-08 16:21:58.7519||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request starting HTTP/1.1 GET http://localhost:5236/apple-touch-icon-precomposed.png - - - 
+2024-09-08 16:21:58.7519||TRACE|Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware|All hosts are allowed. 
+2024-09-08 16:21:58.7519||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|No candidates found for the request path '/apple-touch-icon-precomposed.png' 
+2024-09-08 16:21:58.7519||DEBUG|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|Request did not match any endpoints 
+2024-09-08 16:21:58.7509||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request starting HTTP/1.1 GET http://localhost:5236/swagger/favicon-16x16.png - - - 
+2024-09-08 16:21:58.7519||TRACE|Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware|All hosts are allowed. 
+2024-09-08 16:21:58.7519||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|No candidates found for the request path '/swagger/favicon-16x16.png' 
+2024-09-08 16:21:58.7529||DEBUG|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|Request did not match any endpoints 
+2024-09-08 16:21:58.7587||DEBUG|Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware|The request path  does not match the path filter 
+2024-09-08 16:21:58.7681||TRACE|Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware|Range header's value is empty. 
+2024-09-08 16:21:58.7784||DEBUG|Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenHandler|AuthenticationScheme: Identity.Bearer was not authenticated. 
+2024-09-08 16:21:58.7813||INFO|Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware|Sending file. Request path: '/favicon-16x16.png'. Physical path: 'N/A' 
+2024-09-08 16:21:58.7813||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6G26CJUBSJ" completed keep alive response. 
+2024-09-08 16:21:58.7820||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request finished HTTP/1.1 GET http://localhost:5236/swagger/favicon-16x16.png - 200 665 image/png 30.3178ms 
+2024-09-08 16:21:58.7939||DEBUG|Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler|AuthenticationScheme: Identity.Application was not authenticated. 
+2024-09-08 16:21:58.7939||DEBUG|Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions+CompositeIdentityHandler|AuthenticationScheme: Identity.BearerAndApplication was not authenticated. 
+2024-09-08 16:21:58.7989||WARN|Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware|Failed to determine the https port for redirect. 
+2024-09-08 16:21:58.8004||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6G26CJUBSK" completed keep alive response. 
+2024-09-08 16:21:58.8004||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request finished HTTP/1.1 GET http://localhost:5236/apple-touch-icon-precomposed.png - 404 0 - 48.6447ms 
+2024-09-08 16:21:58.8025||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5236/apple-touch-icon-precomposed.png, Response status code: 404 
+2024-09-08 16:21:58.8025||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request starting HTTP/1.1 GET http://localhost:5236/apple-touch-icon.png - - - 
+2024-09-08 16:21:58.8025||TRACE|Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware|All hosts are allowed. 
+2024-09-08 16:21:58.8025||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|No candidates found for the request path '/apple-touch-icon.png' 
+2024-09-08 16:21:58.8028||DEBUG|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|Request did not match any endpoints 
+2024-09-08 16:21:58.8028||DEBUG|Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware|The request path  does not match the path filter 
+2024-09-08 16:21:58.8040||DEBUG|Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenHandler|AuthenticationScheme: Identity.Bearer was not authenticated. 
+2024-09-08 16:21:58.8040||DEBUG|Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler|AuthenticationScheme: Identity.Application was not authenticated. 
+2024-09-08 16:21:58.8040||DEBUG|Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions+CompositeIdentityHandler|AuthenticationScheme: Identity.BearerAndApplication was not authenticated. 
+2024-09-08 16:21:58.8040||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6G26CJUBSK" completed keep alive response. 
+2024-09-08 16:21:58.8040||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request finished HTTP/1.1 GET http://localhost:5236/apple-touch-icon.png - 404 0 - 1.5825ms 
+2024-09-08 16:21:58.8040||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5236/apple-touch-icon.png, Response status code: 404 
+2024-09-08 16:21:58.9145||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6G26CJUBSI" completed keep alive response. 
+2024-09-08 16:21:58.9145||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request finished HTTP/1.1 GET http://localhost:5236/swagger/v1/swagger.json - 200 - application/json;charset=utf-8 176.3250ms 
+2024-09-08 16:22:29.4480||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets|Connection id "0HN6G26CJUBSI" received FIN. 
+2024-09-08 16:22:29.4492||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets|Connection id "0HN6G26CJUBSJ" received FIN. 
+2024-09-08 16:22:29.4502||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets|Connection id "0HN6G26CJUBSI" sending FIN because: "The Socket transport's send loop completed gracefully." 
+2024-09-08 16:22:29.4512||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets|Connection id "0HN6G26CJUBSJ" sending FIN because: "The Socket transport's send loop completed gracefully." 
+2024-09-08 16:22:29.4523||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6G26CJUBSJ" disconnecting. 
+2024-09-08 16:22:29.4523||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6G26CJUBSI" disconnecting. 
+2024-09-08 16:22:29.4546||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6G26CJUBSJ" stopped. 
+2024-09-08 16:22:29.4546||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6G26CJUBSI" stopped. 
+2024-09-08 16:22:29.7460||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets|Connection id "0HN6G26CJUBSK" received FIN. 
+2024-09-08 16:22:29.7460||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets|Connection id "0HN6G26CJUBSK" sending FIN because: "The Socket transport's send loop completed gracefully." 
+2024-09-08 16:22:29.7467||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6G26CJUBSK" disconnecting. 
+2024-09-08 16:22:29.7467||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6G26CJUBSK" stopped. 
+2024-09-08 16:46:56.2292||INFO|Microsoft.Hosting.Lifetime|Application is shutting down... 
+2024-09-08 16:46:56.2329||DEBUG|Microsoft.Extensions.Hosting.Internal.Host|Hosting stopping 
+2024-09-08 16:46:56.2460||DEBUG|Microsoft.Extensions.Hosting.Internal.Host|Hosting stopped 

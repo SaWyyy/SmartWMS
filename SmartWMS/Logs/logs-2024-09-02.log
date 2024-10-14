@@ -1,0 +1,1453 @@
+2024-09-02 14:10:06.2366||DEBUG|SmartWMS.Program|init main 
+2024-09-02 14:10:06.9733||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|An 'IServiceProvider' was created for internal use by Entity Framework. 
+2024-09-02 14:10:07.2770||DEBUG|Microsoft.EntityFrameworkCore.Model|The index {'UserId'} was not created on entity type 'IdentityUserRole<string>' as the properties are already covered by the index {'UserId', 'RoleId'}. 
+2024-09-02 14:10:07.2784||DEBUG|Microsoft.EntityFrameworkCore.Model|The index {'UserId'} was not created on entity type 'IdentityUserToken<string>' as the properties are already covered by the index {'UserId', 'LoginProvider', 'Name'}. 
+2024-09-02 14:10:07.2784||DEBUG|Microsoft.EntityFrameworkCore.Model|The index {'ProductsProductId'} was not created on entity type 'ProductsHasTask' as the properties are already covered by the index {'ProductsProductId', 'TasksTaskId'}. 
+2024-09-02 14:10:07.2784||DEBUG|Microsoft.EntityFrameworkCore.Model|The index {'UsersUserId'} was not created on entity type 'UsersHasTask' as the properties are already covered by the index {'UsersUserId', 'TasksTaskId'}. 
+2024-09-02 14:10:07.4621||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 8.0.8 initialized 'SmartwmsDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:8.0.4+51faf6e9c9c7ef99c3e98d98a96adb8fa8ae4553' with options: None 
+2024-09-02 14:10:07.4866||DEBUG|Microsoft.EntityFrameworkCore.Query|Compiling query expression: 
+'DbSet<IdentityRole>()
+    .FirstOrDefault(r => r.NormalizedName == __normalizedName_0)' 
+2024-09-02 14:10:07.5784||DEBUG|Microsoft.EntityFrameworkCore.Query|Generated query execution expression: 
+'queryContext => ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync<IdentityRole>(
+    asyncEnumerable: new SingleQueryingEnumerable<IdentityRole>(
+        (RelationalQueryContext)queryContext, 
+        RelationalCommandCache.QueryExpression(
+            Projection Mapping:
+                EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: IdentityRole.Id (string) Required PK AfterSave:Throw, 0], [Property: IdentityRole.ConcurrencyStamp (string) Concurrency, 1], [Property: IdentityRole.Name (string) MaxLength(256), 2], [Property: IdentityRole.NormalizedName (string) Index MaxLength(256), 3] }
+            SELECT TOP(1) a.Id, a.ConcurrencyStamp, a.Name, a.NormalizedName
+            FROM AspNetRoles AS a
+            WHERE a.NormalizedName == @__normalizedName_0), 
+        null, 
+        Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, IdentityRole>, 
+        SmartWMS.Models.SmartwmsDbContext, 
+        False, 
+        False, 
+        True
+    ), 
+    cancellationToken: queryContext.CancellationToken)' 
+2024-09-02 14:10:07.5984||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Creating DbConnection. 
+2024-09-02 14:10:07.6013||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Created DbConnection. (1ms). 
+2024-09-02 14:10:07.6028||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:07.6814||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:07.6894||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 14:10:07.6936||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (4ms). 
+2024-09-02 14:10:07.6990||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (12ms). 
+2024-09-02 14:10:07.7047||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedName_0
+LIMIT 1 
+2024-09-02 14:10:07.7667||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (63ms) [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedName_0
+LIMIT 1 
+2024-09-02 14:10:07.8074||DEBUG|Microsoft.EntityFrameworkCore.ChangeTracking|Context 'SmartwmsDbContext' started tracking 'IdentityRole' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values. 
+2024-09-02 14:10:07.8270||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:07.8355||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 63ms reading results. 
+2024-09-02 14:10:07.8402||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:07.8445||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (4ms). 
+2024-09-02 14:10:07.8479||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:07.8479||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:07.8479||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 14:10:07.8479||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 14:10:07.8479||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 14:10:07.8479||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedName_0
+LIMIT 1 
+2024-09-02 14:10:07.8524||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (4ms) [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedName_0
+LIMIT 1 
+2024-09-02 14:10:07.8526||DEBUG|Microsoft.EntityFrameworkCore.ChangeTracking|Context 'SmartwmsDbContext' started tracking 'IdentityRole' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values. 
+2024-09-02 14:10:07.8526||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:07.8526||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results. 
+2024-09-02 14:10:07.8526||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:07.8526||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 14:10:07.8526||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:07.8526||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:07.8526||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 14:10:07.8526||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 14:10:07.8526||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 14:10:07.8526||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedName_0
+LIMIT 1 
+2024-09-02 14:10:07.8540||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedName_0
+LIMIT 1 
+2024-09-02 14:10:07.8540||DEBUG|Microsoft.EntityFrameworkCore.ChangeTracking|Context 'SmartwmsDbContext' started tracking 'IdentityRole' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values. 
+2024-09-02 14:10:07.8540||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:07.8540||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results. 
+2024-09-02 14:10:07.8540||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:07.8540||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 14:10:07.8552||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|'SmartwmsDbContext' disposed. 
+2024-09-02 14:10:07.8564||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:07.8569||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 14:10:07.8739||INFO|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|User profile is available. Using '/Users/kamilsadowski/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest. 
+2024-09-02 14:10:07.9026||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 8.0.8 initialized 'SmartwmsDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:8.0.4+51faf6e9c9c7ef99c3e98d98a96adb8fa8ae4553' with options: None 
+2024-09-02 14:10:07.9026||DEBUG|Microsoft.EntityFrameworkCore.Query|Compiling query expression: 
+'DbSet<User>()
+    .SingleOrDefault(u => u.NormalizedEmail == __normalizedEmail_0)' 
+2024-09-02 14:10:07.9071||DEBUG|Microsoft.EntityFrameworkCore.Query|Generated query execution expression: 
+'queryContext => ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync<User>(
+    asyncEnumerable: new SingleQueryingEnumerable<User>(
+        (RelationalQueryContext)queryContext, 
+        RelationalCommandCache.QueryExpression(
+            Projection Mapping:
+                EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: User.Id (string) Required PK AfterSave:Throw, 0], [Property: User.AccessFailedCount (int) Required, 1], [Property: User.ConcurrencyStamp (string) Concurrency, 2], [Property: User.Email (string) MaxLength(256), 3], [Property: User.EmailConfirmed (bool) Required, 4], [Property: User.LockoutEnabled (bool) Required, 5], [Property: User.LockoutEnd (DateTimeOffset?), 6], [Property: User.ManagerId (string) FK Index, 7], [Property: User.NormalizedEmail (string) Index MaxLength(256), 8], [Property: User.NormalizedUserName (string) Index MaxLength(256), 9], [Property: User.PasswordHash (string), 10], [Property: User.PhoneNumber (string), 11], [Property: User.PhoneNumberConfirmed (bool) Required, 12], [Property: User.SecurityStamp (string), 13], [Property: User.TwoFactorEnabled (bool) Required, 14], [Property: User.UserName (string) MaxLength(256), 15], [Property: User.WarehousesWarehouseId (int) Required FK Index, 16] }
+            SELECT TOP(2) u.Id, u.AccessFailedCount, u.ConcurrencyStamp, u.Email, u.EmailConfirmed, u.LockoutEnabled, u.LockoutEnd, u.manager_id, u.NormalizedEmail, u.NormalizedUserName, u.PasswordHash, u.PhoneNumber, u.PhoneNumberConfirmed, u.SecurityStamp, u.TwoFactorEnabled, u.UserName, u.warehouses_warehouse_id
+            FROM users AS u
+            WHERE u.NormalizedEmail == @__normalizedEmail_0), 
+        null, 
+        Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, User>, 
+        SmartWMS.Models.SmartwmsDbContext, 
+        False, 
+        False, 
+        True
+    ), 
+    cancellationToken: queryContext.CancellationToken)' 
+2024-09-02 14:10:07.9071||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Creating DbConnection. 
+2024-09-02 14:10:07.9071||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Created DbConnection. (0ms). 
+2024-09-02 14:10:07.9071||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:07.9071||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:07.9071||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 14:10:07.9071||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 14:10:07.9071||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 14:10:07.9071||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__normalizedEmail_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT u."Id", u."AccessFailedCount", u."ConcurrencyStamp", u."Email", u."EmailConfirmed", u."LockoutEnabled", u."LockoutEnd", u.manager_id, u."NormalizedEmail", u."NormalizedUserName", u."PasswordHash", u."PhoneNumber", u."PhoneNumberConfirmed", u."SecurityStamp", u."TwoFactorEnabled", u."UserName", u.warehouses_warehouse_id
+FROM users AS u
+WHERE u."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2 
+2024-09-02 14:10:07.9097||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT u."Id", u."AccessFailedCount", u."ConcurrencyStamp", u."Email", u."EmailConfirmed", u."LockoutEnabled", u."LockoutEnd", u.manager_id, u."NormalizedEmail", u."NormalizedUserName", u."PasswordHash", u."PhoneNumber", u."PhoneNumberConfirmed", u."SecurityStamp", u."TwoFactorEnabled", u."UserName", u.warehouses_warehouse_id
+FROM users AS u
+WHERE u."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2 
+2024-09-02 14:10:07.9191||DEBUG|Microsoft.EntityFrameworkCore.ChangeTracking|Context 'SmartwmsDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values. 
+2024-09-02 14:10:07.9336||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:07.9336||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 23ms reading results. 
+2024-09-02 14:10:07.9336||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:07.9336||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 14:10:07.9336||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|'SmartwmsDbContext' disposed. 
+2024-09-02 14:10:07.9336||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:07.9336||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 14:10:08.0148||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderFactory|Registered model binder providers, in the following order: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider 
+2024-09-02 14:10:08.0946||DEBUG|Microsoft.Extensions.Hosting.Internal.Host|Hosting starting 
+2024-09-02 14:10:08.1068||DEBUG|Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository|Reading data from file '/Users/kamilsadowski/.aspnet/DataProtection-Keys/key-0ffb32d9-8013-4a53-b6ea-d73a13adc424.xml'. 
+2024-09-02 14:10:08.1110||DEBUG|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|Found key {0ffb32d9-8013-4a53-b6ea-d73a13adc424}. 
+2024-09-02 14:10:08.1211||DEBUG|Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver|Considering key {0ffb32d9-8013-4a53-b6ea-d73a13adc424} with expiration date 2024-11-12 15:19:46Z as default key. 
+2024-09-02 14:10:08.1243||DEBUG|Microsoft.AspNetCore.DataProtection.TypeForwardingActivator|Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60 
+2024-09-02 14:10:08.1284||DEBUG|Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ManagedAuthenticatedEncryptorFactory|Using managed symmetric algorithm 'System.Security.Cryptography.Aes'. 
+2024-09-02 14:10:08.1287||DEBUG|Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ManagedAuthenticatedEncryptorFactory|Using managed keyed hash algorithm 'System.Security.Cryptography.HMACSHA256'. 
+2024-09-02 14:10:08.1327||DEBUG|Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider|Using key {0ffb32d9-8013-4a53-b6ea-d73a13adc424} as the default key. 
+2024-09-02 14:10:08.1343||DEBUG|Microsoft.AspNetCore.DataProtection.Internal.DataProtectionHostedService|Key ring with default key {0ffb32d9-8013-4a53-b6ea-d73a13adc424} was loaded during application startup. 
+2024-09-02 14:10:08.3165||INFO|Microsoft.Hosting.Lifetime|Now listening on: http://localhost:5236 
+2024-09-02 14:10:08.3167||DEBUG|Microsoft.AspNetCore.Hosting.Diagnostics|Loaded hosting startup assembly SmartWMS 
+2024-09-02 14:10:08.3167||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2024-09-02 14:10:08.3176||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2024-09-02 14:10:08.3176||INFO|Microsoft.Hosting.Lifetime|Content root path: /Users/kamilsadowski/RiderProjects/SmartWMS 
+2024-09-02 14:10:08.3176||DEBUG|Microsoft.Extensions.Hosting.Internal.Host|Hosting started 
+2024-09-02 14:10:08.3195||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets|Connection id "0HN6B90O00USJ" received FIN. 
+2024-09-02 14:10:08.3247||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6B90O00USJ" accepted. 
+2024-09-02 14:10:08.3258||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6B90O00USJ" started. 
+2024-09-02 14:10:08.3335||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets|Connection id "0HN6B90O00USJ" sending FIN because: "The Socket transport's send loop completed gracefully." 
+2024-09-02 14:10:08.3341||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6B90O00USJ" disconnecting. 
+2024-09-02 14:10:08.3471||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6B90O00USJ" stopped. 
+2024-09-02 14:10:08.5155||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6B90O00USK" accepted. 
+2024-09-02 14:10:08.5158||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6B90O00USK" started. 
+2024-09-02 14:10:08.6441||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request starting HTTP/1.1 GET http://localhost:5236/swagger/index.html - - - 
+2024-09-02 14:10:08.6466||DEBUG|Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware|Wildcard detected, all requests with hosts will be allowed. 
+2024-09-02 14:10:08.6466||TRACE|Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware|All hosts are allowed. 
+2024-09-02 14:10:08.6775||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|No candidates found for the request path '/swagger/index.html' 
+2024-09-02 14:10:08.6780||DEBUG|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|Request did not match any endpoints 
+2024-09-02 14:10:08.7464||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6B90O00USK" completed keep alive response. 
+2024-09-02 14:10:08.7509||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request finished HTTP/1.1 GET http://localhost:5236/swagger/index.html - 200 - text/html;charset=utf-8 112.2693ms 
+2024-09-02 14:10:08.8508||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request starting HTTP/1.1 GET http://localhost:5236/swagger/v1/swagger.json - - - 
+2024-09-02 14:10:08.8508||TRACE|Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware|All hosts are allowed. 
+2024-09-02 14:10:08.8535||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|No candidates found for the request path '/swagger/v1/swagger.json' 
+2024-09-02 14:10:08.8537||DEBUG|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|Request did not match any endpoints 
+2024-09-02 14:10:08.9960||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6B90O00USK" completed keep alive response. 
+2024-09-02 14:10:08.9960||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request finished HTTP/1.1 GET http://localhost:5236/swagger/v1/swagger.json - 200 - application/json;charset=utf-8 145.5135ms 
+2024-09-02 14:10:33.1250||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request starting HTTP/1.1 GET http://localhost:5236/api/Country/1 - - - 
+2024-09-02 14:10:33.1250||TRACE|Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware|All hosts are allowed. 
+2024-09-02 14:10:33.1288||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|1 candidate(s) found for the request path '/api/Country/1' 
+2024-09-02 14:10:33.1296||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|Endpoint 'SmartWMS.Controllers.CountryController.Get (SmartWMS)' with route pattern 'api/Country/{id}' is valid for the request path '/api/Country/1' 
+2024-09-02 14:10:33.1296||DEBUG|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|Request matched endpoint 'SmartWMS.Controllers.CountryController.Get (SmartWMS)' 
+2024-09-02 14:10:33.1317||TRACE|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|The endpoint does not specify the IRequestSizeLimitMetadata. 
+2024-09-02 14:10:33.1336||DEBUG|Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware|Static files was skipped as the request already matched an endpoint. 
+2024-09-02 14:10:33.1524||DEBUG|Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenHandler|AuthenticationScheme: Identity.Bearer was not authenticated. 
+2024-09-02 14:10:33.1699||TRACE|Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector|Performing unprotect operation to key {0ffb32d9-8013-4a53-b6ea-d73a13adc424} with purposes ('/Users/kamilsadowski/RiderProjects/SmartWMS/', 'Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationMiddleware', 'Identity.Application', 'v2'). 
+2024-09-02 14:10:33.1857||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 8.0.8 initialized 'SmartwmsDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:8.0.4+51faf6e9c9c7ef99c3e98d98a96adb8fa8ae4553' with options: None 
+2024-09-02 14:10:33.1901||DEBUG|Microsoft.EntityFrameworkCore.Query|Compiling query expression: 
+'DbSet<User>()
+    .FirstOrDefault(e => EF.Property<string>(e, "Id") == __p_0)' 
+2024-09-02 14:10:33.1954||DEBUG|Microsoft.EntityFrameworkCore.Query|Generated query execution expression: 
+'queryContext => ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync<User>(
+    asyncEnumerable: new SingleQueryingEnumerable<User>(
+        (RelationalQueryContext)queryContext, 
+        RelationalCommandCache.QueryExpression(
+            Projection Mapping:
+                EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: User.Id (string) Required PK AfterSave:Throw, 0], [Property: User.AccessFailedCount (int) Required, 1], [Property: User.ConcurrencyStamp (string) Concurrency, 2], [Property: User.Email (string) MaxLength(256), 3], [Property: User.EmailConfirmed (bool) Required, 4], [Property: User.LockoutEnabled (bool) Required, 5], [Property: User.LockoutEnd (DateTimeOffset?), 6], [Property: User.ManagerId (string) FK Index, 7], [Property: User.NormalizedEmail (string) Index MaxLength(256), 8], [Property: User.NormalizedUserName (string) Index MaxLength(256), 9], [Property: User.PasswordHash (string), 10], [Property: User.PhoneNumber (string), 11], [Property: User.PhoneNumberConfirmed (bool) Required, 12], [Property: User.SecurityStamp (string), 13], [Property: User.TwoFactorEnabled (bool) Required, 14], [Property: User.UserName (string) MaxLength(256), 15], [Property: User.WarehousesWarehouseId (int) Required FK Index, 16] }
+            SELECT TOP(1) u.Id, u.AccessFailedCount, u.ConcurrencyStamp, u.Email, u.EmailConfirmed, u.LockoutEnabled, u.LockoutEnd, u.manager_id, u.NormalizedEmail, u.NormalizedUserName, u.PasswordHash, u.PhoneNumber, u.PhoneNumberConfirmed, u.SecurityStamp, u.TwoFactorEnabled, u.UserName, u.warehouses_warehouse_id
+            FROM users AS u
+            WHERE u.Id == @__p_0), 
+        null, 
+        Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, User>, 
+        SmartWMS.Models.SmartwmsDbContext, 
+        False, 
+        False, 
+        True
+    ), 
+    cancellationToken: queryContext.CancellationToken)' 
+2024-09-02 14:10:33.1957||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Creating DbConnection. 
+2024-09-02 14:10:33.1957||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Created DbConnection. (0ms). 
+2024-09-02 14:10:33.1957||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.1957||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.1957||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 14:10:33.1957||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 14:10:33.1957||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 14:10:33.1957||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__p_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT u."Id", u."AccessFailedCount", u."ConcurrencyStamp", u."Email", u."EmailConfirmed", u."LockoutEnabled", u."LockoutEnd", u.manager_id, u."NormalizedEmail", u."NormalizedUserName", u."PasswordHash", u."PhoneNumber", u."PhoneNumberConfirmed", u."SecurityStamp", u."TwoFactorEnabled", u."UserName", u.warehouses_warehouse_id
+FROM users AS u
+WHERE u."Id" = @__p_0
+LIMIT 1 
+2024-09-02 14:10:33.1980||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[@__p_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT u."Id", u."AccessFailedCount", u."ConcurrencyStamp", u."Email", u."EmailConfirmed", u."LockoutEnabled", u."LockoutEnd", u.manager_id, u."NormalizedEmail", u."NormalizedUserName", u."PasswordHash", u."PhoneNumber", u."PhoneNumberConfirmed", u."SecurityStamp", u."TwoFactorEnabled", u."UserName", u.warehouses_warehouse_id
+FROM users AS u
+WHERE u."Id" = @__p_0
+LIMIT 1 
+2024-09-02 14:10:33.1980||DEBUG|Microsoft.EntityFrameworkCore.ChangeTracking|Context 'SmartwmsDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values. 
+2024-09-02 14:10:33.1980||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.1980||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results. 
+2024-09-02 14:10:33.1980||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.1980||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 14:10:33.2107||DEBUG|Microsoft.EntityFrameworkCore.Query|Compiling query expression: 
+'DbSet<IdentityUserClaim<string>>()
+    .Where(uc => uc.UserId.Equals(__user_Id_0))
+    .Select(c => c.ToClaim())' 
+2024-09-02 14:10:33.2358||DEBUG|Microsoft.EntityFrameworkCore.Query|Generated query execution expression: 
+'queryContext => new SingleQueryingEnumerable<Claim>(
+    (RelationalQueryContext)queryContext, 
+    RelationalCommandCache.QueryExpression(
+        Client Projections:
+            0 -> Dictionary<IProperty, int> { [Property: IdentityUserClaim<string>.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: IdentityUserClaim<string>.ClaimType (string), 1], [Property: IdentityUserClaim<string>.ClaimValue (string), 2], [Property: IdentityUserClaim<string>.UserId (string) Required FK Index, 3] }
+        SELECT a.Id, a.ClaimType, a.ClaimValue, a.UserId
+        FROM AspNetUserClaims AS a
+        WHERE a.UserId == @__user_Id_0), 
+    null, 
+    Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, Claim>, 
+    SmartWMS.Models.SmartwmsDbContext, 
+    False, 
+    False, 
+    True
+)' 
+2024-09-02 14:10:33.2358||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.2358||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.2358||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 14:10:33.2358||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 14:10:33.2358||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 14:10:33.2358||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__user_Id_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ClaimType", a."ClaimValue", a."UserId"
+FROM "AspNetUserClaims" AS a
+WHERE a."UserId" = @__user_Id_0 
+2024-09-02 14:10:33.2379||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[@__user_Id_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ClaimType", a."ClaimValue", a."UserId"
+FROM "AspNetUserClaims" AS a
+WHERE a."UserId" = @__user_Id_0 
+2024-09-02 14:10:33.2379||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.2379||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results. 
+2024-09-02 14:10:33.2379||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.2379||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 14:10:33.2437||DEBUG|Microsoft.EntityFrameworkCore.Query|Compiling query expression: 
+'DbSet<IdentityUserRole<string>>()
+    .Join(
+        inner: DbSet<IdentityRole>(), 
+        outerKeySelector: userRole => userRole.RoleId, 
+        innerKeySelector: role => role.Id, 
+        resultSelector: (userRole, role) => new { 
+            userRole = userRole, 
+            role = role
+         })
+    .Where(<>h__TransparentIdentifier0 => <>h__TransparentIdentifier0.userRole.UserId.Equals(__userId_0))
+    .Select(<>h__TransparentIdentifier0 => <>h__TransparentIdentifier0.role.Name)' 
+2024-09-02 14:10:33.2545||DEBUG|Microsoft.EntityFrameworkCore.Query|Generated query execution expression: 
+'queryContext => new SingleQueryingEnumerable<string>(
+    (RelationalQueryContext)queryContext, 
+    RelationalCommandCache.QueryExpression(
+        Projection Mapping:
+            EmptyProjectionMember -> 0
+        SELECT a0.Name
+        FROM AspNetUserRoles AS a
+        INNER JOIN AspNetRoles AS a0 ON a.RoleId == a0.Id
+        WHERE a.UserId == @__userId_0), 
+    null, 
+    Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, string>, 
+    SmartWMS.Models.SmartwmsDbContext, 
+    False, 
+    False, 
+    True
+)' 
+2024-09-02 14:10:33.2565||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.2565||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.2567||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 14:10:33.2567||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 14:10:33.2567||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 14:10:33.2567||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__userId_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a0."Name"
+FROM "AspNetUserRoles" AS a
+INNER JOIN "AspNetRoles" AS a0 ON a."RoleId" = a0."Id"
+WHERE a."UserId" = @__userId_0 
+2024-09-02 14:10:33.2590||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[@__userId_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a0."Name"
+FROM "AspNetUserRoles" AS a
+INNER JOIN "AspNetRoles" AS a0 ON a."RoleId" = a0."Id"
+WHERE a."UserId" = @__userId_0 
+2024-09-02 14:10:33.2590||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.2590||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results. 
+2024-09-02 14:10:33.2590||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.2590||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 14:10:33.2608||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.2608||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.2608||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 14:10:33.2608||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 14:10:33.2608||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 14:10:33.2608||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedName_0
+LIMIT 1 
+2024-09-02 14:10:33.2620||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedName_0
+LIMIT 1 
+2024-09-02 14:10:33.2620||DEBUG|Microsoft.EntityFrameworkCore.ChangeTracking|Context 'SmartwmsDbContext' started tracking 'IdentityRole' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values. 
+2024-09-02 14:10:33.2620||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.2620||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results. 
+2024-09-02 14:10:33.2620||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.2620||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 14:10:33.2645||DEBUG|Microsoft.EntityFrameworkCore.Query|Compiling query expression: 
+'DbSet<IdentityRoleClaim<string>>()
+    .Where(rc => rc.RoleId.Equals(__role_Id_0))
+    .Select(c => new Claim(
+        c.ClaimType, 
+        c.ClaimValue
+    ))' 
+2024-09-02 14:10:33.2661||DEBUG|Microsoft.EntityFrameworkCore.Query|Generated query execution expression: 
+'queryContext => new SingleQueryingEnumerable<Claim>(
+    (RelationalQueryContext)queryContext, 
+    RelationalCommandCache.QueryExpression(
+        Client Projections:
+            0 -> 0
+            1 -> 1
+        SELECT a.ClaimType, a.ClaimValue
+        FROM AspNetRoleClaims AS a
+        WHERE a.RoleId == @__role_Id_0), 
+    null, 
+    Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, Claim>, 
+    SmartWMS.Models.SmartwmsDbContext, 
+    False, 
+    False, 
+    True
+)' 
+2024-09-02 14:10:33.2661||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.2661||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.2661||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 14:10:33.2661||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 14:10:33.2661||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 14:10:33.2661||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__role_Id_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."ClaimType", a."ClaimValue"
+FROM "AspNetRoleClaims" AS a
+WHERE a."RoleId" = @__role_Id_0 
+2024-09-02 14:10:33.2679||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[@__role_Id_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."ClaimType", a."ClaimValue"
+FROM "AspNetRoleClaims" AS a
+WHERE a."RoleId" = @__role_Id_0 
+2024-09-02 14:10:33.2679||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.2679||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results. 
+2024-09-02 14:10:33.2679||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.2679||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 14:10:33.2727||DEBUG|Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler|AuthenticationScheme: Identity.Application was successfully authenticated. 
+2024-09-02 14:10:33.2744||DEBUG|Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions+CompositeIdentityHandler|AuthenticationScheme: Identity.BearerAndApplication was successfully authenticated. 
+2024-09-02 14:10:33.2820||WARN|Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware|Failed to determine the https port for redirect. 
+2024-09-02 14:10:33.2834||INFO|Microsoft.AspNetCore.Routing.EndpointMiddleware|Executing endpoint 'SmartWMS.Controllers.CountryController.Get (SmartWMS)' 
+2024-09-02 14:10:33.3293||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Route matched with {action = "Get", controller = "Country"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Get(Int32) on controller SmartWMS.Controllers.CountryController (SmartWMS). 
+2024-09-02 14:10:33.3311||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of authorization filters (in the following order): None 
+2024-09-02 14:10:33.3311||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of resource filters (in the following order): None 
+2024-09-02 14:10:33.3321||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000), Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000) 
+2024-09-02 14:10:33.3321||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of exception filters (in the following order): None 
+2024-09-02 14:10:33.3328||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000) 
+2024-09-02 14:10:33.3372||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executing controller factory for controller SmartWMS.Controllers.CountryController (SmartWMS) 
+2024-09-02 14:10:33.4607||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed controller factory for controller SmartWMS.Controllers.CountryController (SmartWMS) 
+2024-09-02 14:10:33.4740||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder|Attempting to bind parameter 'id' of type 'System.Int32' ... 
+2024-09-02 14:10:33.4796||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder|Attempting to bind parameter 'id' of type 'System.Int32' using the name 'id' in request data ... 
+2024-09-02 14:10:33.4850||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder|Done attempting to bind parameter 'id' of type 'System.Int32'. 
+2024-09-02 14:10:33.4850||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder|Done attempting to bind parameter 'id' of type 'System.Int32'. 
+2024-09-02 14:10:33.4857||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder|Attempting to validate the bound parameter 'id' of type 'System.Int32' ... 
+2024-09-02 14:10:33.4977||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder|Done attempting to validate the bound parameter 'id' of type 'System.Int32'. 
+2024-09-02 14:10:33.5003||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 14:10:33.5014||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 14:10:33.5017||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 14:10:33.5017||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 14:10:33.5090||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executing action method SmartWMS.Controllers.CountryController.Get (SmartWMS) - Validation state: Valid 
+2024-09-02 14:10:33.5090||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executing action method SmartWMS.Controllers.CountryController.Get (SmartWMS) with arguments (1) 
+2024-09-02 14:10:33.5118||DEBUG|Microsoft.EntityFrameworkCore.Query|Compiling query expression: 
+'DbSet<Country>()
+    .FirstOrDefault(r => r.CountryId == __id_0)' 
+2024-09-02 14:10:33.5138||DEBUG|Microsoft.EntityFrameworkCore.Query|Generated query execution expression: 
+'queryContext => ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync<Country>(
+    asyncEnumerable: new SingleQueryingEnumerable<Country>(
+        (RelationalQueryContext)queryContext, 
+        RelationalCommandCache.QueryExpression(
+            Projection Mapping:
+                EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: Country.CountryId (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: Country.CountryCode (int) Required Index, 1], [Property: Country.CountryName (string) Required Index MaxLength(45), 2] }
+            SELECT TOP(1) c.country_id, c.country_code, c.country_name
+            FROM countries AS c
+            WHERE c.country_id == @__id_0), 
+        null, 
+        Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, Country>, 
+        SmartWMS.Models.SmartwmsDbContext, 
+        False, 
+        False, 
+        True
+    ), 
+    cancellationToken: queryContext.CancellationToken)' 
+2024-09-02 14:10:33.5138||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.5138||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.5138||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 14:10:33.5138||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 14:10:33.5138||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 14:10:33.5138||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT c.country_id, c.country_code, c.country_name
+FROM countries AS c
+WHERE c.country_id = @__id_0
+LIMIT 1 
+2024-09-02 14:10:33.5179||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (4ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT c.country_id, c.country_code, c.country_name
+FROM countries AS c
+WHERE c.country_id = @__id_0
+LIMIT 1 
+2024-09-02 14:10:33.5229||DEBUG|Microsoft.EntityFrameworkCore.ChangeTracking|Context 'SmartwmsDbContext' started tracking 'Country' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values. 
+2024-09-02 14:10:33.5246||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.5246||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 6ms reading results. 
+2024-09-02 14:10:33.5246||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.5246||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 14:10:33.5286||INFO|SmartWMS.Controllers.CountryController|Country found 
+2024-09-02 14:10:33.5331||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed action method SmartWMS.Controllers.CountryController.Get (SmartWMS), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 20.7721ms. 
+2024-09-02 14:10:33.5350||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 14:10:33.5350||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 14:10:33.5357||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 14:10:33.5357||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 14:10:33.5379||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: Before executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 14:10:33.5379||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: After executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 14:10:33.5400||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Before executing action result Microsoft.AspNetCore.Mvc.OkObjectResult. 
+2024-09-02 14:10:33.5450||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|List of registered output formatters, in the following order: Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter 
+2024-09-02 14:10:33.5506||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|No information found on request to perform content negotiation. 
+2024-09-02 14:10:33.5507||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Attempting to select an output formatter without using a content type as no explicit content types were specified for the response. 
+2024-09-02 14:10:33.5507||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Attempting to select the first formatter in the output formatters list which can write the result. 
+2024-09-02 14:10:33.5526||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter' and content type 'application/json' to write the response. 
+2024-09-02 14:10:33.5531||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor|Executing OkObjectResult, writing value of type 'SmartWMS.Models.CountryDto'. 
+2024-09-02 14:10:33.5668||TRACE|Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector|Performing protect operation to key {0ffb32d9-8013-4a53-b6ea-d73a13adc424} with purposes ('/Users/kamilsadowski/RiderProjects/SmartWMS/', 'Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationMiddleware', 'Identity.Application', 'v2'). 
+2024-09-02 14:10:33.5824||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|After executing action result Microsoft.AspNetCore.Mvc.OkObjectResult. 
+2024-09-02 14:10:33.5829||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: Before executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 14:10:33.5829||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: After executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 14:10:33.5883||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed action SmartWMS.Controllers.CountryController.Get (SmartWMS) in 251.7195ms 
+2024-09-02 14:10:33.5892||INFO|Microsoft.AspNetCore.Routing.EndpointMiddleware|Executed endpoint 'SmartWMS.Controllers.CountryController.Get (SmartWMS)' 
+2024-09-02 14:10:33.5917||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6B90O00USK" completed keep alive response. 
+2024-09-02 14:10:33.5917||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|'SmartwmsDbContext' disposed. 
+2024-09-02 14:10:33.5947||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:33.5947||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 14:10:33.5958||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request finished HTTP/1.1 GET http://localhost:5236/api/Country/1 - 200 - application/json;+charset=utf-8 470.8896ms 
+2024-09-02 14:10:37.2085||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request starting HTTP/1.1 GET http://localhost:5236/api/Country/2 - - - 
+2024-09-02 14:10:37.2088||TRACE|Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware|All hosts are allowed. 
+2024-09-02 14:10:37.2101||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|1 candidate(s) found for the request path '/api/Country/2' 
+2024-09-02 14:10:37.2101||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|Endpoint 'SmartWMS.Controllers.CountryController.Get (SmartWMS)' with route pattern 'api/Country/{id}' is valid for the request path '/api/Country/2' 
+2024-09-02 14:10:37.2101||DEBUG|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|Request matched endpoint 'SmartWMS.Controllers.CountryController.Get (SmartWMS)' 
+2024-09-02 14:10:37.2101||TRACE|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|The endpoint does not specify the IRequestSizeLimitMetadata. 
+2024-09-02 14:10:37.2101||DEBUG|Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware|Static files was skipped as the request already matched an endpoint. 
+2024-09-02 14:10:37.2144||DEBUG|Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenHandler|AuthenticationScheme: Identity.Bearer was not authenticated. 
+2024-09-02 14:10:37.2153||TRACE|Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector|Performing unprotect operation to key {0ffb32d9-8013-4a53-b6ea-d73a13adc424} with purposes ('/Users/kamilsadowski/RiderProjects/SmartWMS/', 'Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationMiddleware', 'Identity.Application', 'v2'). 
+2024-09-02 14:10:37.2186||DEBUG|Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler|AuthenticationScheme: Identity.Application was successfully authenticated. 
+2024-09-02 14:10:37.2188||DEBUG|Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions+CompositeIdentityHandler|AuthenticationScheme: Identity.BearerAndApplication was successfully authenticated. 
+2024-09-02 14:10:37.2188||INFO|Microsoft.AspNetCore.Routing.EndpointMiddleware|Executing endpoint 'SmartWMS.Controllers.CountryController.Get (SmartWMS)' 
+2024-09-02 14:10:37.2201||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Route matched with {action = "Get", controller = "Country"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Get(Int32) on controller SmartWMS.Controllers.CountryController (SmartWMS). 
+2024-09-02 14:10:37.2201||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of authorization filters (in the following order): None 
+2024-09-02 14:10:37.2201||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of resource filters (in the following order): None 
+2024-09-02 14:10:37.2201||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000), Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000) 
+2024-09-02 14:10:37.2201||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of exception filters (in the following order): None 
+2024-09-02 14:10:37.2201||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000) 
+2024-09-02 14:10:37.2207||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executing controller factory for controller SmartWMS.Controllers.CountryController (SmartWMS) 
+2024-09-02 14:10:37.2207||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed controller factory for controller SmartWMS.Controllers.CountryController (SmartWMS) 
+2024-09-02 14:10:37.2207||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder|Attempting to bind parameter 'id' of type 'System.Int32' ... 
+2024-09-02 14:10:37.2218||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder|Attempting to bind parameter 'id' of type 'System.Int32' using the name 'id' in request data ... 
+2024-09-02 14:10:37.2218||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder|Done attempting to bind parameter 'id' of type 'System.Int32'. 
+2024-09-02 14:10:37.2218||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder|Done attempting to bind parameter 'id' of type 'System.Int32'. 
+2024-09-02 14:10:37.2218||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder|Attempting to validate the bound parameter 'id' of type 'System.Int32' ... 
+2024-09-02 14:10:37.2218||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder|Done attempting to validate the bound parameter 'id' of type 'System.Int32'. 
+2024-09-02 14:10:37.2218||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 14:10:37.2218||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 14:10:37.2218||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 14:10:37.2218||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 14:10:37.2227||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executing action method SmartWMS.Controllers.CountryController.Get (SmartWMS) - Validation state: Valid 
+2024-09-02 14:10:37.2227||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executing action method SmartWMS.Controllers.CountryController.Get (SmartWMS) with arguments (2) 
+2024-09-02 14:10:37.2247||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 8.0.8 initialized 'SmartwmsDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:8.0.4+51faf6e9c9c7ef99c3e98d98a96adb8fa8ae4553' with options: None 
+2024-09-02 14:10:37.2247||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Creating DbConnection. 
+2024-09-02 14:10:37.2247||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Created DbConnection. (0ms). 
+2024-09-02 14:10:37.2247||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:37.2247||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:37.2259||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 14:10:37.2259||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 14:10:37.2259||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 14:10:37.2259||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT c.country_id, c.country_code, c.country_name
+FROM countries AS c
+WHERE c.country_id = @__id_0
+LIMIT 1 
+2024-09-02 14:10:37.2283||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT c.country_id, c.country_code, c.country_name
+FROM countries AS c
+WHERE c.country_id = @__id_0
+LIMIT 1 
+2024-09-02 14:10:37.2283||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:37.2283||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results. 
+2024-09-02 14:10:37.2287||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:37.2287||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 14:10:37.2304||ERROR|SmartWMS.Controllers.CountryController|Country with specified id hasn't been found 
+2024-09-02 14:10:37.2310||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed action method SmartWMS.Controllers.CountryController.Get (SmartWMS), returned result Microsoft.AspNetCore.Mvc.NotFoundObjectResult in 8.1203ms. 
+2024-09-02 14:10:37.2310||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 14:10:37.2310||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 14:10:37.2310||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 14:10:37.2310||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 14:10:37.2310||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: Before executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 14:10:37.2310||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: After executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 14:10:37.2310||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Before executing action result Microsoft.AspNetCore.Mvc.NotFoundObjectResult. 
+2024-09-02 14:10:37.2316||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|List of registered output formatters, in the following order: Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter 
+2024-09-02 14:10:37.2316||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|No information found on request to perform content negotiation. 
+2024-09-02 14:10:37.2316||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Attempting to select an output formatter without using a content type as no explicit content types were specified for the response. 
+2024-09-02 14:10:37.2316||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Attempting to select the first formatter in the output formatters list which can write the result. 
+2024-09-02 14:10:37.2316||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter' and content type 'text/plain' to write the response. 
+2024-09-02 14:10:37.2316||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor|Executing NotFoundObjectResult, writing value of type 'System.String'. 
+2024-09-02 14:10:37.2316||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|After executing action result Microsoft.AspNetCore.Mvc.NotFoundObjectResult. 
+2024-09-02 14:10:37.2316||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: Before executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 14:10:37.2316||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: After executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 14:10:37.2327||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed action SmartWMS.Controllers.CountryController.Get (SmartWMS) in 12.0107ms 
+2024-09-02 14:10:37.2327||INFO|Microsoft.AspNetCore.Routing.EndpointMiddleware|Executed endpoint 'SmartWMS.Controllers.CountryController.Get (SmartWMS)' 
+2024-09-02 14:10:37.2327||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6B90O00USK" completed keep alive response. 
+2024-09-02 14:10:37.2327||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|'SmartwmsDbContext' disposed. 
+2024-09-02 14:10:37.2327||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 14:10:37.2327||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 14:10:37.2327||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request finished HTTP/1.1 GET http://localhost:5236/api/Country/2 - 404 - text/plain;+charset=utf-8 24.8515ms 
+2024-09-02 14:10:52.6967||INFO|Microsoft.Hosting.Lifetime|Application is shutting down... 
+2024-09-02 14:10:52.6987||DEBUG|Microsoft.Extensions.Hosting.Internal.Host|Hosting stopping 
+2024-09-02 14:10:52.7082||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6B90O00USK" disconnecting. 
+2024-09-02 14:10:52.7094||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6B90O00USK" stopped. 
+2024-09-02 14:10:52.7094||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets|Connection id "0HN6B90O00USK" sending FIN because: "The Socket transport's send loop completed gracefully." 
+2024-09-02 14:10:52.7161||DEBUG|Microsoft.Extensions.Hosting.Internal.Host|Hosting stopped 
+2024-09-02 15:10:02.9601||DEBUG|SmartWMS.Program|init main 
+2024-09-02 15:10:03.4439||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|An 'IServiceProvider' was created for internal use by Entity Framework. 
+2024-09-02 15:10:03.7338||DEBUG|Microsoft.EntityFrameworkCore.Model|The index {'UserId'} was not created on entity type 'IdentityUserRole<string>' as the properties are already covered by the index {'UserId', 'RoleId'}. 
+2024-09-02 15:10:03.7350||DEBUG|Microsoft.EntityFrameworkCore.Model|The index {'UserId'} was not created on entity type 'IdentityUserToken<string>' as the properties are already covered by the index {'UserId', 'LoginProvider', 'Name'}. 
+2024-09-02 15:10:03.7350||DEBUG|Microsoft.EntityFrameworkCore.Model|The index {'ProductsProductId'} was not created on entity type 'ProductsHasTask' as the properties are already covered by the index {'ProductsProductId', 'TasksTaskId'}. 
+2024-09-02 15:10:03.7350||DEBUG|Microsoft.EntityFrameworkCore.Model|The index {'UsersUserId'} was not created on entity type 'UsersHasTask' as the properties are already covered by the index {'UsersUserId', 'TasksTaskId'}. 
+2024-09-02 15:10:03.9015||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 8.0.8 initialized 'SmartwmsDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:8.0.4+51faf6e9c9c7ef99c3e98d98a96adb8fa8ae4553' with options: None 
+2024-09-02 15:10:03.9245||DEBUG|Microsoft.EntityFrameworkCore.Query|Compiling query expression: 
+'DbSet<IdentityRole>()
+    .FirstOrDefault(r => r.NormalizedName == __normalizedName_0)' 
+2024-09-02 15:10:04.0116||DEBUG|Microsoft.EntityFrameworkCore.Query|Generated query execution expression: 
+'queryContext => ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync<IdentityRole>(
+    asyncEnumerable: new SingleQueryingEnumerable<IdentityRole>(
+        (RelationalQueryContext)queryContext, 
+        RelationalCommandCache.QueryExpression(
+            Projection Mapping:
+                EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: IdentityRole.Id (string) Required PK AfterSave:Throw, 0], [Property: IdentityRole.ConcurrencyStamp (string) Concurrency, 1], [Property: IdentityRole.Name (string) MaxLength(256), 2], [Property: IdentityRole.NormalizedName (string) Index MaxLength(256), 3] }
+            SELECT TOP(1) a.Id, a.ConcurrencyStamp, a.Name, a.NormalizedName
+            FROM AspNetRoles AS a
+            WHERE a.NormalizedName == @__normalizedName_0), 
+        null, 
+        Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, IdentityRole>, 
+        SmartWMS.Models.SmartwmsDbContext, 
+        False, 
+        False, 
+        True
+    ), 
+    cancellationToken: queryContext.CancellationToken)' 
+2024-09-02 15:10:04.0309||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Creating DbConnection. 
+2024-09-02 15:10:04.0337||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Created DbConnection. (1ms). 
+2024-09-02 15:10:04.0353||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:04.1106||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:04.1177||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 15:10:04.1219||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (4ms). 
+2024-09-02 15:10:04.1276||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (12ms). 
+2024-09-02 15:10:04.1335||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedName_0
+LIMIT 1 
+2024-09-02 15:10:04.1924||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (60ms) [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedName_0
+LIMIT 1 
+2024-09-02 15:10:04.2305||DEBUG|Microsoft.EntityFrameworkCore.ChangeTracking|Context 'SmartwmsDbContext' started tracking 'IdentityRole' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values. 
+2024-09-02 15:10:04.2454||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:04.2535||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 56ms reading results. 
+2024-09-02 15:10:04.2581||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:04.2622||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (4ms). 
+2024-09-02 15:10:04.2653||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:04.2655||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:04.2655||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 15:10:04.2655||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:04.2655||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:04.2655||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedName_0
+LIMIT 1 
+2024-09-02 15:10:04.2698||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (4ms) [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedName_0
+LIMIT 1 
+2024-09-02 15:10:04.2698||DEBUG|Microsoft.EntityFrameworkCore.ChangeTracking|Context 'SmartwmsDbContext' started tracking 'IdentityRole' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values. 
+2024-09-02 15:10:04.2698||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:04.2698||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results. 
+2024-09-02 15:10:04.2698||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:04.2698||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 15:10:04.2698||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:04.2698||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:04.2698||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 15:10:04.2698||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:04.2698||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:04.2698||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedName_0
+LIMIT 1 
+2024-09-02 15:10:04.2716||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedName_0
+LIMIT 1 
+2024-09-02 15:10:04.2716||DEBUG|Microsoft.EntityFrameworkCore.ChangeTracking|Context 'SmartwmsDbContext' started tracking 'IdentityRole' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values. 
+2024-09-02 15:10:04.2716||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:04.2716||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results. 
+2024-09-02 15:10:04.2716||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:04.2716||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 15:10:04.2728||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|'SmartwmsDbContext' disposed. 
+2024-09-02 15:10:04.2740||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:04.2740||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 15:10:04.2908||INFO|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|User profile is available. Using '/Users/kamilsadowski/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest. 
+2024-09-02 15:10:04.3188||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 8.0.8 initialized 'SmartwmsDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:8.0.4+51faf6e9c9c7ef99c3e98d98a96adb8fa8ae4553' with options: None 
+2024-09-02 15:10:04.3195||DEBUG|Microsoft.EntityFrameworkCore.Query|Compiling query expression: 
+'DbSet<User>()
+    .SingleOrDefault(u => u.NormalizedEmail == __normalizedEmail_0)' 
+2024-09-02 15:10:04.3230||DEBUG|Microsoft.EntityFrameworkCore.Query|Generated query execution expression: 
+'queryContext => ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync<User>(
+    asyncEnumerable: new SingleQueryingEnumerable<User>(
+        (RelationalQueryContext)queryContext, 
+        RelationalCommandCache.QueryExpression(
+            Projection Mapping:
+                EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: User.Id (string) Required PK AfterSave:Throw, 0], [Property: User.AccessFailedCount (int) Required, 1], [Property: User.ConcurrencyStamp (string) Concurrency, 2], [Property: User.Email (string) MaxLength(256), 3], [Property: User.EmailConfirmed (bool) Required, 4], [Property: User.LockoutEnabled (bool) Required, 5], [Property: User.LockoutEnd (DateTimeOffset?), 6], [Property: User.ManagerId (string) FK Index, 7], [Property: User.NormalizedEmail (string) Index MaxLength(256), 8], [Property: User.NormalizedUserName (string) Index MaxLength(256), 9], [Property: User.PasswordHash (string), 10], [Property: User.PhoneNumber (string), 11], [Property: User.PhoneNumberConfirmed (bool) Required, 12], [Property: User.SecurityStamp (string), 13], [Property: User.TwoFactorEnabled (bool) Required, 14], [Property: User.UserName (string) MaxLength(256), 15], [Property: User.WarehousesWarehouseId (int) Required FK Index, 16] }
+            SELECT TOP(2) u.Id, u.AccessFailedCount, u.ConcurrencyStamp, u.Email, u.EmailConfirmed, u.LockoutEnabled, u.LockoutEnd, u.manager_id, u.NormalizedEmail, u.NormalizedUserName, u.PasswordHash, u.PhoneNumber, u.PhoneNumberConfirmed, u.SecurityStamp, u.TwoFactorEnabled, u.UserName, u.warehouses_warehouse_id
+            FROM users AS u
+            WHERE u.NormalizedEmail == @__normalizedEmail_0), 
+        null, 
+        Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, User>, 
+        SmartWMS.Models.SmartwmsDbContext, 
+        False, 
+        False, 
+        True
+    ), 
+    cancellationToken: queryContext.CancellationToken)' 
+2024-09-02 15:10:04.3230||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Creating DbConnection. 
+2024-09-02 15:10:04.3230||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Created DbConnection. (0ms). 
+2024-09-02 15:10:04.3230||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:04.3230||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:04.3230||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 15:10:04.3230||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:04.3230||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:04.3230||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__normalizedEmail_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT u."Id", u."AccessFailedCount", u."ConcurrencyStamp", u."Email", u."EmailConfirmed", u."LockoutEnabled", u."LockoutEnd", u.manager_id, u."NormalizedEmail", u."NormalizedUserName", u."PasswordHash", u."PhoneNumber", u."PhoneNumberConfirmed", u."SecurityStamp", u."TwoFactorEnabled", u."UserName", u.warehouses_warehouse_id
+FROM users AS u
+WHERE u."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2 
+2024-09-02 15:10:04.3253||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT u."Id", u."AccessFailedCount", u."ConcurrencyStamp", u."Email", u."EmailConfirmed", u."LockoutEnabled", u."LockoutEnd", u.manager_id, u."NormalizedEmail", u."NormalizedUserName", u."PasswordHash", u."PhoneNumber", u."PhoneNumberConfirmed", u."SecurityStamp", u."TwoFactorEnabled", u."UserName", u.warehouses_warehouse_id
+FROM users AS u
+WHERE u."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2 
+2024-09-02 15:10:04.3340||DEBUG|Microsoft.EntityFrameworkCore.ChangeTracking|Context 'SmartwmsDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values. 
+2024-09-02 15:10:04.3479||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:04.3479||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 22ms reading results. 
+2024-09-02 15:10:04.3479||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:04.3479||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 15:10:04.3486||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|'SmartwmsDbContext' disposed. 
+2024-09-02 15:10:04.3486||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:04.3486||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 15:10:04.4302||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderFactory|Registered model binder providers, in the following order: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider 
+2024-09-02 15:10:04.5012||DEBUG|Microsoft.Extensions.Hosting.Internal.Host|Hosting starting 
+2024-09-02 15:10:04.5131||DEBUG|Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository|Reading data from file '/Users/kamilsadowski/.aspnet/DataProtection-Keys/key-0ffb32d9-8013-4a53-b6ea-d73a13adc424.xml'. 
+2024-09-02 15:10:04.5175||DEBUG|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|Found key {0ffb32d9-8013-4a53-b6ea-d73a13adc424}. 
+2024-09-02 15:10:04.5277||DEBUG|Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver|Considering key {0ffb32d9-8013-4a53-b6ea-d73a13adc424} with expiration date 2024-11-12 15:19:46Z as default key. 
+2024-09-02 15:10:04.5309||DEBUG|Microsoft.AspNetCore.DataProtection.TypeForwardingActivator|Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60 
+2024-09-02 15:10:04.5350||DEBUG|Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ManagedAuthenticatedEncryptorFactory|Using managed symmetric algorithm 'System.Security.Cryptography.Aes'. 
+2024-09-02 15:10:04.5350||DEBUG|Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ManagedAuthenticatedEncryptorFactory|Using managed keyed hash algorithm 'System.Security.Cryptography.HMACSHA256'. 
+2024-09-02 15:10:04.5390||DEBUG|Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider|Using key {0ffb32d9-8013-4a53-b6ea-d73a13adc424} as the default key. 
+2024-09-02 15:10:04.5406||DEBUG|Microsoft.AspNetCore.DataProtection.Internal.DataProtectionHostedService|Key ring with default key {0ffb32d9-8013-4a53-b6ea-d73a13adc424} was loaded during application startup. 
+2024-09-02 15:10:04.7165||INFO|Microsoft.Hosting.Lifetime|Now listening on: http://localhost:5236 
+2024-09-02 15:10:04.7165||DEBUG|Microsoft.AspNetCore.Hosting.Diagnostics|Loaded hosting startup assembly SmartWMS 
+2024-09-02 15:10:04.7165||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2024-09-02 15:10:04.7165||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2024-09-02 15:10:04.7165||INFO|Microsoft.Hosting.Lifetime|Content root path: /Users/kamilsadowski/RiderProjects/SmartWMS 
+2024-09-02 15:10:04.7175||DEBUG|Microsoft.Extensions.Hosting.Internal.Host|Hosting started 
+2024-09-02 15:10:04.9650||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets|Connection id "0HN6BA27S9QM5" received FIN. 
+2024-09-02 15:10:04.9755||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6BA27S9QM5" accepted. 
+2024-09-02 15:10:04.9912||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6BA27S9QM5" started. 
+2024-09-02 15:10:05.1074||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets|Connection id "0HN6BA27S9QM5" sending FIN because: "The Socket transport's send loop completed gracefully." 
+2024-09-02 15:10:05.1230||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6BA27S9QM6" accepted. 
+2024-09-02 15:10:05.1246||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6BA27S9QM5" disconnecting. 
+2024-09-02 15:10:05.1328||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6BA27S9QM6" started. 
+2024-09-02 15:10:05.1532||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6BA27S9QM5" stopped. 
+2024-09-02 15:10:05.2404||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request starting HTTP/1.1 GET http://localhost:5236/swagger/index.html - - - 
+2024-09-02 15:10:05.2449||DEBUG|Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware|Wildcard detected, all requests with hosts will be allowed. 
+2024-09-02 15:10:05.2449||TRACE|Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware|All hosts are allowed. 
+2024-09-02 15:10:05.2792||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|No candidates found for the request path '/swagger/index.html' 
+2024-09-02 15:10:05.2801||DEBUG|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|Request did not match any endpoints 
+2024-09-02 15:10:05.3450||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6BA27S9QM6" completed keep alive response. 
+2024-09-02 15:10:05.3485||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request finished HTTP/1.1 GET http://localhost:5236/swagger/index.html - 200 - text/html;charset=utf-8 119.5612ms 
+2024-09-02 15:10:05.4553||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request starting HTTP/1.1 GET http://localhost:5236/swagger/v1/swagger.json - - - 
+2024-09-02 15:10:05.4553||TRACE|Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware|All hosts are allowed. 
+2024-09-02 15:10:05.4580||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|No candidates found for the request path '/swagger/v1/swagger.json' 
+2024-09-02 15:10:05.4580||DEBUG|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|Request did not match any endpoints 
+2024-09-02 15:10:05.5686||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6BA27S9QM6" completed keep alive response. 
+2024-09-02 15:10:05.5686||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request finished HTTP/1.1 GET http://localhost:5236/swagger/v1/swagger.json - 200 - application/json;charset=utf-8 113.6822ms 
+2024-09-02 15:10:19.7105||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request starting HTTP/1.1 GET http://localhost:5236/api/Country - - - 
+2024-09-02 15:10:19.7117||TRACE|Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware|All hosts are allowed. 
+2024-09-02 15:10:19.7161||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|1 candidate(s) found for the request path '/api/Country' 
+2024-09-02 15:10:19.7167||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|Endpoint 'SmartWMS.Controllers.CountryController.GetAll (SmartWMS)' with route pattern 'api/Country' is valid for the request path '/api/Country' 
+2024-09-02 15:10:19.7176||DEBUG|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|Request matched endpoint 'SmartWMS.Controllers.CountryController.GetAll (SmartWMS)' 
+2024-09-02 15:10:19.7176||TRACE|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|The endpoint does not specify the IRequestSizeLimitMetadata. 
+2024-09-02 15:10:19.7199||DEBUG|Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware|Static files was skipped as the request already matched an endpoint. 
+2024-09-02 15:10:19.7348||DEBUG|Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenHandler|AuthenticationScheme: Identity.Bearer was not authenticated. 
+2024-09-02 15:10:19.7481||TRACE|Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector|Performing unprotect operation to key {0ffb32d9-8013-4a53-b6ea-d73a13adc424} with purposes ('/Users/kamilsadowski/RiderProjects/SmartWMS/', 'Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationMiddleware', 'Identity.Application', 'v2'). 
+2024-09-02 15:10:19.7620||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 8.0.8 initialized 'SmartwmsDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:8.0.4+51faf6e9c9c7ef99c3e98d98a96adb8fa8ae4553' with options: None 
+2024-09-02 15:10:19.7664||DEBUG|Microsoft.EntityFrameworkCore.Query|Compiling query expression: 
+'DbSet<User>()
+    .FirstOrDefault(e => EF.Property<string>(e, "Id") == __p_0)' 
+2024-09-02 15:10:19.7720||DEBUG|Microsoft.EntityFrameworkCore.Query|Generated query execution expression: 
+'queryContext => ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync<User>(
+    asyncEnumerable: new SingleQueryingEnumerable<User>(
+        (RelationalQueryContext)queryContext, 
+        RelationalCommandCache.QueryExpression(
+            Projection Mapping:
+                EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: User.Id (string) Required PK AfterSave:Throw, 0], [Property: User.AccessFailedCount (int) Required, 1], [Property: User.ConcurrencyStamp (string) Concurrency, 2], [Property: User.Email (string) MaxLength(256), 3], [Property: User.EmailConfirmed (bool) Required, 4], [Property: User.LockoutEnabled (bool) Required, 5], [Property: User.LockoutEnd (DateTimeOffset?), 6], [Property: User.ManagerId (string) FK Index, 7], [Property: User.NormalizedEmail (string) Index MaxLength(256), 8], [Property: User.NormalizedUserName (string) Index MaxLength(256), 9], [Property: User.PasswordHash (string), 10], [Property: User.PhoneNumber (string), 11], [Property: User.PhoneNumberConfirmed (bool) Required, 12], [Property: User.SecurityStamp (string), 13], [Property: User.TwoFactorEnabled (bool) Required, 14], [Property: User.UserName (string) MaxLength(256), 15], [Property: User.WarehousesWarehouseId (int) Required FK Index, 16] }
+            SELECT TOP(1) u.Id, u.AccessFailedCount, u.ConcurrencyStamp, u.Email, u.EmailConfirmed, u.LockoutEnabled, u.LockoutEnd, u.manager_id, u.NormalizedEmail, u.NormalizedUserName, u.PasswordHash, u.PhoneNumber, u.PhoneNumberConfirmed, u.SecurityStamp, u.TwoFactorEnabled, u.UserName, u.warehouses_warehouse_id
+            FROM users AS u
+            WHERE u.Id == @__p_0), 
+        null, 
+        Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, User>, 
+        SmartWMS.Models.SmartwmsDbContext, 
+        False, 
+        False, 
+        True
+    ), 
+    cancellationToken: queryContext.CancellationToken)' 
+2024-09-02 15:10:19.7720||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Creating DbConnection. 
+2024-09-02 15:10:19.7720||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Created DbConnection. (0ms). 
+2024-09-02 15:10:19.7720||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:19.7720||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:19.7727||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 15:10:19.7727||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:19.7727||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:19.7727||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__p_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT u."Id", u."AccessFailedCount", u."ConcurrencyStamp", u."Email", u."EmailConfirmed", u."LockoutEnabled", u."LockoutEnd", u.manager_id, u."NormalizedEmail", u."NormalizedUserName", u."PasswordHash", u."PhoneNumber", u."PhoneNumberConfirmed", u."SecurityStamp", u."TwoFactorEnabled", u."UserName", u.warehouses_warehouse_id
+FROM users AS u
+WHERE u."Id" = @__p_0
+LIMIT 1 
+2024-09-02 15:10:19.7750||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[@__p_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT u."Id", u."AccessFailedCount", u."ConcurrencyStamp", u."Email", u."EmailConfirmed", u."LockoutEnabled", u."LockoutEnd", u.manager_id, u."NormalizedEmail", u."NormalizedUserName", u."PasswordHash", u."PhoneNumber", u."PhoneNumberConfirmed", u."SecurityStamp", u."TwoFactorEnabled", u."UserName", u.warehouses_warehouse_id
+FROM users AS u
+WHERE u."Id" = @__p_0
+LIMIT 1 
+2024-09-02 15:10:19.7750||DEBUG|Microsoft.EntityFrameworkCore.ChangeTracking|Context 'SmartwmsDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values. 
+2024-09-02 15:10:19.7750||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:19.7750||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results. 
+2024-09-02 15:10:19.7750||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:19.7750||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 15:10:19.7876||DEBUG|Microsoft.EntityFrameworkCore.Query|Compiling query expression: 
+'DbSet<IdentityUserClaim<string>>()
+    .Where(uc => uc.UserId.Equals(__user_Id_0))
+    .Select(c => c.ToClaim())' 
+2024-09-02 15:10:19.8135||DEBUG|Microsoft.EntityFrameworkCore.Query|Generated query execution expression: 
+'queryContext => new SingleQueryingEnumerable<Claim>(
+    (RelationalQueryContext)queryContext, 
+    RelationalCommandCache.QueryExpression(
+        Client Projections:
+            0 -> Dictionary<IProperty, int> { [Property: IdentityUserClaim<string>.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: IdentityUserClaim<string>.ClaimType (string), 1], [Property: IdentityUserClaim<string>.ClaimValue (string), 2], [Property: IdentityUserClaim<string>.UserId (string) Required FK Index, 3] }
+        SELECT a.Id, a.ClaimType, a.ClaimValue, a.UserId
+        FROM AspNetUserClaims AS a
+        WHERE a.UserId == @__user_Id_0), 
+    null, 
+    Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, Claim>, 
+    SmartWMS.Models.SmartwmsDbContext, 
+    False, 
+    False, 
+    True
+)' 
+2024-09-02 15:10:19.8137||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:19.8137||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:19.8137||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 15:10:19.8137||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:19.8137||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:19.8137||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__user_Id_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ClaimType", a."ClaimValue", a."UserId"
+FROM "AspNetUserClaims" AS a
+WHERE a."UserId" = @__user_Id_0 
+2024-09-02 15:10:19.8163||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[@__user_Id_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ClaimType", a."ClaimValue", a."UserId"
+FROM "AspNetUserClaims" AS a
+WHERE a."UserId" = @__user_Id_0 
+2024-09-02 15:10:19.8168||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:19.8168||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results. 
+2024-09-02 15:10:19.8168||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:19.8168||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 15:10:19.8218||DEBUG|Microsoft.EntityFrameworkCore.Query|Compiling query expression: 
+'DbSet<IdentityUserRole<string>>()
+    .Join(
+        inner: DbSet<IdentityRole>(), 
+        outerKeySelector: userRole => userRole.RoleId, 
+        innerKeySelector: role => role.Id, 
+        resultSelector: (userRole, role) => new { 
+            userRole = userRole, 
+            role = role
+         })
+    .Where(<>h__TransparentIdentifier0 => <>h__TransparentIdentifier0.userRole.UserId.Equals(__userId_0))
+    .Select(<>h__TransparentIdentifier0 => <>h__TransparentIdentifier0.role.Name)' 
+2024-09-02 15:10:19.8300||DEBUG|Microsoft.EntityFrameworkCore.Query|Generated query execution expression: 
+'queryContext => new SingleQueryingEnumerable<string>(
+    (RelationalQueryContext)queryContext, 
+    RelationalCommandCache.QueryExpression(
+        Projection Mapping:
+            EmptyProjectionMember -> 0
+        SELECT a0.Name
+        FROM AspNetUserRoles AS a
+        INNER JOIN AspNetRoles AS a0 ON a.RoleId == a0.Id
+        WHERE a.UserId == @__userId_0), 
+    null, 
+    Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, string>, 
+    SmartWMS.Models.SmartwmsDbContext, 
+    False, 
+    False, 
+    True
+)' 
+2024-09-02 15:10:19.8306||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:19.8306||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:19.8306||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 15:10:19.8306||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:19.8306||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:19.8306||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__userId_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a0."Name"
+FROM "AspNetUserRoles" AS a
+INNER JOIN "AspNetRoles" AS a0 ON a."RoleId" = a0."Id"
+WHERE a."UserId" = @__userId_0 
+2024-09-02 15:10:19.8337||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (3ms) [Parameters=[@__userId_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a0."Name"
+FROM "AspNetUserRoles" AS a
+INNER JOIN "AspNetRoles" AS a0 ON a."RoleId" = a0."Id"
+WHERE a."UserId" = @__userId_0 
+2024-09-02 15:10:19.8337||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:19.8337||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results. 
+2024-09-02 15:10:19.8337||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:19.8337||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 15:10:19.8349||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:19.8349||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:19.8349||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 15:10:19.8349||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:19.8349||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:19.8349||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedName_0
+LIMIT 1 
+2024-09-02 15:10:19.8357||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedName_0
+LIMIT 1 
+2024-09-02 15:10:19.8357||DEBUG|Microsoft.EntityFrameworkCore.ChangeTracking|Context 'SmartwmsDbContext' started tracking 'IdentityRole' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values. 
+2024-09-02 15:10:19.8357||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:19.8357||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results. 
+2024-09-02 15:10:19.8357||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:19.8357||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 15:10:19.8375||DEBUG|Microsoft.EntityFrameworkCore.Query|Compiling query expression: 
+'DbSet<IdentityRoleClaim<string>>()
+    .Where(rc => rc.RoleId.Equals(__role_Id_0))
+    .Select(c => new Claim(
+        c.ClaimType, 
+        c.ClaimValue
+    ))' 
+2024-09-02 15:10:19.8386||DEBUG|Microsoft.EntityFrameworkCore.Query|Generated query execution expression: 
+'queryContext => new SingleQueryingEnumerable<Claim>(
+    (RelationalQueryContext)queryContext, 
+    RelationalCommandCache.QueryExpression(
+        Client Projections:
+            0 -> 0
+            1 -> 1
+        SELECT a.ClaimType, a.ClaimValue
+        FROM AspNetRoleClaims AS a
+        WHERE a.RoleId == @__role_Id_0), 
+    null, 
+    Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, Claim>, 
+    SmartWMS.Models.SmartwmsDbContext, 
+    False, 
+    False, 
+    True
+)' 
+2024-09-02 15:10:19.8386||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:19.8386||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:19.8386||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 15:10:19.8386||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:19.8386||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:19.8386||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__role_Id_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."ClaimType", a."ClaimValue"
+FROM "AspNetRoleClaims" AS a
+WHERE a."RoleId" = @__role_Id_0 
+2024-09-02 15:10:19.8408||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[@__role_Id_0='?'], CommandType='Text', CommandTimeout='30']
+SELECT a."ClaimType", a."ClaimValue"
+FROM "AspNetRoleClaims" AS a
+WHERE a."RoleId" = @__role_Id_0 
+2024-09-02 15:10:19.8408||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:19.8408||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results. 
+2024-09-02 15:10:19.8408||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:19.8408||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 15:10:19.8445||DEBUG|Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler|AuthenticationScheme: Identity.Application was successfully authenticated. 
+2024-09-02 15:10:19.8458||DEBUG|Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions+CompositeIdentityHandler|AuthenticationScheme: Identity.BearerAndApplication was successfully authenticated. 
+2024-09-02 15:10:19.8523||WARN|Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware|Failed to determine the https port for redirect. 
+2024-09-02 15:10:19.8534||INFO|Microsoft.AspNetCore.Routing.EndpointMiddleware|Executing endpoint 'SmartWMS.Controllers.CountryController.GetAll (SmartWMS)' 
+2024-09-02 15:10:19.8833||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Route matched with {action = "GetAll", controller = "Country"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller SmartWMS.Controllers.CountryController (SmartWMS). 
+2024-09-02 15:10:19.8849||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of authorization filters (in the following order): None 
+2024-09-02 15:10:19.8849||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of resource filters (in the following order): None 
+2024-09-02 15:10:19.8858||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000), Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000) 
+2024-09-02 15:10:19.8858||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of exception filters (in the following order): None 
+2024-09-02 15:10:19.8858||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000) 
+2024-09-02 15:10:19.8904||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executing controller factory for controller SmartWMS.Controllers.CountryController (SmartWMS) 
+2024-09-02 15:10:20.0153||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed controller factory for controller SmartWMS.Controllers.CountryController (SmartWMS) 
+2024-09-02 15:10:20.0166||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:20.0183||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:20.0186||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:20.0186||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:20.0257||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executing action method SmartWMS.Controllers.CountryController.GetAll (SmartWMS) - Validation state: Valid 
+2024-09-02 15:10:20.0282||DEBUG|Microsoft.EntityFrameworkCore.Query|Compiling query expression: 
+'DbSet<Country>()' 
+2024-09-02 15:10:20.0298||DEBUG|Microsoft.EntityFrameworkCore.Query|Generated query execution expression: 
+'queryContext => new SingleQueryingEnumerable<Country>(
+    (RelationalQueryContext)queryContext, 
+    RelationalCommandCache.QueryExpression(
+        Projection Mapping:
+            EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: Country.CountryId (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: Country.CountryCode (int) Required Index, 1], [Property: Country.CountryName (string) Required Index MaxLength(45), 2] }
+        SELECT c.country_id, c.country_code, c.country_name
+        FROM countries AS c), 
+    null, 
+    Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, Country>, 
+    SmartWMS.Models.SmartwmsDbContext, 
+    False, 
+    False, 
+    True
+)' 
+2024-09-02 15:10:20.0298||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:20.0298||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:20.0298||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 15:10:20.0298||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:20.0298||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:20.0298||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT c.country_id, c.country_code, c.country_name
+FROM countries AS c 
+2024-09-02 15:10:20.0318||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT c.country_id, c.country_code, c.country_name
+FROM countries AS c 
+2024-09-02 15:10:20.0370||DEBUG|Microsoft.EntityFrameworkCore.ChangeTracking|Context 'SmartwmsDbContext' started tracking 'Country' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values. 
+2024-09-02 15:10:20.0388||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:20.0388||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 7ms reading results. 
+2024-09-02 15:10:20.0388||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:20.0388||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 15:10:20.0497||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed action method SmartWMS.Controllers.CountryController.GetAll (SmartWMS), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 20.9792ms. 
+2024-09-02 15:10:20.0516||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:20.0516||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:20.0516||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:20.0516||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:20.0544||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: Before executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:20.0549||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: After executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:20.0566||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Before executing action result Microsoft.AspNetCore.Mvc.OkObjectResult. 
+2024-09-02 15:10:20.0610||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|List of registered output formatters, in the following order: Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter 
+2024-09-02 15:10:20.0666||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|No information found on request to perform content negotiation. 
+2024-09-02 15:10:20.0666||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Attempting to select an output formatter without using a content type as no explicit content types were specified for the response. 
+2024-09-02 15:10:20.0666||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Attempting to select the first formatter in the output formatters list which can write the result. 
+2024-09-02 15:10:20.0686||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter' and content type 'application/json' to write the response. 
+2024-09-02 15:10:20.0686||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor|Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[SmartWMS.Models.CountryDto, SmartWMS, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'. 
+2024-09-02 15:10:20.0831||TRACE|Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector|Performing protect operation to key {0ffb32d9-8013-4a53-b6ea-d73a13adc424} with purposes ('/Users/kamilsadowski/RiderProjects/SmartWMS/', 'Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationMiddleware', 'Identity.Application', 'v2'). 
+2024-09-02 15:10:20.0980||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|After executing action result Microsoft.AspNetCore.Mvc.OkObjectResult. 
+2024-09-02 15:10:20.0986||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: Before executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:20.0986||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: After executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:20.1039||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed action SmartWMS.Controllers.CountryController.GetAll (SmartWMS) in 213.6709ms 
+2024-09-02 15:10:20.1048||INFO|Microsoft.AspNetCore.Routing.EndpointMiddleware|Executed endpoint 'SmartWMS.Controllers.CountryController.GetAll (SmartWMS)' 
+2024-09-02 15:10:20.1072||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6BA27S9QM6" completed keep alive response. 
+2024-09-02 15:10:20.1081||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|'SmartwmsDbContext' disposed. 
+2024-09-02 15:10:20.1106||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:20.1116||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 15:10:20.1116||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request finished HTTP/1.1 GET http://localhost:5236/api/Country - 200 - application/json;+charset=utf-8 401.5640ms 
+2024-09-02 15:10:27.6825||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request starting HTTP/1.1 GET http://localhost:5236/api/OrderHeader - - - 
+2024-09-02 15:10:27.6827||TRACE|Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware|All hosts are allowed. 
+2024-09-02 15:10:27.6841||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|1 candidate(s) found for the request path '/api/OrderHeader' 
+2024-09-02 15:10:27.6841||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|Endpoint 'SmartWMS.Controllers.OrderHeaderController.GetAll (SmartWMS)' with route pattern 'api/OrderHeader' is valid for the request path '/api/OrderHeader' 
+2024-09-02 15:10:27.6841||DEBUG|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|Request matched endpoint 'SmartWMS.Controllers.OrderHeaderController.GetAll (SmartWMS)' 
+2024-09-02 15:10:27.6846||TRACE|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|The endpoint does not specify the IRequestSizeLimitMetadata. 
+2024-09-02 15:10:27.6846||DEBUG|Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware|Static files was skipped as the request already matched an endpoint. 
+2024-09-02 15:10:27.6870||DEBUG|Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenHandler|AuthenticationScheme: Identity.Bearer was not authenticated. 
+2024-09-02 15:10:27.6881||TRACE|Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector|Performing unprotect operation to key {0ffb32d9-8013-4a53-b6ea-d73a13adc424} with purposes ('/Users/kamilsadowski/RiderProjects/SmartWMS/', 'Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationMiddleware', 'Identity.Application', 'v2'). 
+2024-09-02 15:10:27.6925||DEBUG|Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler|AuthenticationScheme: Identity.Application was successfully authenticated. 
+2024-09-02 15:10:27.6927||DEBUG|Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions+CompositeIdentityHandler|AuthenticationScheme: Identity.BearerAndApplication was successfully authenticated. 
+2024-09-02 15:10:27.6927||INFO|Microsoft.AspNetCore.Routing.EndpointMiddleware|Executing endpoint 'SmartWMS.Controllers.OrderHeaderController.GetAll (SmartWMS)' 
+2024-09-02 15:10:27.6995||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Route matched with {action = "GetAll", controller = "OrderHeader"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller SmartWMS.Controllers.OrderHeaderController (SmartWMS). 
+2024-09-02 15:10:27.6996||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of authorization filters (in the following order): None 
+2024-09-02 15:10:27.6996||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of resource filters (in the following order): None 
+2024-09-02 15:10:27.6996||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000), Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000) 
+2024-09-02 15:10:27.6996||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of exception filters (in the following order): None 
+2024-09-02 15:10:27.6996||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000) 
+2024-09-02 15:10:27.6996||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executing controller factory for controller SmartWMS.Controllers.OrderHeaderController (SmartWMS) 
+2024-09-02 15:10:27.7016||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed controller factory for controller SmartWMS.Controllers.OrderHeaderController (SmartWMS) 
+2024-09-02 15:10:27.7016||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:27.7016||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:27.7016||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:27.7016||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:27.7026||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executing action method SmartWMS.Controllers.OrderHeaderController.GetAll (SmartWMS) - Validation state: Valid 
+2024-09-02 15:10:27.7060||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 8.0.8 initialized 'SmartwmsDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:8.0.4+51faf6e9c9c7ef99c3e98d98a96adb8fa8ae4553' with options: None 
+2024-09-02 15:10:27.7060||DEBUG|Microsoft.EntityFrameworkCore.Query|Compiling query expression: 
+'DbSet<OrderHeader>()' 
+2024-09-02 15:10:27.7108||DEBUG|Microsoft.EntityFrameworkCore.Query|Generated query execution expression: 
+'queryContext => new SingleQueryingEnumerable<OrderHeader>(
+    (RelationalQueryContext)queryContext, 
+    RelationalCommandCache.QueryExpression(
+        Projection Mapping:
+            EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: OrderHeader.OrdersHeaderId (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: OrderHeader.DeliveryDate (DateTime?), 1], [Property: OrderHeader.DestinationAddress (string) Required MaxLength(45), 2], [Property: OrderHeader.OrderDate (DateTime) Required, 3], [Property: OrderHeader.StatusName (OrderName) Required, 4], [Property: OrderHeader.TypeName (OrderType) Required, 5], [Property: OrderHeader.WaybillsWaybillId (int) Required FK Index, 6] }
+        SELECT o.orders_header_id, o.delivery_date, o.destination_address, o.order_date, o.status_name, o.type_name, o.waybills_waybill_id
+        FROM order_headers AS o), 
+    null, 
+    Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, OrderHeader>, 
+    SmartWMS.Models.SmartwmsDbContext, 
+    False, 
+    False, 
+    True
+)' 
+2024-09-02 15:10:27.7108||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Creating DbConnection. 
+2024-09-02 15:10:27.7108||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Created DbConnection. (0ms). 
+2024-09-02 15:10:27.7108||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:27.7108||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:27.7108||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 15:10:27.7108||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:27.7108||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:27.7108||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT o.orders_header_id, o.delivery_date, o.destination_address, o.order_date, o.status_name, o.type_name, o.waybills_waybill_id
+FROM order_headers AS o 
+2024-09-02 15:10:27.7129||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT o.orders_header_id, o.delivery_date, o.destination_address, o.order_date, o.status_name, o.type_name, o.waybills_waybill_id
+FROM order_headers AS o 
+2024-09-02 15:10:27.7265||DEBUG|Microsoft.EntityFrameworkCore.ChangeTracking|Context 'SmartwmsDbContext' started tracking 'OrderHeader' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values. 
+2024-09-02 15:10:27.7402||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:27.7402||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 27ms reading results. 
+2024-09-02 15:10:27.7402||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:27.7402||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 15:10:27.7450||INFO|SmartWMS.Controllers.OrderHeaderController|All Order Headers fetched 
+2024-09-02 15:10:27.7450||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed action method SmartWMS.Controllers.OrderHeaderController.GetAll (SmartWMS), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 42.4038ms. 
+2024-09-02 15:10:27.7450||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:27.7450||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:27.7450||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:27.7450||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:27.7450||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: Before executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:27.7450||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: After executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:27.7450||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Before executing action result Microsoft.AspNetCore.Mvc.OkObjectResult. 
+2024-09-02 15:10:27.7450||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|List of registered output formatters, in the following order: Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter 
+2024-09-02 15:10:27.7450||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|No information found on request to perform content negotiation. 
+2024-09-02 15:10:27.7455||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Attempting to select an output formatter without using a content type as no explicit content types were specified for the response. 
+2024-09-02 15:10:27.7455||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Attempting to select the first formatter in the output formatters list which can write the result. 
+2024-09-02 15:10:27.7455||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter' and content type 'application/json' to write the response. 
+2024-09-02 15:10:27.7455||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor|Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[SmartWMS.Models.OrderHeaderDto, SmartWMS, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'. 
+2024-09-02 15:10:27.7664||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|After executing action result Microsoft.AspNetCore.Mvc.OkObjectResult. 
+2024-09-02 15:10:27.7664||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: Before executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:27.7664||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: After executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:27.7664||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed action SmartWMS.Controllers.OrderHeaderController.GetAll (SmartWMS) in 66.6757ms 
+2024-09-02 15:10:27.7665||INFO|Microsoft.AspNetCore.Routing.EndpointMiddleware|Executed endpoint 'SmartWMS.Controllers.OrderHeaderController.GetAll (SmartWMS)' 
+2024-09-02 15:10:27.7665||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6BA27S9QM6" completed keep alive response. 
+2024-09-02 15:10:27.7665||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|'SmartwmsDbContext' disposed. 
+2024-09-02 15:10:27.7665||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:27.7665||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 15:10:27.7665||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request finished HTTP/1.1 GET http://localhost:5236/api/OrderHeader - 200 - application/json;+charset=utf-8 84.5157ms 
+2024-09-02 15:10:36.4964||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request starting HTTP/1.1 GET http://localhost:5236/api/OrderHeader/1 - - - 
+2024-09-02 15:10:36.4966||TRACE|Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware|All hosts are allowed. 
+2024-09-02 15:10:36.4966||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|1 candidate(s) found for the request path '/api/OrderHeader/1' 
+2024-09-02 15:10:36.4966||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|Endpoint 'SmartWMS.Controllers.OrderHeaderController.Get (SmartWMS)' with route pattern 'api/OrderHeader/{id}' is valid for the request path '/api/OrderHeader/1' 
+2024-09-02 15:10:36.4966||DEBUG|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|Request matched endpoint 'SmartWMS.Controllers.OrderHeaderController.Get (SmartWMS)' 
+2024-09-02 15:10:36.4966||TRACE|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|The endpoint does not specify the IRequestSizeLimitMetadata. 
+2024-09-02 15:10:36.4966||DEBUG|Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware|Static files was skipped as the request already matched an endpoint. 
+2024-09-02 15:10:36.4992||DEBUG|Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenHandler|AuthenticationScheme: Identity.Bearer was not authenticated. 
+2024-09-02 15:10:36.5007||TRACE|Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector|Performing unprotect operation to key {0ffb32d9-8013-4a53-b6ea-d73a13adc424} with purposes ('/Users/kamilsadowski/RiderProjects/SmartWMS/', 'Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationMiddleware', 'Identity.Application', 'v2'). 
+2024-09-02 15:10:36.5168||DEBUG|Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler|AuthenticationScheme: Identity.Application was successfully authenticated. 
+2024-09-02 15:10:36.5168||DEBUG|Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions+CompositeIdentityHandler|AuthenticationScheme: Identity.BearerAndApplication was successfully authenticated. 
+2024-09-02 15:10:36.5168||INFO|Microsoft.AspNetCore.Routing.EndpointMiddleware|Executing endpoint 'SmartWMS.Controllers.OrderHeaderController.Get (SmartWMS)' 
+2024-09-02 15:10:36.5339||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Route matched with {action = "Get", controller = "OrderHeader"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Get(Int32) on controller SmartWMS.Controllers.OrderHeaderController (SmartWMS). 
+2024-09-02 15:10:36.5339||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of authorization filters (in the following order): None 
+2024-09-02 15:10:36.5339||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of resource filters (in the following order): None 
+2024-09-02 15:10:36.5339||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000), Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000) 
+2024-09-02 15:10:36.5339||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of exception filters (in the following order): None 
+2024-09-02 15:10:36.5339||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000) 
+2024-09-02 15:10:36.5339||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executing controller factory for controller SmartWMS.Controllers.OrderHeaderController (SmartWMS) 
+2024-09-02 15:10:36.5339||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed controller factory for controller SmartWMS.Controllers.OrderHeaderController (SmartWMS) 
+2024-09-02 15:10:36.5458||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder|Attempting to bind parameter 'id' of type 'System.Int32' ... 
+2024-09-02 15:10:36.5501||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder|Attempting to bind parameter 'id' of type 'System.Int32' using the name 'id' in request data ... 
+2024-09-02 15:10:36.5534||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder|Done attempting to bind parameter 'id' of type 'System.Int32'. 
+2024-09-02 15:10:36.5537||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder|Done attempting to bind parameter 'id' of type 'System.Int32'. 
+2024-09-02 15:10:36.5537||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder|Attempting to validate the bound parameter 'id' of type 'System.Int32' ... 
+2024-09-02 15:10:36.5622||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder|Done attempting to validate the bound parameter 'id' of type 'System.Int32'. 
+2024-09-02 15:10:36.5630||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:36.5630||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:36.5630||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:36.5630||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:36.5630||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executing action method SmartWMS.Controllers.OrderHeaderController.Get (SmartWMS) - Validation state: Valid 
+2024-09-02 15:10:36.5630||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executing action method SmartWMS.Controllers.OrderHeaderController.Get (SmartWMS) with arguments (1) 
+2024-09-02 15:10:36.5647||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 8.0.8 initialized 'SmartwmsDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:8.0.4+51faf6e9c9c7ef99c3e98d98a96adb8fa8ae4553' with options: None 
+2024-09-02 15:10:36.5647||DEBUG|Microsoft.EntityFrameworkCore.Query|Compiling query expression: 
+'DbSet<OrderHeader>()
+    .FirstOrDefault(r => r.OrdersHeaderId == __id_0)' 
+2024-09-02 15:10:36.5670||DEBUG|Microsoft.EntityFrameworkCore.Query|Generated query execution expression: 
+'queryContext => ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync<OrderHeader>(
+    asyncEnumerable: new SingleQueryingEnumerable<OrderHeader>(
+        (RelationalQueryContext)queryContext, 
+        RelationalCommandCache.QueryExpression(
+            Projection Mapping:
+                EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: OrderHeader.OrdersHeaderId (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: OrderHeader.DeliveryDate (DateTime?), 1], [Property: OrderHeader.DestinationAddress (string) Required MaxLength(45), 2], [Property: OrderHeader.OrderDate (DateTime) Required, 3], [Property: OrderHeader.StatusName (OrderName) Required, 4], [Property: OrderHeader.TypeName (OrderType) Required, 5], [Property: OrderHeader.WaybillsWaybillId (int) Required FK Index, 6] }
+            SELECT TOP(1) o.orders_header_id, o.delivery_date, o.destination_address, o.order_date, o.status_name, o.type_name, o.waybills_waybill_id
+            FROM order_headers AS o
+            WHERE o.orders_header_id == @__id_0), 
+        null, 
+        Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, OrderHeader>, 
+        SmartWMS.Models.SmartwmsDbContext, 
+        False, 
+        False, 
+        True
+    ), 
+    cancellationToken: queryContext.CancellationToken)' 
+2024-09-02 15:10:36.5670||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Creating DbConnection. 
+2024-09-02 15:10:36.5670||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Created DbConnection. (0ms). 
+2024-09-02 15:10:36.5670||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:36.5670||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:36.5670||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 15:10:36.5670||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:36.5670||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:36.5670||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT o.orders_header_id, o.delivery_date, o.destination_address, o.order_date, o.status_name, o.type_name, o.waybills_waybill_id
+FROM order_headers AS o
+WHERE o.orders_header_id = @__id_0
+LIMIT 1 
+2024-09-02 15:10:36.5693||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT o.orders_header_id, o.delivery_date, o.destination_address, o.order_date, o.status_name, o.type_name, o.waybills_waybill_id
+FROM order_headers AS o
+WHERE o.orders_header_id = @__id_0
+LIMIT 1 
+2024-09-02 15:10:36.5693||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:36.5693||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results. 
+2024-09-02 15:10:36.5693||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:36.5693||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 15:10:36.5700||ERROR|SmartWMS.Controllers.OrderHeaderController|OrderHeader with specified id hasn't been found 
+2024-09-02 15:10:36.5700||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed action method SmartWMS.Controllers.OrderHeaderController.Get (SmartWMS), returned result Microsoft.AspNetCore.Mvc.NotFoundObjectResult in 6.9938ms. 
+2024-09-02 15:10:36.5700||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:36.5700||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:36.5700||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:36.5700||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:36.5700||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: Before executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:36.5700||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: After executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:36.5700||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Before executing action result Microsoft.AspNetCore.Mvc.NotFoundObjectResult. 
+2024-09-02 15:10:36.5700||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|List of registered output formatters, in the following order: Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter 
+2024-09-02 15:10:36.5700||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|No information found on request to perform content negotiation. 
+2024-09-02 15:10:36.5700||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Attempting to select an output formatter without using a content type as no explicit content types were specified for the response. 
+2024-09-02 15:10:36.5700||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Attempting to select the first formatter in the output formatters list which can write the result. 
+2024-09-02 15:10:36.5700||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter' and content type 'text/plain' to write the response. 
+2024-09-02 15:10:36.5700||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor|Executing NotFoundObjectResult, writing value of type 'System.String'. 
+2024-09-02 15:10:36.5706||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|After executing action result Microsoft.AspNetCore.Mvc.NotFoundObjectResult. 
+2024-09-02 15:10:36.5706||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: Before executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:36.5706||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: After executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:36.5706||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed action SmartWMS.Controllers.OrderHeaderController.Get (SmartWMS) in 36.5802ms 
+2024-09-02 15:10:36.5706||INFO|Microsoft.AspNetCore.Routing.EndpointMiddleware|Executed endpoint 'SmartWMS.Controllers.OrderHeaderController.Get (SmartWMS)' 
+2024-09-02 15:10:36.5706||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6BA27S9QM6" completed keep alive response. 
+2024-09-02 15:10:36.5706||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|'SmartwmsDbContext' disposed. 
+2024-09-02 15:10:36.5706||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:36.5706||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 15:10:36.5706||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request finished HTTP/1.1 GET http://localhost:5236/api/OrderHeader/1 - 404 - text/plain;+charset=utf-8 74.5654ms 
+2024-09-02 15:10:42.4406||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request starting HTTP/1.1 GET http://localhost:5236/api/OrderHeader/6 - - - 
+2024-09-02 15:10:42.4408||TRACE|Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware|All hosts are allowed. 
+2024-09-02 15:10:42.4408||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|1 candidate(s) found for the request path '/api/OrderHeader/6' 
+2024-09-02 15:10:42.4408||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|Endpoint 'SmartWMS.Controllers.OrderHeaderController.Get (SmartWMS)' with route pattern 'api/OrderHeader/{id}' is valid for the request path '/api/OrderHeader/6' 
+2024-09-02 15:10:42.4408||DEBUG|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|Request matched endpoint 'SmartWMS.Controllers.OrderHeaderController.Get (SmartWMS)' 
+2024-09-02 15:10:42.4408||TRACE|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|The endpoint does not specify the IRequestSizeLimitMetadata. 
+2024-09-02 15:10:42.4408||DEBUG|Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware|Static files was skipped as the request already matched an endpoint. 
+2024-09-02 15:10:42.4408||DEBUG|Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenHandler|AuthenticationScheme: Identity.Bearer was not authenticated. 
+2024-09-02 15:10:42.4408||TRACE|Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector|Performing unprotect operation to key {0ffb32d9-8013-4a53-b6ea-d73a13adc424} with purposes ('/Users/kamilsadowski/RiderProjects/SmartWMS/', 'Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationMiddleware', 'Identity.Application', 'v2'). 
+2024-09-02 15:10:42.4420||DEBUG|Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler|AuthenticationScheme: Identity.Application was successfully authenticated. 
+2024-09-02 15:10:42.4420||DEBUG|Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions+CompositeIdentityHandler|AuthenticationScheme: Identity.BearerAndApplication was successfully authenticated. 
+2024-09-02 15:10:42.4420||INFO|Microsoft.AspNetCore.Routing.EndpointMiddleware|Executing endpoint 'SmartWMS.Controllers.OrderHeaderController.Get (SmartWMS)' 
+2024-09-02 15:10:42.4430||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Route matched with {action = "Get", controller = "OrderHeader"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Get(Int32) on controller SmartWMS.Controllers.OrderHeaderController (SmartWMS). 
+2024-09-02 15:10:42.4430||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of authorization filters (in the following order): None 
+2024-09-02 15:10:42.4430||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of resource filters (in the following order): None 
+2024-09-02 15:10:42.4430||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000), Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000) 
+2024-09-02 15:10:42.4430||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of exception filters (in the following order): None 
+2024-09-02 15:10:42.4430||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000) 
+2024-09-02 15:10:42.4430||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executing controller factory for controller SmartWMS.Controllers.OrderHeaderController (SmartWMS) 
+2024-09-02 15:10:42.4436||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed controller factory for controller SmartWMS.Controllers.OrderHeaderController (SmartWMS) 
+2024-09-02 15:10:42.4436||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder|Attempting to bind parameter 'id' of type 'System.Int32' ... 
+2024-09-02 15:10:42.4436||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder|Attempting to bind parameter 'id' of type 'System.Int32' using the name 'id' in request data ... 
+2024-09-02 15:10:42.4436||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder|Done attempting to bind parameter 'id' of type 'System.Int32'. 
+2024-09-02 15:10:42.4436||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder|Done attempting to bind parameter 'id' of type 'System.Int32'. 
+2024-09-02 15:10:42.4436||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder|Attempting to validate the bound parameter 'id' of type 'System.Int32' ... 
+2024-09-02 15:10:42.4436||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder|Done attempting to validate the bound parameter 'id' of type 'System.Int32'. 
+2024-09-02 15:10:42.4436||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:42.4436||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:42.4436||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:42.4436||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:42.4446||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executing action method SmartWMS.Controllers.OrderHeaderController.Get (SmartWMS) - Validation state: Valid 
+2024-09-02 15:10:42.4446||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executing action method SmartWMS.Controllers.OrderHeaderController.Get (SmartWMS) with arguments (6) 
+2024-09-02 15:10:42.4446||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 8.0.8 initialized 'SmartwmsDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:8.0.4+51faf6e9c9c7ef99c3e98d98a96adb8fa8ae4553' with options: None 
+2024-09-02 15:10:42.4461||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Creating DbConnection. 
+2024-09-02 15:10:42.4461||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Created DbConnection. (0ms). 
+2024-09-02 15:10:42.4461||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:42.4461||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:42.4461||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 15:10:42.4461||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:42.4466||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:42.4466||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT o.orders_header_id, o.delivery_date, o.destination_address, o.order_date, o.status_name, o.type_name, o.waybills_waybill_id
+FROM order_headers AS o
+WHERE o.orders_header_id = @__id_0
+LIMIT 1 
+2024-09-02 15:10:42.4490||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT o.orders_header_id, o.delivery_date, o.destination_address, o.order_date, o.status_name, o.type_name, o.waybills_waybill_id
+FROM order_headers AS o
+WHERE o.orders_header_id = @__id_0
+LIMIT 1 
+2024-09-02 15:10:42.4490||DEBUG|Microsoft.EntityFrameworkCore.ChangeTracking|Context 'SmartwmsDbContext' started tracking 'OrderHeader' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values. 
+2024-09-02 15:10:42.4490||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:42.4490||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results. 
+2024-09-02 15:10:42.4496||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:42.4496||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 15:10:42.4530||INFO|SmartWMS.Controllers.OrderHeaderController|Order Header Found 
+2024-09-02 15:10:42.4530||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed action method SmartWMS.Controllers.OrderHeaderController.Get (SmartWMS), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 8.4224ms. 
+2024-09-02 15:10:42.4530||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:42.4530||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:42.4530||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:42.4530||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:42.4530||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: Before executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:42.4530||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: After executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:42.4530||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Before executing action result Microsoft.AspNetCore.Mvc.OkObjectResult. 
+2024-09-02 15:10:42.4530||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|List of registered output formatters, in the following order: Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter 
+2024-09-02 15:10:42.4530||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|No information found on request to perform content negotiation. 
+2024-09-02 15:10:42.4530||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Attempting to select an output formatter without using a content type as no explicit content types were specified for the response. 
+2024-09-02 15:10:42.4530||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Attempting to select the first formatter in the output formatters list which can write the result. 
+2024-09-02 15:10:42.4530||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter' and content type 'application/json' to write the response. 
+2024-09-02 15:10:42.4530||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor|Executing OkObjectResult, writing value of type 'SmartWMS.Models.OrderHeaderDto'. 
+2024-09-02 15:10:42.4538||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|After executing action result Microsoft.AspNetCore.Mvc.OkObjectResult. 
+2024-09-02 15:10:42.4538||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: Before executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:42.4538||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: After executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:42.4538||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed action SmartWMS.Controllers.OrderHeaderController.Get (SmartWMS) in 10.6557ms 
+2024-09-02 15:10:42.4538||INFO|Microsoft.AspNetCore.Routing.EndpointMiddleware|Executed endpoint 'SmartWMS.Controllers.OrderHeaderController.Get (SmartWMS)' 
+2024-09-02 15:10:42.4538||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6BA27S9QM6" completed keep alive response. 
+2024-09-02 15:10:42.4538||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|'SmartwmsDbContext' disposed. 
+2024-09-02 15:10:42.4538||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:42.4538||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 15:10:42.4538||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request finished HTTP/1.1 GET http://localhost:5236/api/OrderHeader/6 - 200 - application/json;+charset=utf-8 14.0335ms 
+2024-09-02 15:10:48.6546||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request starting HTTP/1.1 GET http://localhost:5236/api/Shelf - - - 
+2024-09-02 15:10:48.6546||TRACE|Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware|All hosts are allowed. 
+2024-09-02 15:10:48.6546||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|1 candidate(s) found for the request path '/api/Shelf' 
+2024-09-02 15:10:48.6546||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|Endpoint 'SmartWMS.Controllers.ShelfController.GetAll (SmartWMS)' with route pattern 'api/Shelf' is valid for the request path '/api/Shelf' 
+2024-09-02 15:10:48.6546||DEBUG|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|Request matched endpoint 'SmartWMS.Controllers.ShelfController.GetAll (SmartWMS)' 
+2024-09-02 15:10:48.6546||TRACE|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|The endpoint does not specify the IRequestSizeLimitMetadata. 
+2024-09-02 15:10:48.6546||DEBUG|Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware|Static files was skipped as the request already matched an endpoint. 
+2024-09-02 15:10:48.6546||DEBUG|Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenHandler|AuthenticationScheme: Identity.Bearer was not authenticated. 
+2024-09-02 15:10:48.6546||TRACE|Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector|Performing unprotect operation to key {0ffb32d9-8013-4a53-b6ea-d73a13adc424} with purposes ('/Users/kamilsadowski/RiderProjects/SmartWMS/', 'Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationMiddleware', 'Identity.Application', 'v2'). 
+2024-09-02 15:10:48.6562||DEBUG|Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler|AuthenticationScheme: Identity.Application was successfully authenticated. 
+2024-09-02 15:10:48.6562||DEBUG|Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions+CompositeIdentityHandler|AuthenticationScheme: Identity.BearerAndApplication was successfully authenticated. 
+2024-09-02 15:10:48.6562||INFO|Microsoft.AspNetCore.Routing.EndpointMiddleware|Executing endpoint 'SmartWMS.Controllers.ShelfController.GetAll (SmartWMS)' 
+2024-09-02 15:10:48.6615||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Route matched with {action = "GetAll", controller = "Shelf"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller SmartWMS.Controllers.ShelfController (SmartWMS). 
+2024-09-02 15:10:48.6617||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of authorization filters (in the following order): None 
+2024-09-02 15:10:48.6617||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of resource filters (in the following order): None 
+2024-09-02 15:10:48.6617||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000), Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000) 
+2024-09-02 15:10:48.6617||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of exception filters (in the following order): None 
+2024-09-02 15:10:48.6617||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000) 
+2024-09-02 15:10:48.6617||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executing controller factory for controller SmartWMS.Controllers.ShelfController (SmartWMS) 
+2024-09-02 15:10:48.6639||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed controller factory for controller SmartWMS.Controllers.ShelfController (SmartWMS) 
+2024-09-02 15:10:48.6639||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:48.6639||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:48.6639||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:48.6639||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:48.6639||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executing action method SmartWMS.Controllers.ShelfController.GetAll (SmartWMS) - Validation state: Valid 
+2024-09-02 15:10:48.6677||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 8.0.8 initialized 'SmartwmsDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:8.0.4+51faf6e9c9c7ef99c3e98d98a96adb8fa8ae4553' with options: None 
+2024-09-02 15:10:48.6677||DEBUG|Microsoft.EntityFrameworkCore.Query|Compiling query expression: 
+'DbSet<Shelf>()' 
+2024-09-02 15:10:48.6730||DEBUG|Microsoft.EntityFrameworkCore.Query|Generated query execution expression: 
+'queryContext => new SingleQueryingEnumerable<Shelf>(
+    (RelationalQueryContext)queryContext, 
+    RelationalCommandCache.QueryExpression(
+        Projection Mapping:
+            EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: Shelf.ShelfId (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: Shelf.CurrentQuant (int) Required, 1], [Property: Shelf.Lane (string) Required MaxLength(3), 2], [Property: Shelf.Level (LevelType) Required, 3], [Property: Shelf.MaxQuant (int) Required, 4], [Property: Shelf.ProductsProductId (int?) FK Index, 5], [Property: Shelf.Rack (int) Required, 6] }
+        SELECT s.shelf_id, s.current_quant, s.lane, s.level, s.max_quant, s.products_product_id, s.rack
+        FROM shelf AS s), 
+    null, 
+    Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, Shelf>, 
+    SmartWMS.Models.SmartwmsDbContext, 
+    False, 
+    False, 
+    True
+)' 
+2024-09-02 15:10:48.6737||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Creating DbConnection. 
+2024-09-02 15:10:48.6737||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Created DbConnection. (0ms). 
+2024-09-02 15:10:48.6737||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:48.6737||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:48.6737||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 15:10:48.6737||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:48.6737||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:48.6737||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT s.shelf_id, s.current_quant, s.lane, s.level, s.max_quant, s.products_product_id, s.rack
+FROM shelf AS s 
+2024-09-02 15:10:48.6781||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT s.shelf_id, s.current_quant, s.lane, s.level, s.max_quant, s.products_product_id, s.rack
+FROM shelf AS s 
+2024-09-02 15:10:48.6781||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:48.6786||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results. 
+2024-09-02 15:10:48.6786||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:48.6786||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 15:10:48.6818||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed action method SmartWMS.Controllers.ShelfController.GetAll (SmartWMS), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 17.7292ms. 
+2024-09-02 15:10:48.6818||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:48.6818||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:48.6818||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:48.6818||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:48.6818||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: Before executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:48.6818||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: After executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:48.6818||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Before executing action result Microsoft.AspNetCore.Mvc.OkObjectResult. 
+2024-09-02 15:10:48.6818||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|List of registered output formatters, in the following order: Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter 
+2024-09-02 15:10:48.6818||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|No information found on request to perform content negotiation. 
+2024-09-02 15:10:48.6818||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Attempting to select an output formatter without using a content type as no explicit content types were specified for the response. 
+2024-09-02 15:10:48.6818||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Attempting to select the first formatter in the output formatters list which can write the result. 
+2024-09-02 15:10:48.6818||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter' and content type 'application/json' to write the response. 
+2024-09-02 15:10:48.6818||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor|Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[SmartWMS.Models.ShelfDto, SmartWMS, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'. 
+2024-09-02 15:10:48.7260||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|After executing action result Microsoft.AspNetCore.Mvc.OkObjectResult. 
+2024-09-02 15:10:48.7260||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: Before executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:48.7260||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: After executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:48.7260||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed action SmartWMS.Controllers.ShelfController.GetAll (SmartWMS) in 64.2328ms 
+2024-09-02 15:10:48.7260||INFO|Microsoft.AspNetCore.Routing.EndpointMiddleware|Executed endpoint 'SmartWMS.Controllers.ShelfController.GetAll (SmartWMS)' 
+2024-09-02 15:10:48.7260||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6BA27S9QM6" completed keep alive response. 
+2024-09-02 15:10:48.7260||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|'SmartwmsDbContext' disposed. 
+2024-09-02 15:10:48.7260||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:48.7260||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 15:10:48.7260||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request finished HTTP/1.1 GET http://localhost:5236/api/Shelf - 200 - application/json;+charset=utf-8 71.8242ms 
+2024-09-02 15:10:57.3643||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request starting HTTP/1.1 GET http://localhost:5236/api/Task - - - 
+2024-09-02 15:10:57.3643||TRACE|Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware|All hosts are allowed. 
+2024-09-02 15:10:57.3643||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|1 candidate(s) found for the request path '/api/Task' 
+2024-09-02 15:10:57.3646||DEBUG|Microsoft.AspNetCore.Routing.Matching.DfaMatcher|Endpoint 'SmartWMS.Controllers.TaskController.GetAll (SmartWMS)' with route pattern 'api/Task' is valid for the request path '/api/Task' 
+2024-09-02 15:10:57.3646||DEBUG|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|Request matched endpoint 'SmartWMS.Controllers.TaskController.GetAll (SmartWMS)' 
+2024-09-02 15:10:57.3646||TRACE|Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware|The endpoint does not specify the IRequestSizeLimitMetadata. 
+2024-09-02 15:10:57.3646||DEBUG|Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware|Static files was skipped as the request already matched an endpoint. 
+2024-09-02 15:10:57.3646||DEBUG|Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenHandler|AuthenticationScheme: Identity.Bearer was not authenticated. 
+2024-09-02 15:10:57.3646||TRACE|Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector|Performing unprotect operation to key {0ffb32d9-8013-4a53-b6ea-d73a13adc424} with purposes ('/Users/kamilsadowski/RiderProjects/SmartWMS/', 'Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationMiddleware', 'Identity.Application', 'v2'). 
+2024-09-02 15:10:57.3658||DEBUG|Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler|AuthenticationScheme: Identity.Application was successfully authenticated. 
+2024-09-02 15:10:57.3658||DEBUG|Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions+CompositeIdentityHandler|AuthenticationScheme: Identity.BearerAndApplication was successfully authenticated. 
+2024-09-02 15:10:57.3658||INFO|Microsoft.AspNetCore.Routing.EndpointMiddleware|Executing endpoint 'SmartWMS.Controllers.TaskController.GetAll (SmartWMS)' 
+2024-09-02 15:10:57.3719||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Route matched with {action = "GetAll", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll(System.Nullable`1[SmartWMS.Models.Enums.ActionType]) on controller SmartWMS.Controllers.TaskController (SmartWMS). 
+2024-09-02 15:10:57.3719||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of authorization filters (in the following order): None 
+2024-09-02 15:10:57.3719||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of resource filters (in the following order): None 
+2024-09-02 15:10:57.3719||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000), Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000) 
+2024-09-02 15:10:57.3719||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of exception filters (in the following order): None 
+2024-09-02 15:10:57.3719||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000) 
+2024-09-02 15:10:57.3719||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executing controller factory for controller SmartWMS.Controllers.TaskController (SmartWMS) 
+2024-09-02 15:10:57.3746||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed controller factory for controller SmartWMS.Controllers.TaskController (SmartWMS) 
+2024-09-02 15:10:57.3746||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder|Attempting to bind parameter 'type' of type 'System.Nullable`1[SmartWMS.Models.Enums.ActionType]' ... 
+2024-09-02 15:10:57.3758||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder|Attempting to bind parameter 'type' of type 'System.Nullable`1[SmartWMS.Models.Enums.ActionType]' using the name '' in request data ... 
+2024-09-02 15:10:57.3768||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder|Could not find a value in the request with name '' for binding parameter 'type' of type 'System.Nullable`1[SmartWMS.Models.Enums.ActionType]'. 
+2024-09-02 15:10:57.3768||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder|Done attempting to bind parameter 'type' of type 'System.Nullable`1[SmartWMS.Models.Enums.ActionType]'. 
+2024-09-02 15:10:57.3768||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder|Done attempting to bind parameter 'type' of type 'System.Nullable`1[SmartWMS.Models.Enums.ActionType]'. 
+2024-09-02 15:10:57.3768||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder|Attempting to validate the bound parameter 'type' of type 'System.Nullable`1[SmartWMS.Models.Enums.ActionType]' ... 
+2024-09-02 15:10:57.3768||DEBUG|Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder|Done attempting to validate the bound parameter 'type' of type 'System.Nullable`1[SmartWMS.Models.Enums.ActionType]'. 
+2024-09-02 15:10:57.3768||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:57.3768||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:57.3768||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:57.3768||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:57.3768||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executing action method SmartWMS.Controllers.TaskController.GetAll (SmartWMS) - Validation state: Valid 
+2024-09-02 15:10:57.3768||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executing action method SmartWMS.Controllers.TaskController.GetAll (SmartWMS) with arguments () 
+2024-09-02 15:10:57.3838||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 8.0.8 initialized 'SmartwmsDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:8.0.4+51faf6e9c9c7ef99c3e98d98a96adb8fa8ae4553' with options: None 
+2024-09-02 15:10:57.3838||DEBUG|Microsoft.EntityFrameworkCore.Query|Compiling query expression: 
+'DbSet<Task>()' 
+2024-09-02 15:10:57.3888||DEBUG|Microsoft.EntityFrameworkCore.Query|Generated query execution expression: 
+'queryContext => new SingleQueryingEnumerable<Task>(
+    (RelationalQueryContext)queryContext, 
+    RelationalCommandCache.QueryExpression(
+        Projection Mapping:
+            EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: Task.TaskId (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: Task.FinishDate (DateTime?), 1], [Property: Task.OrderHeadersOrdersHeaderId (int) Required FK Index, 2], [Property: Task.Priority (int) Required, 3], [Property: Task.Seen (bool?), 4], [Property: Task.StartDate (DateTime?), 5] }
+        SELECT t.task_id, t.finish_date, t.order_headers_orders_header_id, t.priority, t.seen, t.start_date
+        FROM tasks AS t), 
+    null, 
+    Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, Task>, 
+    SmartWMS.Models.SmartwmsDbContext, 
+    False, 
+    False, 
+    True
+)' 
+2024-09-02 15:10:57.3888||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Creating DbConnection. 
+2024-09-02 15:10:57.3888||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Created DbConnection. (0ms). 
+2024-09-02 15:10:57.3888||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opening connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:57.3888||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Opened connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:57.3888||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Creating DbCommand for 'ExecuteReader'. 
+2024-09-02 15:10:57.3888||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Created DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:57.3888||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Initialized DbCommand for 'ExecuteReader' (0ms). 
+2024-09-02 15:10:57.3896||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT t.task_id, t.finish_date, t.order_headers_orders_header_id, t.priority, t.seen, t.start_date
+FROM tasks AS t 
+2024-09-02 15:10:57.3910||INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT t.task_id, t.finish_date, t.order_headers_orders_header_id, t.priority, t.seen, t.start_date
+FROM tasks AS t 
+2024-09-02 15:10:57.3910||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|Closing data reader to 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:57.3910||DEBUG|Microsoft.EntityFrameworkCore.Database.Command|A data reader for 'smartwms_db' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results. 
+2024-09-02 15:10:57.3910||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:57.3910||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Closed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 15:10:57.3941||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed action method SmartWMS.Controllers.TaskController.GetAll (SmartWMS), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 16.5113ms. 
+2024-09-02 15:10:57.3941||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:57.3941||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter. 
+2024-09-02 15:10:57.3941||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: Before executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:57.3941||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Action Filter: After executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter. 
+2024-09-02 15:10:57.3941||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: Before executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:57.3941||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: After executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:57.3941||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Before executing action result Microsoft.AspNetCore.Mvc.OkObjectResult. 
+2024-09-02 15:10:57.3941||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|List of registered output formatters, in the following order: Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter, Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter 
+2024-09-02 15:10:57.3941||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|No information found on request to perform content negotiation. 
+2024-09-02 15:10:57.3941||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Attempting to select an output formatter without using a content type as no explicit content types were specified for the response. 
+2024-09-02 15:10:57.3941||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Attempting to select the first formatter in the output formatters list which can write the result. 
+2024-09-02 15:10:57.3941||DEBUG|Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector|Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter' and content type 'application/json' to write the response. 
+2024-09-02 15:10:57.3941||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor|Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[SmartWMS.Models.TaskDto, SmartWMS, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'. 
+2024-09-02 15:10:57.3957||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|After executing action result Microsoft.AspNetCore.Mvc.OkObjectResult. 
+2024-09-02 15:10:57.3957||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: Before executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:57.3957||TRACE|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Result Filter: After executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter. 
+2024-09-02 15:10:57.3957||INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker|Executed action SmartWMS.Controllers.TaskController.GetAll (SmartWMS) in 23.6022ms 
+2024-09-02 15:10:57.3957||INFO|Microsoft.AspNetCore.Routing.EndpointMiddleware|Executed endpoint 'SmartWMS.Controllers.TaskController.GetAll (SmartWMS)' 
+2024-09-02 15:10:57.3957||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6BA27S9QM6" completed keep alive response. 
+2024-09-02 15:10:57.3957||DEBUG|Microsoft.EntityFrameworkCore.Infrastructure|'SmartwmsDbContext' disposed. 
+2024-09-02 15:10:57.3957||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposing connection to database 'smartwms_db' on server 'tcp://localhost:5432'. 
+2024-09-02 15:10:57.3957||DEBUG|Microsoft.EntityFrameworkCore.Database.Connection|Disposed connection to database 'smartwms_db' on server 'tcp://localhost:5432' (0ms). 
+2024-09-02 15:10:57.3957||INFO|Microsoft.AspNetCore.Hosting.Diagnostics|Request finished HTTP/1.1 GET http://localhost:5236/api/Task - 200 - application/json;+charset=utf-8 31.8416ms 
+2024-09-02 15:11:18.8212||INFO|Microsoft.Hosting.Lifetime|Application is shutting down... 
+2024-09-02 15:11:18.8239||DEBUG|Microsoft.Extensions.Hosting.Internal.Host|Hosting stopping 
+2024-09-02 15:11:18.8350||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6BA27S9QM6" disconnecting. 
+2024-09-02 15:11:18.8359||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Connections|Connection id "0HN6BA27S9QM6" stopped. 
+2024-09-02 15:11:18.8359||DEBUG|Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets|Connection id "0HN6BA27S9QM6" sending FIN because: "The Socket transport's send loop completed gracefully." 
+2024-09-02 15:11:18.8405||DEBUG|Microsoft.Extensions.Hosting.Internal.Host|Hosting stopped 
