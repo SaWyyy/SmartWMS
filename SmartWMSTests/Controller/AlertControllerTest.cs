@@ -47,6 +47,8 @@ public class AlertControllerTest
         alert.Description = "Test description";
         alert.AlertDate = new DateTime();
         alert.AlertType = AlertType.DeliveryCanceled;
+        alert.WarehousesWarehouse = new Warehouse();
+        alert.WarehousesWarehouseId = 1;
         return alert;
     }
     
