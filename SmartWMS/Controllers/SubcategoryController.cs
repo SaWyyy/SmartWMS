@@ -56,7 +56,7 @@ public class SubcategoryController : ControllerBase
         catch (SmartWMSExceptionHandler e)
         {
             _logger.LogError(e.Message);
-            return BadRequest(e.Message);
+            return NotFound(e.Message);
         }
     }
 
