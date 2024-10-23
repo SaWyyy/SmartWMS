@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using SmartWMS.Models;
 using SmartWMS.Models.DTOs;
 using SmartWMS.Repositories;
 using SmartWMS.Repositories.Interfaces;
+using SmartWMS.SignalR;
 
 namespace SmartWMS.Controllers;
 
@@ -14,11 +16,13 @@ public class AlertController : ControllerBase
 {
     private readonly IAlertRepository _repository;
     private readonly ILogger<AlertController> _logger;
+    private readonly IHubContext<NotificationHub> _hubContext;
     
-    public AlertController(IAlertRepository repository, ILogger<AlertController> logger)
+    public AlertController(IAlertRepository repository, ILogger<AlertController> logger, IHubContext<NotificationHub> hubContext)
     {
         this._repository = repository;
         this._logger = logger;
+        this._hubContext = hubContext;
     }
 
     [HttpPost]
@@ -27,6 +31,7 @@ public class AlertController : ControllerBase
         try
         {
             var result = await _repository.Add(dto);
+            await _hubContext.Clients.All.SendAsync("ReceiveNotification", result.Title);
             
             _logger.LogInformation($"Alert with id: {result.AlertId} has been added");
             return Ok($"Alert with id: {result.AlertId} has been added");

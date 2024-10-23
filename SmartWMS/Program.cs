@@ -9,6 +9,7 @@ using SmartWMS.Entities.Enums;
 using SmartWMS.Models;
 using SmartWMS.Repositories;
 using SmartWMS.Repositories.Interfaces;
+using SmartWMS.SignalR;
 using Swashbuckle.AspNetCore.Filters;
 
   //====================================================================================================//
@@ -34,6 +35,11 @@ try
     //==================================================//
     
     builder.Services.AddControllers();
+    builder.Services.AddSignalR() // Adds SignalR
+        .AddJsonProtocol(options =>
+        {
+            options.PayloadSerializerOptions.PropertyNamingPolicy = null;
+        });
     builder.Services.AddEndpointsApiExplorer(); // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddSwaggerGen(options =>
     {
@@ -233,6 +239,8 @@ try
     app.MapControllers();
 
     app.UseHttpsRedirection();
+
+    app.MapHub<NotificationHub>("/api/notificationHub");
 
     app.Run();
     //====================================================================================================//
