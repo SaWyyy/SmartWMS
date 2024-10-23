@@ -3,6 +3,7 @@ using FakeItEasy;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using SmartWMS;
 using SmartWMS.Controllers;
@@ -10,6 +11,7 @@ using SmartWMS.Entities;
 using SmartWMS.Entities.Enums;
 using SmartWMS.Models.DTOs;
 using SmartWMS.Repositories.Interfaces;
+using SmartWMS.SignalR;
 
 namespace SmartWMSTests.Controller;
 
@@ -18,12 +20,14 @@ public class AlertControllerTest
     private readonly IAlertRepository _alertRepository;
     private readonly AlertController _alertController;
     private readonly ILogger<AlertController> _logger;
+    private readonly IHubContext<NotificationHub> _hubContext;
 
     public AlertControllerTest()
     {
         this._alertRepository = A.Fake<IAlertRepository>();
         this._logger = A.Fake<ILogger<AlertController>>();
-        this._alertController = new AlertController(_alertRepository, _logger);
+        this._hubContext = A.Fake<IHubContext<NotificationHub>>();
+        this._alertController = new AlertController(_alertRepository, _logger, _hubContext);
     }
 
     private static AlertDto CreateFakeAlertDto()
