@@ -34,13 +34,13 @@ public class OrderValidationService : IOrderValidationService
         var task = await _taskRepository.UpdateQuantity(taskId);
         if (task.QuantityCollected == task.QuantityAllocated)
         {
-            task.Done = true; // Jak nie bedzie działać tu szukać błędu
+            task.Done = true;
+            await _dbContext.SaveChangesAsync();
             var result = await CheckTasksForOrderDetail(task.OrderDetailsOrderDetailId);
             
             return result;
         }
         
-        await _dbContext.SaveChangesAsync(); // Jak nie bedzie działać tu szukać błędu
         return OrderValidation.TaskNotFinished;
     }
     
