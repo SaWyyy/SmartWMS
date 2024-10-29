@@ -179,6 +179,7 @@ try
             };
 
             await dbContext.AddAsync(newWarehouse);
+            await dbContext.SaveChangesAsync();
         }
     }
     
