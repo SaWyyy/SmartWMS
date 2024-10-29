@@ -99,12 +99,17 @@ public class ProductRepository : IProductRepository
 
     public async Task<Product> Delete(int id)
     {
-        var product = await _dbContext.Products.FirstOrDefaultAsync(x => x.ProductId == id);
+        var product = await _dbContext.Products
+            .Include(x => x.OrderDetails)
+            .FirstOrDefaultAsync(x => x.ProductId == id);
 
         if (product is null)
             throw new SmartWMSExceptionHandler("Product hasn't been found");
 
-        _dbContext.Products.Remove(product);
+        if (product.OrderDetails.Any())
+            throw new ConflictException("There are order details assigned to this product");
+
+        product.IsDeleted = true;
 
         var result = await _dbContext.SaveChangesAsync();
 

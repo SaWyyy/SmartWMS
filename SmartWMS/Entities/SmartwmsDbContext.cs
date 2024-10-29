@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SmartWMS.Entities.Enums;
-using SmartWMS.Models;
-using Task = SmartWMS.Entities.Task;
 
 namespace SmartWMS.Entities;
 
@@ -39,10 +37,16 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
     public virtual DbSet<Warehouse> Warehouses { get; set; }
 
     public virtual DbSet<Waybill> Waybills { get; set; }
-
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Category>().HasQueryFilter(c => !c.IsDeleted);
+        modelBuilder.Entity<Subcategory>().HasQueryFilter(s => !s.IsDeleted);
+        modelBuilder.Entity<Product>().HasQueryFilter(p => !p.IsDeleted);
+        modelBuilder.Entity<Task>().HasQueryFilter(t => !t.Done);
+        modelBuilder.Entity<OrderDetail>().HasQueryFilter(od => !od.Done);
         
         modelBuilder
             .HasPostgresEnum<ActionType>() //Done
@@ -90,6 +94,9 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
             entity.Property(e => e.CategoryName)
                 .HasMaxLength(45)
                 .HasColumnName("category_name");
+            entity.Property(e => e.IsDeleted)
+                .HasColumnName("is_deleted")
+                .HasDefaultValue(false);
         });
 
         modelBuilder.Entity<Country>(entity =>
@@ -121,6 +128,9 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
             entity.Property(e => e.OrderHeadersOrdersHeaderId).HasColumnName("order_headers_orders_header_id");
             entity.Property(e => e.ProductsProductId).HasColumnName("products_product_id");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
+            entity.Property(e => e.Done)
+                .HasColumnName("done")
+                .HasDefaultValue(false);
 
             entity.HasOne(d => d.OrderHeadersOrdersHeader).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.OrderHeadersOrdersHeaderId)
@@ -184,6 +194,9 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
             entity.Property(e => e.ProductName)
                 .HasMaxLength(45)
                 .HasColumnName("product_name");
+            entity.Property(e => e.IsDeleted)
+                .HasColumnName("is_deleted")
+                .HasDefaultValue(false);
             entity.Property(e => e.SubcategoriesSubcategoryId).HasColumnName("subcategories_subcategory_id");
             entity.Property(e => e.WarehousesWarehouseId).HasColumnName("warehouses_warehouse_id");
 
@@ -283,6 +296,9 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
             entity.Property(e => e.SubcategoryName)
                 .HasMaxLength(45)
                 .HasColumnName("subcategory_name");
+            entity.Property(e => e.IsDeleted)
+                .HasColumnName("is_deleted")
+                .HasDefaultValue(false);
 
             entity.HasOne(d => d.CategoriesCategory).WithMany(p => p.Subcategories)
                 .HasForeignKey(d => d.CategoriesCategoryId)
@@ -308,6 +324,9 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
                 .HasColumnName("start_date");
             entity.Property(e => e.QuantityCollected).HasColumnName("quantity_collected");
             entity.Property(e => e.QuantityAllocated).HasColumnName("quantity_allocated");
+            entity.Property(e => e.Done)
+                .HasColumnName("done")
+                .HasDefaultValue(false);
             entity.Property(e => e.OrderDetailsOrderDetailId).HasColumnName("orderDetails_orderDetail_id");
             
             entity.HasOne(d => d.OrderDetailsOrderDetail).WithMany(p => p.TasksTask)

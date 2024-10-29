@@ -8,6 +8,8 @@ public partial class OrderDetail
 
     public int Quantity { get; set; }
 
+    public bool Done { get; set; }
+
     public int ProductsProductId { get; set; }
 
     public int OrderHeadersOrdersHeaderId { get; set; }

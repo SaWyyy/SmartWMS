@@ -18,6 +18,8 @@ public partial class Product
     
     public string Barcode { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     //public int ProductDetailsProductDetailId { get; set; }
 
     public int SubcategoriesSubcategoryId { get; set; }

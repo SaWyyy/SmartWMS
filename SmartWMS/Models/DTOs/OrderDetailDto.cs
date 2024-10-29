@@ -13,4 +13,6 @@ public class OrderDetailDto
     
     [Range(0, int.MaxValue)]
     public int OrderHeadersOrdersHeaderId { get; set; }
+
+    public bool Done { get; set; }
 }

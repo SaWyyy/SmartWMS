@@ -6,6 +6,8 @@ public partial class Subcategory
 
     public string SubcategoryName { get; set; } = null!;
 
+    public bool IsDeleted { get; set; }
+
     public int CategoriesCategoryId { get; set; }
 
     public virtual Category CategoriesCategory { get; set; } = null!;

@@ -17,6 +17,8 @@ public partial class Task
     public int QuantityCollected { get; set; }
     
     public int QuantityAllocated { get; set; }
+
+    public bool Done { get; set; }
     
     public int OrderDetailsOrderDetailId { get; set; }
 

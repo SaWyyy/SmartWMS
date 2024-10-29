@@ -20,6 +20,7 @@ public class OrderDetailRepository : IOrderDetailRepository
     public async Task<OrderDetail> Add(OrderDetailDto dto)
     {
         dto.OrderDetailId = null;
+        dto.Done = false;
         var orderHeader =
             await _dbContext.OrderHeaders.FirstOrDefaultAsync(x => 
                 x.OrdersHeaderId == dto.OrderHeadersOrdersHeaderId);
@@ -103,5 +104,21 @@ public class OrderDetailRepository : IOrderDetailRepository
             return orderDetail;
 
         throw new SmartWMSExceptionHandler("Error has occured while adding order detail");
+    }
+
+    public async Task<bool> CheckTasksForOrderDetail(int id)
+    {
+        var orderDetail = await _dbContext.OrderDetails
+            .IgnoreQueryFilters()
+            .Include(x => x.TasksTask)
+            .FirstOrDefaultAsync(x => x.OrderDetailId == id);
+
+        if (orderDetail is null)
+            return false;
+
+        if (orderDetail.TasksTask is not null && orderDetail.TasksTask!.All(task => task.Done))
+            return true;
+
+        return false;
     }
 }

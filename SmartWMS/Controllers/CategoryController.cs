@@ -81,6 +81,11 @@ public class CategoryController : ControllerBase
             _logger.LogError(e.Message);
             return BadRequest(e.Message);
         }
+        catch (ConflictException e)
+        {
+            _logger.LogError(e.Message);
+            return Conflict(e.Message);
+        }
     }
 
     [HttpPut("{id}")]

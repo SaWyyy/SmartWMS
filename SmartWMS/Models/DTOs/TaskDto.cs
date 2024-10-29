@@ -26,4 +26,6 @@ public class TaskDto
     
     [Range(0, int.MaxValue)]
     public int QuantityAllocated { get; set; }
+
+    public bool Done { get; set; }
 }

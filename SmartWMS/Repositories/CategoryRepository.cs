@@ -68,12 +68,18 @@ public class CategoryRepository: ICategoryRepository
 
     public async Task<Category> Delete(int id)
     {
-        var category = await _dbContext.Categories.FirstOrDefaultAsync(r => r.CategoryId == id);
+        var category = await _dbContext.Categories
+            .Include(x => x.Subcategories)
+            .FirstOrDefaultAsync(r => r.CategoryId == id);
         
         if (category is null)
             throw new SmartWMSExceptionHandler("Category with specified id hasn't been found");
-        
-        _dbContext.Categories.Remove(category);
+
+        if (category.Subcategories.Any())
+            throw new ConflictException("There are subcategories assigned to category");
+
+
+        category.IsDeleted = true;
         var result = await _dbContext.SaveChangesAsync();
 
         if (result > 0)

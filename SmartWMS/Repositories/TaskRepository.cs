@@ -7,7 +7,9 @@ using SmartWMS.Entities;
 using SmartWMS.Entities.Enums;
 using SmartWMS.Models;
 using SmartWMS.Models.DTOs;
+using SmartWMS.Models.ReturnEnums;
 using SmartWMS.Repositories.Interfaces;
+using SmartWMS.Services;
 using Task = SmartWMS.Entities.Task;
 
 namespace SmartWMS.Repositories;
@@ -28,6 +30,7 @@ public class TaskRepository : ITaskRepository
     public async Task<Task> AddTask(TaskDto dto)
     {
         dto.TaskId = null;
+        dto.Done = false;
         var orderDetail =
             await _dbContext.OrderDetails.FirstOrDefaultAsync(x => 
                 x.OrderDetailId == dto.OrderDetailsOrderDetailId);
@@ -225,5 +228,19 @@ public class TaskRepository : ITaskRepository
 
         var tasks = _mapper.Map<List<TaskDto>>(userHasTasks);
         return tasks;
+    }
+
+    public async Task<Task> UpdateQuantity(int id)
+    {
+        var task = await _dbContext.Tasks
+            .FirstOrDefaultAsync(x => x.TaskId == id);
+
+        if (task is null)
+            throw new SmartWMSExceptionHandler("Task not found");
+
+        task.QuantityCollected++;
+        await _dbContext.SaveChangesAsync();
+
+        return task;
     }
 }

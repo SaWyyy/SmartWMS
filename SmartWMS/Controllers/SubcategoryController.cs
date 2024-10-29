@@ -72,7 +72,7 @@ public class SubcategoryController : ControllerBase
         try
         {
             var result = await _repository.Delete(id);
-            
+
             _logger.LogInformation("Subcategory removed");
             return Ok(result);
         }
@@ -80,6 +80,11 @@ public class SubcategoryController : ControllerBase
         {
             _logger.LogError(e.Message);
             return BadRequest(e.Message);
+        }
+        catch (ConflictException e)
+        {
+            _logger.LogError(e.Message);
+            return Conflict(e.Message);
         }
     }
 
