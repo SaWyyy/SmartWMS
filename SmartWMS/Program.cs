@@ -9,6 +9,7 @@ using SmartWMS.Entities.Enums;
 using SmartWMS.Models;
 using SmartWMS.Repositories;
 using SmartWMS.Repositories.Interfaces;
+using SmartWMS.Services;
 using SmartWMS.SignalR;
 using Swashbuckle.AspNetCore.Filters;
 
@@ -73,6 +74,13 @@ try
     builder.Services.AddTransient<IProductRepository, ProductRepository>();
     builder.Services.AddTransient<IOrderDetailRepository, OrderDetailRepository>();
     builder.Services.AddTransient<IReportRepository, ReportRepository>();
+    //====================================================================================================//
+    
+    
+    //====================================================================================================//
+    //Register services for Dependency Injection//
+    //===============================================//
+    builder.Services.AddScoped<OrderValidationService>();
     //====================================================================================================//
     
     
@@ -179,6 +187,7 @@ try
             };
 
             await dbContext.AddAsync(newWarehouse);
+            await dbContext.SaveChangesAsync();
         }
     }
     
