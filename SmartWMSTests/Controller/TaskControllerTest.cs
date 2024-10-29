@@ -10,6 +10,8 @@ using SmartWMS.Entities;
 using SmartWMS.Entities.Enums;
 using SmartWMS.Models.DTOs;
 using SmartWMS.Repositories.Interfaces;
+using SmartWMS.Services;
+using SmartWMS.Services.Interfaces;
 using ILogger = Castle.Core.Logging.ILogger;
 using Task = SmartWMS.Entities.Task;
 
@@ -17,15 +19,17 @@ namespace SmartWMSTests.Controller;
 
 public class TaskControllerTest
 {
-    private readonly ITaskRepository _taskRepository;
+    private readonly ITaskRepository _taskRepository; 
     private readonly ILogger<TaskController> _logger;
+    private readonly IOrderValidationService _service;
     private readonly TaskController _taskController;
 
     public TaskControllerTest()
     {
         this._taskRepository = A.Fake<ITaskRepository>();
         this._logger = A.Fake<ILogger<TaskController>>();
-        this._taskController = new TaskController(_taskRepository, _logger);
+        this._service = A.Fake<IOrderValidationService>();
+        this._taskController = new TaskController(_taskRepository, _service, _logger);
     }
 
     private Task CreateFakeTask()
