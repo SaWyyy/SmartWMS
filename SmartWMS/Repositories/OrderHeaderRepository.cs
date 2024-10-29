@@ -100,4 +100,20 @@ public class OrderHeaderRepository : IOrderHeaderRepository
 
         throw new SmartWMSExceptionHandler("Error has occured while saving changes to order header table");
     }
+
+    public async Task<bool> CheckOrderDetailsForOrderHeader(int id)
+    {
+        var orderHeader = await _dbContext.OrderHeaders
+            .IgnoreQueryFilters()
+            .Include(od => od.OrderDetails)
+            .FirstOrDefaultAsync(x => x.OrdersHeaderId == id);
+
+        if (orderHeader is null)
+            return false;
+
+        if (orderHeader.OrderDetails.All(x => x.Done))
+            return true;
+
+        return false;
+    }
 }

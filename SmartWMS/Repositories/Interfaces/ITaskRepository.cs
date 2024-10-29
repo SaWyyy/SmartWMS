@@ -1,5 +1,6 @@
 using SmartWMS.Entities.Enums;
 using SmartWMS.Models.DTOs;
+using SmartWMS.Models.ReturnEnums;
 using Task = SmartWMS.Entities.Task;
 
 
@@ -14,4 +15,5 @@ public interface ITaskRepository
     Task<Task> Update(int id, TaskDto dto);
     Task<TaskDto> TakeTask(int id);
     Task<IEnumerable<TaskDto>> UserTasks();
+    Task<Task> UpdateQuantity(int id);
 }

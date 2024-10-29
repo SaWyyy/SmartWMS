@@ -10,4 +10,5 @@ public interface IOrderHeaderRepository
     Task<OrderHeaderDto> Get(int id);
     Task<OrderHeader> Delete(int id);
     Task<OrderHeader> Update(int id, OrderHeaderDto dto);
+    Task<bool> CheckOrderDetailsForOrderHeader(int id);
 }

@@ -10,4 +10,5 @@ public interface IOrderDetailRepository
     Task<OrderDetailDto> Get(int id);
     Task<OrderDetail> Update(int id, OrderDetailDto dto);
     Task<OrderDetail> Delete(int id);
+    Task<bool> CheckTasksForOrderDetail(int id);
 }
