@@ -59,7 +59,8 @@ public class CategoryRepository: ICategoryRepository
                 Subcategories = c.Subcategories.Select(s => new SubcategoryDto
                 {
                     SubcategoryId = s.SubcategoryId,
-                    SubcategoryName = s.SubcategoryName
+                    SubcategoryName = s.SubcategoryName,
+                    CategoriesCategoryId = c.CategoryId
                 }).ToList()
             }).ToListAsync();
         
