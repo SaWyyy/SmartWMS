@@ -1,3 +1,5 @@
+using Hangfire;
+using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +13,7 @@ using SmartWMS.Models;
 using SmartWMS.Repositories;
 using SmartWMS.Repositories.Interfaces;
 using SmartWMS.Services;
+using SmartWMS.Services.Interfaces;
 using SmartWMS.SignalR;
 using Swashbuckle.AspNetCore.Filters;
 using Task = System.Threading.Tasks.Task;
@@ -55,6 +58,10 @@ try
         options.OperationFilter<SecurityRequirementsOperationFilter>(); //Adds an operation filter to Swagger
     });
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); //Adds support for AutoMapper
+
+    builder.Services.AddHangfire(x =>
+        x.UsePostgreSqlStorage(builder.Configuration.GetConnectionString("DefaultConnection")));
+    builder.Services.AddHangfireServer();
     //===================================================================================================//
 
 
@@ -82,7 +89,8 @@ try
     //====================================================================================================//
     //Register services for Dependency Injection//
     //===============================================//
-    builder.Services.AddScoped<OrderValidationService>();
+    builder.Services.AddScoped<IOrderValidationService, OrderValidationService>();
+    builder.Services.AddScoped<IInventoryStatusService, InventoryStatusService>();
     //====================================================================================================//
     
     
@@ -280,6 +288,13 @@ try
     app.UseHttpsRedirection();
 
     app.MapHub<NotificationHub>("/notificationHub");
+
+    app.UseHangfireDashboard();
+    
+    RecurringJob.AddOrUpdate<IInventoryStatusService>(
+        "CheckInventoryStatus",
+        service => service.CheckInventory(),
+        Cron.Hourly);
 
     app.Run();
     //====================================================================================================//
