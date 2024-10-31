@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -12,8 +13,9 @@ using SmartWMS.Repositories.Interfaces;
 using SmartWMS.Services;
 using SmartWMS.SignalR;
 using Swashbuckle.AspNetCore.Filters;
+using Task = System.Threading.Tasks.Task;
 
-  //====================================================================================================//
+//====================================================================================================//
  //Configure logging for the application and init log//
 //==================================================//
 var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
@@ -120,10 +122,38 @@ try
     //Add services//
     //===========//
     builder.Services.AddDbContext<SmartwmsDbContext>(options => options.UseNpgsql(dataSource));//Add the database context
-    builder.Services.AddAuthorization();//Adds authorization service
-    builder.Services.AddAuthentication();//Adds authentication service
-    builder.Services.AddIdentityApiEndpoints<User>().AddRoles<IdentityRole>().AddEntityFrameworkStores<SmartwmsDbContext>();//Adds Identity API endpoints with the roles and database stores
+    builder.Services.AddAuthentication(options => //Adds authentication service
+        {
+            options.DefaultAuthenticateScheme = IdentityConstants.BearerScheme;
+            options.DefaultChallengeScheme = IdentityConstants.BearerScheme;
+        })
+        .AddBearerToken(
+            IdentityConstants.BearerScheme,
+            conf =>
+                conf.Events = new BearerTokenEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"];
+                        var path = context.HttpContext.Request.Path;
+                        if (!string.IsNullOrEmpty(accessToken) && (path.StartsWithSegments("/notificationHub")))
+                        {
+                            context.Token = accessToken;
+                        }
+
+                        return Task.CompletedTask;
+                    }
+                }
+        )
+        .AddIdentityCookies();
+    
+    builder.Services.AddIdentityCore<User>()
+                    .AddApiEndpoints()
+                    .AddRoles<IdentityRole>()
+                    .AddEntityFrameworkStores<SmartwmsDbContext>();//Adds Identity API endpoints with the roles and database stores
     builder.Services.AddHttpContextAccessor();
+    
+    builder.Services.AddAuthorization();//Adds authorization service
     
     //Configure CORS, to allow API access from any source
     builder.Services.AddCors(options =>
@@ -249,7 +279,7 @@ try
 
     app.UseHttpsRedirection();
 
-    app.MapHub<NotificationHub>("/api/notificationHub");
+    app.MapHub<NotificationHub>("/notificationHub");
 
     app.Run();
     //====================================================================================================//

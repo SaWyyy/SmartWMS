@@ -31,7 +31,7 @@ public class AlertController : ControllerBase
         try
         {
             var result = await _repository.Add(dto);
-            await _hubContext.Clients.All.SendAsync("ReceiveNotification", result.Title);
+            await _hubContext.Clients.Groups("Employee").SendAsync("ReceiveNotification", result.Title);
             
             _logger.LogInformation($"Alert with id: {result.AlertId} has been added");
             return Ok($"Alert with id: {result.AlertId} has been added");
