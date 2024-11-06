@@ -24,6 +24,6 @@ public class MappingProfiles : Profile
         CreateMap<User, UserDto>().ReverseMap();
         CreateMap<Report, ReportDto>().ReverseMap();
         CreateMap<Lane, LaneDto>().ReverseMap();
-
+        CreateMap<Rack, RackDto>().ReverseMap();
     }
 }

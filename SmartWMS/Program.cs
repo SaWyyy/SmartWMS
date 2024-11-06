@@ -84,6 +84,7 @@ try
     builder.Services.AddTransient<IOrderDetailRepository, OrderDetailRepository>();
     builder.Services.AddTransient<IReportRepository, ReportRepository>();
     builder.Services.AddTransient<ILaneRepository, LaneRepository>();
+    builder.Services.AddTransient<IRackRepository, RackRepository>();
     //====================================================================================================//
     
     

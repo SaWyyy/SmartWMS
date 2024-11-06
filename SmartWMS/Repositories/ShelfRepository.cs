@@ -24,6 +24,11 @@ public class ShelfRepository : IShelfRepository
     public async Task<Shelf> AddShelf(ShelfDto dto)
     {
         dto.ShelfId = null;
+        var rack = await _dbContext.Racks.FirstOrDefaultAsync(x => x.RackId == dto.RacksRackId);
+
+        if (rack is null)
+            throw new SmartWMSExceptionHandler("Rack with specified id hasn't been found");
+        
         var shelf = _mapper.Map<Shelf>(dto); 
         
         await _dbContext.Shelves.AddAsync(shelf);
@@ -80,7 +85,6 @@ public class ShelfRepository : IShelfRepository
             throw new SmartWMSExceptionHandler("Shelf with specified id hasn't been found");
 
         shelf.ProductsProductId = dto.ProductsProductId;
-        shelf.RacksRackId = dto.RacksRackId;
         shelf.CurrentQuant = dto.CurrentQuant;
         shelf.MaxQuant = dto.MaxQuant;
         shelf.Level = dto.Level;
