@@ -1,31 +1,32 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartWMS.Models.DTOs;
+using SmartWMS.Repositories;
 using SmartWMS.Repositories.Interfaces;
 
 namespace SmartWMS.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class LaneController : ControllerBase
+public class RackController : ControllerBase
 {
-    private readonly ILaneRepository _repository;
-    private readonly ILogger<LaneController> _logger;
+    private readonly IRackRepository _repository;
+    private readonly ILogger<RackRepository> _logger;
 
-    public LaneController(ILaneRepository repository, ILogger<LaneController> logger)
+    public RackController(IRackRepository repository, ILogger<RackRepository> logger)
     {
         this._repository = repository;
         this._logger = logger;
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddLane(LaneDto dto)
+    public async Task<IActionResult> AddRack(RackDto dto)
     {
         try
         {
             var result = await _repository.Add(dto);
-            _logger.LogInformation($"Lane with id: {result.LaneId} has been added");
-            
-            return Ok($"Lane with id: {result.LaneId} has been added");
+            _logger.LogInformation($"Rack with id: {result.RackId} has been added");
+
+            return Ok($"Rack with id: {result.RackId} has been added");
         }
         catch (SmartWMSExceptionHandler e)
         {
@@ -48,7 +49,7 @@ public class LaneController : ControllerBase
         try
         {
             var result = await _repository.Get(id);
-            _logger.LogInformation("Lane found");
+            _logger.LogInformation("Rack found");
 
             return Ok(result);
         }
@@ -65,9 +66,9 @@ public class LaneController : ControllerBase
         try
         {
             var result = await _repository.Delete(id);
-            _logger.LogInformation("Lane deleted");
+            _logger.LogInformation("Rack deleted");
 
-            return Ok($"Lane with id: {result.LaneId} has been removed");
+            return Ok($"Rack with id: {result.RackId} has been deleted");
         }
         catch (SmartWMSExceptionHandler e)
         {
@@ -77,14 +78,14 @@ public class LaneController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, LaneDto dto)
+    public async Task<IActionResult> Update(int id, RackDto dto)
     {
         try
         {
             var result = await _repository.Update(id, dto);
-            _logger.LogInformation($"Lane updated");
+            _logger.LogInformation("Rack updated");
 
-            return Ok($"Lane with id: {result.LaneId} has been updated");
+            return Ok($"Rack with id: {result.RackId} has been deleted");
         }
         catch (SmartWMSExceptionHandler e)
         {
