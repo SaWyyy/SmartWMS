@@ -31,9 +31,7 @@ public class ShelfControllerTests
     {
         var shelf = A.Fake<Shelf>();
         shelf.ShelfId = 1;
-        shelf.Lane = "A";
         shelf.Level = LevelType.P0;
-        shelf.Rack = 1;
         shelf.CurrentQuant = 1;
         shelf.MaxQuant = 1;
         shelf.ProductsProduct = new Product();

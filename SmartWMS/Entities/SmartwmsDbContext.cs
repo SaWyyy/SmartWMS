@@ -27,6 +27,10 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
     public virtual DbSet<Report> Reports { get; set; }
 
     public virtual DbSet<Shelf> Shelves { get; set; }
+    
+    public virtual DbSet<Lane> Lanes { get; set; }
+    
+    public virtual DbSet<Rack> Racks { get; set; }
 
     public virtual DbSet<Subcategory> Subcategories { get; set; }
 
@@ -260,7 +264,7 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_reports_warehouses1");
         });
-
+        
         modelBuilder.Entity<Shelf>(entity =>
         {
             entity.HasKey(e => e.ShelfId).HasName("shelf_id_unique");
@@ -270,18 +274,51 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
             entity.Property(e => e.ShelfId)
                 .HasColumnName("shelf_id");
             entity.Property(e => e.CurrentQuant).HasColumnName("current_quant");
-            entity.Property(e => e.Lane)
-                .HasMaxLength(3)
-                .HasColumnName("lane");
             entity.Property(e => e.MaxQuant).HasColumnName("max_quant");
             entity.Property(e => e.ProductsProductId).HasColumnName("products_product_id");
-            entity.Property(e => e.Rack).HasColumnName("rack");
             entity.Property(e => e.Level).HasColumnName("level")
                 .HasColumnType("level_type");
 
             entity.HasOne(d => d.ProductsProduct).WithMany(p => p.Shelves)
                 .HasForeignKey(d => d.ProductsProductId)
                 .HasConstraintName("fk_shelf_products1");
+
+            entity.HasOne(d => d.RackRack).WithMany(p => p.Shelves)
+                .HasForeignKey(d => d.RacksRackId)
+                .HasConstraintName("fk_shelf_racks1");
+        });
+
+        modelBuilder.Entity<Lane>(entity =>
+        {
+            entity.HasKey(e => e.LaneId).HasName("lane_id_unique");
+
+            entity.ToTable("lane");
+
+            entity.Property(e => e.LaneId)
+                .HasColumnName("lane_id");
+            entity.Property(e => e.LaneNumber)
+                .HasMaxLength(3)
+                .HasColumnName("lane_number");
+            entity.HasIndex(e => e.LaneNumber)
+                .IsUnique();
+        });
+
+        modelBuilder.Entity<Rack>(entity =>
+        {
+            entity.HasKey(e => e.RackId).HasName("rack_id_unique");
+
+            entity.ToTable("rack");
+
+            entity.Property(e => e.RackId)
+                .HasColumnName("rack_id");
+            entity.Property(e => e.RackNumber)
+                .HasColumnName("rack_number");
+            entity.Property(e => e.LanesLaneId)
+                .HasColumnName("lanes_lane_id");
+
+            entity.HasOne(d => d.LaneLane).WithMany(p => p.Racks)
+                .HasForeignKey(d => d.LanesLaneId)
+                .HasConstraintName("fk_rack_lanes1");
         });
 
         modelBuilder.Entity<Subcategory>(entity =>

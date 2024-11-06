@@ -81,8 +81,6 @@ public class ShelfRepository : IShelfRepository
 
         shelf.ProductsProductId = dto.ProductsProductId;
         shelf.CurrentQuant = dto.CurrentQuant;
-        shelf.Lane = dto.Lane;
-        shelf.Rack = dto.Rack;
         shelf.MaxQuant = dto.MaxQuant;
         shelf.Level = dto.Level;
 
