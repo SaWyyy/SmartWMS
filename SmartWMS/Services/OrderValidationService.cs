@@ -44,7 +44,7 @@ public class OrderValidationService : IOrderValidationService
         return OrderValidation.TaskNotFinished;
     }
     
-    public async Task<OrderValidation> CheckTasksForOrderDetail(int orderDetailId)
+    private async Task<OrderValidation> CheckTasksForOrderDetail(int orderDetailId)
     {
         var orderDetail = await _dbContext.OrderDetails
             .IgnoreQueryFilters()
@@ -69,7 +69,7 @@ public class OrderValidationService : IOrderValidationService
         return OrderValidation.TaskFinished;
     }
 
-    public async Task<bool> CheckOrderDetailsForOrderHeader(int orderHeaderId)
+    private async Task<bool> CheckOrderDetailsForOrderHeader(int orderHeaderId)
     {
         try
         {
