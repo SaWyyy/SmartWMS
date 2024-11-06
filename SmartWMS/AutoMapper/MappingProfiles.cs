@@ -23,5 +23,7 @@ public class MappingProfiles : Profile
         CreateMap<OrderDetail, OrderDetailDto>().ReverseMap();
         CreateMap<User, UserDto>().ReverseMap();
         CreateMap<Report, ReportDto>().ReverseMap();
+        CreateMap<Lane, LaneDto>().ReverseMap();
+
     }
 }

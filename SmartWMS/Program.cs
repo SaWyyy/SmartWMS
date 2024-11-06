@@ -83,6 +83,7 @@ try
     builder.Services.AddTransient<IProductRepository, ProductRepository>();
     builder.Services.AddTransient<IOrderDetailRepository, OrderDetailRepository>();
     builder.Services.AddTransient<IReportRepository, ReportRepository>();
+    builder.Services.AddTransient<ILaneRepository, LaneRepository>();
     //====================================================================================================//
     
     

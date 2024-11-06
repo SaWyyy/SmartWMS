@@ -80,6 +80,7 @@ public class ShelfRepository : IShelfRepository
             throw new SmartWMSExceptionHandler("Shelf with specified id hasn't been found");
 
         shelf.ProductsProductId = dto.ProductsProductId;
+        shelf.RacksRackId = dto.RacksRackId;
         shelf.CurrentQuant = dto.CurrentQuant;
         shelf.MaxQuant = dto.MaxQuant;
         shelf.Level = dto.Level;
