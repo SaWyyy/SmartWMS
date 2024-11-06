@@ -143,9 +143,9 @@ public class UserRepository : IUserRepository
             var singleUser = new UserDto
             {
                 Id = user.Id,
-                Email = user.Email,
-                UserName = user.UserName,
-                ManagerId = user.ManagerId,
+                Email = user.Email!,
+                UserName = user.UserName!,
+                ManagerId = user.ManagerId!,
                 Role = roleName
             };
             
