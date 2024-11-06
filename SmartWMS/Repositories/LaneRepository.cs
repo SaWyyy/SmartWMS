@@ -36,6 +36,34 @@ public class LaneRepository : ILaneRepository
         return _mapper.Map<List<LaneDto>>(lanes);
     }
 
+    public async Task<IEnumerable<LaneRacksShelvesDto>> GetAllWithRacksShelves()
+    {
+        var lanes = await _dbContext.Lanes
+            .Include(r => r.Racks)
+            .ThenInclude(s => s.Shelves)
+            .Select(d => new LaneRacksShelvesDto
+            {
+                LaneId = d.LaneId,
+                LaneCode = d.LaneCode,
+                Racks = d.Racks.Select(x => new RackShelvesDto
+                {
+                    RackId = x.RackId,
+                    RackNumber = x.RackNumber,
+                    Shelves = x.Shelves.Select(y => new ShelfDto
+                    {
+                        CurrentQuant = y.CurrentQuant,
+                        Level = y.Level,
+                        MaxQuant = y.MaxQuant,
+                        ProductsProductId = y.ProductsProductId,
+                        RacksRackId = y.RacksRackId,
+                        ShelfId = y.ShelfId
+                    }).ToList()
+                }).ToList()
+            }).ToListAsync();
+
+        return lanes;
+    }
+
     public async Task<LaneDto> Get(int id)
     {
         var lane = await _dbContext.Lanes.FirstOrDefaultAsync(x => x.LaneId == id);

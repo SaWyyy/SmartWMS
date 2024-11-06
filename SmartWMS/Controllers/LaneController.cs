@@ -42,6 +42,14 @@ public class LaneController : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet("getAllWithRacksShelves")]
+    public async Task<IActionResult> GetAllWithRackShelves()
+    {
+        var result = await _repository.GetAllWithRacksShelves();
+
+        return Ok(result);
+    }
+
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
