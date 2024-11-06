@@ -296,10 +296,10 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
 
             entity.Property(e => e.LaneId)
                 .HasColumnName("lane_id");
-            entity.Property(e => e.LaneNumber)
+            entity.Property(e => e.LaneCode)
                 .HasMaxLength(3)
-                .HasColumnName("lane_number");
-            entity.HasIndex(e => e.LaneNumber)
+                .HasColumnName("lane_code");
+            entity.HasIndex(e => e.LaneCode)
                 .IsUnique();
         });
 
