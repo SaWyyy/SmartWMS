@@ -194,6 +194,25 @@ public class SubcategoryControllerTest
     [InlineData(0)]
     [InlineData(1)]
     [InlineData(999)]
+    public async void SubcategoryController_Delete_ReturnsConflict(int id)
+    {
+        // Arrange
+        const string exceptionMessage = "An error occured";
+        
+        // Act
+        A.CallTo(() => _subcategoryRepository.Delete(id))
+            .Throws(new ConflictException(exceptionMessage));
+        var result = (ConflictObjectResult)await _subcategoryController.Delete(id);
+        
+        // Assert
+        result.StatusCode.Should().Be(StatusCodes.Status409Conflict);
+        result.Should().NotBeNull();
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    [InlineData(999)]
     public async void SubcategoryController_Update_ReturnsOk(int id)
     {
         // Arrange

@@ -9,6 +9,7 @@ using SmartWMS.Controllers;
 using SmartWMS.Entities;
 using SmartWMS.Entities.Enums;
 using SmartWMS.Models.DTOs;
+using SmartWMS.Models.ReturnEnums;
 using SmartWMS.Repositories.Interfaces;
 using SmartWMS.Services;
 using SmartWMS.Services.Interfaces;
@@ -295,6 +296,21 @@ public class TaskControllerTest
         
         // Assert
         result.StatusCode.Should().Be(StatusCodes.Status404NotFound);
+        result.Should().NotBeNull();
+    }
+
+    [Fact]
+    public async void TaskController_UpdateQuantity_ReturnsOk()
+    {
+        // Arrange
+        int id = 1;
+        
+        // Act
+        A.CallTo(() => _service.CheckOrderCompletion(id)).Returns(OrderValidation.TaskFinished);
+        var result = (OkObjectResult)await _taskController.UpdateQuantity(id);
+        
+        // Assert
+        result.StatusCode.Should().Be(StatusCodes.Status200OK);
         result.Should().NotBeNull();
     }
 }
