@@ -10,9 +10,9 @@ namespace SmartWMS.Controllers;
 public class RackController : ControllerBase
 {
     private readonly IRackRepository _repository;
-    private readonly ILogger<RackRepository> _logger;
+    private readonly ILogger<RackController> _logger;
 
-    public RackController(IRackRepository repository, ILogger<RackRepository> logger)
+    public RackController(IRackRepository repository, ILogger<RackController> logger)
     {
         this._repository = repository;
         this._logger = logger;
