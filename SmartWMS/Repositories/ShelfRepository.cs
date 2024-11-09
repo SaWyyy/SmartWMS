@@ -24,6 +24,7 @@ public class ShelfRepository : IShelfRepository
     public async Task<Shelf> AddShelf(ShelfDto dto)
     {
         dto.ShelfId = null;
+        dto.CurrentQuant = 0;
         var rack = await _dbContext.Racks.FirstOrDefaultAsync(x => x.RackId == dto.RacksRackId);
 
         if (rack is null)
