@@ -176,7 +176,29 @@ public class ProductControllerTest
         
         //Assert
         result.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
+        result.Should().NotBeNull();
     }
+    
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    [InlineData(999)]
+    public async void ProductController_Delete_ReturnsConflict(int id)
+    {
+        // Arrange
+        const string exceptionMessage = "An error occured";
+        
+        // Act
+        A.CallTo(() => _productRepository.Delete(id))
+            .Throws(new ConflictException(exceptionMessage));
+        var result = (ConflictObjectResult)await _productController.Delete(id);
+        
+        //Assert
+        result.StatusCode.Should().Be(StatusCodes.Status409Conflict);
+        result.Should().NotBeNull();
+    }
+    
+    
 
     [Theory]
     [InlineData(0)]
