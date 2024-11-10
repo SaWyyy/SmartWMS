@@ -97,4 +97,15 @@ public class ShelfRepository : IShelfRepository
 
         throw new SmartWMSExceptionHandler("Error has occured while saving changes to shelf table");
     }
+
+    public async Task<IEnumerable<RacksLevelsDto>> GetAllRacksLevels(int rackId)
+    {
+        var rack = await _dbContext.Racks.FirstOrDefaultAsync(rack => rack.RackId == rackId);
+        
+        if (rack is null)
+            throw new SmartWMSExceptionHandler("Rack with provided id doesn't exist");
+        
+        var levels = await _dbContext.Shelves.Where(shelf => shelf.RacksRackId == rackId).ToListAsync();
+        return _mapper.Map<List<RacksLevelsDto>>(levels);
+    }
 }

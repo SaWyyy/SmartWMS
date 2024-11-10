@@ -12,4 +12,5 @@ public interface IShelfRepository
     Task<ShelfDto> Get(int id);
     Task<Shelf> Delete(int id);
     Task<Shelf> Update(int id, ShelfDto dto);
+    Task<IEnumerable<RacksLevelsDto>> GetAllRacksLevels(int rackId);
 }

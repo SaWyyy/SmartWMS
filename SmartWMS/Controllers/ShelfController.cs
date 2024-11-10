@@ -98,4 +98,19 @@ public class ShelfController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+
+    [HttpGet("racksLevels/{id}")]
+    public async Task<IActionResult> GetAllRacksLevels(int id)
+    {
+        try
+        {
+            var result = await _shelfRepository.GetAllRacksLevels(id);
+            return Ok(result);
+        }
+        catch (SmartWMSExceptionHandler e)
+        {
+            _logger.LogError(e.Message);
+            return BadRequest(e.Message);
+        }
+    }
 }
