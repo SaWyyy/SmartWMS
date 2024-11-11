@@ -21,8 +21,6 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
         .WithDatabase("smartwms_db")
         .WithUsername("postgres")
         .WithPassword("root")
-        .WithPortBinding(5432, assignRandomHostPort: true)
-        .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(5432))
         .Build();
     
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -60,8 +58,7 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
     }
 
     private NpgsqlDataSource ConfigureDb(string connectionString)
-    {
-        connectionString = connectionString.Replace("localhost", "host.docker.internal");
+    { 
         var dataSourceBuilder = new NpgsqlDataSourceBuilder(connectionString);
         
         dataSourceBuilder.MapEnum<ActionType>("action_type");
@@ -76,13 +73,13 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
         return dataSource;
     }
 
-    public Task InitializeAsync()
+    public async Task InitializeAsync()
     {
-        return _dbContainer.StartAsync();
+        await _dbContainer.StartAsync();
     }
 
-    public Task DisposeAsync()
+    public async Task DisposeAsync()
     {
-        return _dbContainer.StopAsync();
+        await _dbContainer.StopAsync();
     }
 }
