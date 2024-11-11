@@ -59,6 +59,23 @@ public class ProductController : ControllerBase
         }
     }
 
+    [HttpGet("withShelves/{id}")]
+    public async Task<IActionResult> GetWithShelves(int id)
+    {
+        try
+        {
+            var result = await _repository.GetWithShelves(id);
+            
+            _logger.LogInformation("Product found");
+            return Ok(result);
+        }
+        catch (SmartWMSExceptionHandler e)
+        { 
+            _logger.LogError(e.Message);
+            return NotFound(e.Message);
+        }
+    }
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {

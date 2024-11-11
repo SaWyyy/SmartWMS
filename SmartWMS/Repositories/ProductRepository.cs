@@ -68,6 +68,47 @@ public class ProductRepository : IProductRepository
         return _mapper.Map<ProductDto>(result);
     }
 
+    public async Task<ProductShelfDto> GetWithShelves(int id)
+    {
+        var product = await _dbContext.Products.FirstOrDefaultAsync(x => x.ProductId == id);
+        
+        if (product is null)
+            throw new SmartWMSExceptionHandler("Product with specified id hasn't been found");
+        
+        var result = await _dbContext.Products
+            .Include(s => s.Shelves)
+            .ThenInclude(r => r.RackRack)
+            .ThenInclude(l => l.LaneLane)
+            .Select(x => new ProductShelfDto
+            {
+                ProductId = x.ProductId,
+                ProductName = x.ProductName,
+                ProductDescription = x.ProductDescription,
+                Barcode = x.Barcode,
+                Price = x.Price,
+                Quantity = x.Quantity,
+                Shelves = x.Shelves.Select(y => new ShelfRackDto
+                {
+                    ShelfId = y.ShelfId,
+                    Level = y.Level,
+                    MaxQuant = y.MaxQuant,
+                    CurrentQuant = y.CurrentQuant,
+                    RackLane = new RackLaneDto
+                    {
+                        RackId = y.RackRack.RackId,
+                        RackNumber = y.RackRack.RackNumber,
+                        Lane = new LaneDto
+                        {
+                            LaneId = y.RackRack.LaneLane.LaneId,
+                            LaneCode = y.RackRack.LaneLane.LaneCode
+                        }
+                    }
+                }).ToList()
+            }).FirstOrDefaultAsync(x => x.ProductId == id);
+
+        return result!;
+    }
+
     public async Task<Product> Update(int id, ProductDto dto)
     {
         var subcategory =
