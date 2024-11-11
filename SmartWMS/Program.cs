@@ -310,3 +310,5 @@ finally
 {
     NLog.LogManager.Shutdown();// Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
 }
+
+public partial class Program {}
