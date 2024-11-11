@@ -156,6 +156,7 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
     public async Task InitializeAsync()
     {
         await _dbContainer.StartAsync();
+        await Task.Delay(TimeSpan.FromSeconds(5));
     }
 
     public async Task DisposeAsync()
