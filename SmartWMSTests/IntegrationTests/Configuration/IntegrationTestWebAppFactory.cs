@@ -74,10 +74,35 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
         var dataSource = dataSourceBuilder.Build();
         return dataSource;
     }
-
-    public Task InitializeAsync()
+    
+    private async Task WaitForDatabaseReadyAsync(string connectionString)
     {
-        return _dbContainer.StartAsync();
+        var attempts = 0;
+        while (attempts < 30)
+        {
+            try
+            {
+                await using (var connection = new NpgsqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+                    return;
+                }
+            }
+            catch
+            {
+                await Task.Delay(5000);
+            }
+
+            attempts++;
+        }
+
+        throw new InvalidOperationException("Database connection refused.");
+    }
+
+    public async Task InitializeAsync()
+    {
+        await _dbContainer.StartAsync();
+        await WaitForDatabaseReadyAsync(_dbContainer.GetConnectionString());
     }
 
     public Task DisposeAsync()
