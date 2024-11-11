@@ -1,3 +1,4 @@
+using DotNet.Testcontainers.Builders;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -20,6 +21,8 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
         .WithDatabase("smartwms_db")
         .WithUsername("postgres")
         .WithPassword("root")
+        .WithPortBinding(5432, assignRandomHostPort: true)
+        .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(5432))
         .Build();
     
     protected override void ConfigureWebHost(IWebHostBuilder builder)
