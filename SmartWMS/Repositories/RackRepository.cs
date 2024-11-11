@@ -82,4 +82,15 @@ public class RackRepository : IRackRepository
 
         throw new SmartWMSExceptionHandler("Error has occured while updating rack");
     }
+    
+    public async Task<IEnumerable<LanesRacksDto>> GetAllLanesRacks(int laneId)
+    {
+        var lane = await _dbContext.Lanes.FirstOrDefaultAsync(lane => lane.LaneId == laneId);
+        
+        if (lane is null)
+            throw new SmartWMSExceptionHandler("Cannot fetch lane's racks because provided id doesn't exist");
+        
+        var racks = await _dbContext.Racks.Where(rack => rack.LanesLaneId == laneId).ToListAsync();
+        return _mapper.Map<List<LanesRacksDto>>(racks);
+    }
 }

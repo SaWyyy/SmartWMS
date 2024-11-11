@@ -10,4 +10,5 @@ public interface IRackRepository
     Task<RackDto> Get(int id);
     Task<Rack> Delete(int id);
     Task<Rack> Update(int id, RackDto dto);
+    Task<IEnumerable<LanesRacksDto>> GetAllLanesRacks(int laneId);
 }

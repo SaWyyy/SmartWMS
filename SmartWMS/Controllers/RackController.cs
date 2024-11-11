@@ -93,4 +93,21 @@ public class RackController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+
+    [HttpGet("lanesRacks/{id}")]
+    public async Task<IActionResult> GetAllLanesRacks(int id)
+    {
+        try
+        {
+            var result = await _repository.GetAllLanesRacks(id);
+            _logger.LogInformation("Lane's racks have been fetched successfully");
+            
+            return Ok(result);
+        }
+        catch (SmartWMSExceptionHandler e)
+        {
+            _logger.LogError(e.Message);
+            return NotFound(e.Message);
+        }
+    }
 }
