@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Npgsql;
 using SmartWMS.Entities;
 using SmartWMS.Entities.Enums;
@@ -38,22 +39,23 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
                     .RequireAuthenticatedUser()
                     .Build();
             });
-            
-            var descriptor = services
-                .SingleOrDefault(s => s.ServiceType == typeof(DbContextOptions<SmartwmsDbContext>));
 
-            if (descriptor is not null)
-                services.Remove(descriptor);
+            services.RemoveAll(typeof(DbContextOptions<SmartwmsDbContext>));
 
             services.AddDbContext<SmartwmsDbContext>(options =>
             {
                 options.UseNpgsql(ConfigureDb(_dbContainer.GetConnectionString()));
             });
             
-            MigrateDatabaseAsync(services).GetAwaiter().GetResult();
+            using (var scope = services.BuildServiceProvider().CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<SmartwmsDbContext>();
+                dbContext.Database.EnsureCreated();
+            }
+            
             InitializeRolesAsync(services).GetAwaiter().GetResult();
             InitializeWarehouseAsync(services).GetAwaiter().GetResult();
-            InitializeAdminUserAsync(services).GetAwaiter().GetResult();
+            // InitializeAdminUserAsync(services).GetAwaiter().GetResult();
         });
     }
 
@@ -156,7 +158,7 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
     public async Task InitializeAsync()
     {
         await _dbContainer.StartAsync();
-        await Task.Delay(TimeSpan.FromSeconds(5));
+        Environment.SetEnvironmentVariable("ConnectionStrings:DefaultConnection", _dbContainer.GetConnectionString());
     }
 
     public async Task DisposeAsync()
