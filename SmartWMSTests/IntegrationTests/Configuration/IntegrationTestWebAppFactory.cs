@@ -61,6 +61,7 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
 
     private NpgsqlDataSource ConfigureDb(string connectionString)
     {
+        connectionString = connectionString.Replace("localhost", "host.docker.internal");
         var dataSourceBuilder = new NpgsqlDataSourceBuilder(connectionString);
         
         dataSourceBuilder.MapEnum<ActionType>("action_type");
@@ -74,35 +75,10 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
         var dataSource = dataSourceBuilder.Build();
         return dataSource;
     }
-    
-    private async Task WaitForDatabaseReadyAsync(string connectionString)
+
+    public Task InitializeAsync()
     {
-        var attempts = 0;
-        while (attempts < 30)
-        {
-            try
-            {
-                await using (var connection = new NpgsqlConnection(connectionString))
-                {
-                    await connection.OpenAsync();
-                    return;
-                }
-            }
-            catch
-            {
-                await Task.Delay(5000);
-            }
-
-            attempts++;
-        }
-
-        throw new InvalidOperationException("Database connection refused.");
-    }
-
-    public async Task InitializeAsync()
-    {
-        await _dbContainer.StartAsync();
-        await WaitForDatabaseReadyAsync(_dbContainer.GetConnectionString());
+        return _dbContainer.StartAsync();
     }
 
     public Task DisposeAsync()
