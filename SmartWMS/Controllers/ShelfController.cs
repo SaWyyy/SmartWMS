@@ -48,6 +48,14 @@ public class ShelfController : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet("withRackLane")]
+    public async Task<IActionResult> GetAllWithRackLane()
+    {
+        var result = await _shelfRepository.GetAllWithRackLanes();
+
+        return Ok(result);
+    }
+
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {

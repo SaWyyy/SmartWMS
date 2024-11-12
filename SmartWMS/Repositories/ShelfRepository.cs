@@ -51,6 +51,32 @@ public class ShelfRepository : IShelfRepository
         return shelfDtos;
     }
 
+    public async Task<IEnumerable<ShelfRackDto>> GetAllWithRackLanes()
+    {
+        var shelves = await _dbContext.Shelves
+            .Include(r => r.RackRack)
+            .ThenInclude(l => l.LaneLane)
+            .Select(x => new ShelfRackDto()
+            {
+                ShelfId = x.ShelfId,
+                CurrentQuant = x.CurrentQuant,
+                MaxQuant = x.MaxQuant,
+                Level = x.Level,
+                RackLane = new RackLaneDto
+                {
+                    RackId = x.RackRack.RackId,
+                    RackNumber = x.RackRack.RackNumber,
+                    Lane = new LaneDto
+                    {
+                        LaneId = x.RackRack.LaneLane.LaneId,
+                        LaneCode = x.RackRack.LaneLane.LaneCode
+                    }
+                }
+            }).ToListAsync();
+
+        return shelves;
+    }
+
     public async Task<ShelfDto> Get(int id)
     {
         var shelf = await _dbContext.Shelves.FirstOrDefaultAsync(r => r.ShelfId == id);
