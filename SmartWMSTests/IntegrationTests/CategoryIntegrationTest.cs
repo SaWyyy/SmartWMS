@@ -173,10 +173,11 @@ public class CategoryIntegrationTest : BaseIntegrationTest
         
         // Assert
         var content = await response.Content.ReadAsStringAsync();
-        var responseDto = JsonSerializer.Deserialize<CategoryDto>(content, customJsonOptions);
+        var responseDto = JsonSerializer.Deserialize<Category>(content, customJsonOptions);
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         responseDto!.CategoryId.Should().Be(categoryId);
         responseDto.CategoryName.Should().Be("Test category delete");
+        responseDto.IsDeleted.Should().BeTrue();
     }
 }
