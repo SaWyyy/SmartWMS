@@ -8,5 +8,6 @@ public class ShelfRackDto
     public LevelType Level { get; set; }
     public int MaxQuant { get; set; }
     public int CurrentQuant { get; set; }
+    public int? ProductId { get; set; }
     public RackLaneDto RackLane { get; set; } = null!;
 }

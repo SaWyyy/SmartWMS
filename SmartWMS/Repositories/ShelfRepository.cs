@@ -62,6 +62,7 @@ public class ShelfRepository : IShelfRepository
                 CurrentQuant = x.CurrentQuant,
                 MaxQuant = x.MaxQuant,
                 Level = x.Level,
+                ProductId = x.ProductsProductId,
                 RackLane = new RackLaneDto
                 {
                     RackId = x.RackRack.RackId,
