@@ -58,7 +58,7 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
             // InitializeAdminUserAsync(services).GetAwaiter().GetResult();
         });
     }
-
+    
     private async Task MigrateDatabaseAsync(IServiceCollection services)
     {
         using (var scope = services.BuildServiceProvider().CreateScope())

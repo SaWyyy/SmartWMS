@@ -1,23 +1,31 @@
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
+using AutoMapper;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using SmartWMS.Entities;
 using SmartWMS.Entities.Enums;
 using SmartWMS.Models.DTOs;
 using SmartWMSTests.IntegrationTests.Configuration;
 using Xunit.Abstractions;
+using Task = System.Threading.Tasks.Task;
 
 namespace SmartWMSTests.IntegrationTests;
 
 public class AlertIntegrationTest : BaseIntegrationTest
 {
     private readonly HttpClient _client;
-    private ITestOutputHelper _helper;
-    public AlertIntegrationTest(IntegrationTestWebAppFactory factory, ITestOutputHelper helper) : base(factory)
+    private readonly SmartwmsDbContext _dbContext;
+    private readonly IServiceScope _scope;
+    public AlertIntegrationTest(IntegrationTestWebAppFactory factory) : base(factory)
     {
         _client = factory.CreateClient();
-        this._helper = helper;
+        _scope = factory.Services.CreateScope();
+        _dbContext = _scope.ServiceProvider.GetRequiredService<SmartwmsDbContext>();
     }
 
     [Fact]
@@ -45,85 +53,99 @@ public class AlertIntegrationTest : BaseIntegrationTest
     public async Task GetById_ShouldReturnOk()
     {
         // Arrange
-        int alertId = 1;
-        var alertDto = new AlertDto()
+        var alert = new Alert
         {
-            Title = "Test alert",
+            Title = "Test alert getId",
             Description = "Test description",
             AlertDate = DateTime.Now,
             AlertType = AlertType.DeliveryDelay,
-            Seen = false
+            Seen = false,
+            WarehousesWarehouseId = 1
         };
-        await _client.PostAsJsonAsync("/api/Alert", alertDto);
+        await _dbContext.Alerts.AddAsync(alert);
+        await _dbContext.SaveChangesAsync();
+
+        var alertId = alert.AlertId;
         
         // Act
         var response = await _client.GetAsync($"/api/Alert/{alertId}");
         
         // Assert
-        response.EnsureSuccessStatusCode();
         var content = await response.Content.ReadAsStringAsync();
         var responseDto = JsonSerializer.Deserialize<AlertDto>(content, customJsonOptions);
+        
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
         responseDto.Should().NotBeNull();
         responseDto!.AlertId.Should().Be(alertId);
+        responseDto.Title.Should().Be("Test alert getId");
     }
     
     [Fact]
     public async Task GetAll_ShouldReturnOk()
     {
         // Arrange
-        int alertId = 1;
-        var alertDto = new AlertDto()
+        var alert = new Alert
         {
-            Title = "Test alert",
+            Title = "Test alert getAll",
             Description = "Test description",
             AlertDate = DateTime.Now,
             AlertType = AlertType.DeliveryDelay,
-            Seen = false
+            Seen = false,
+            WarehousesWarehouseId = 1
         };
-        await _client.PostAsJsonAsync("/api/Alert", alertDto);
+        await _dbContext.Alerts.AddAsync(alert);
+        await _dbContext.SaveChangesAsync();
         
         // Act
         var response = await _client.GetAsync("/api/Alert");
         
         // Assert
-        response.EnsureSuccessStatusCode();
         var content = await response.Content.ReadAsStringAsync();
         var alertDtos = JsonSerializer.Deserialize<List<AlertDto>>(content, customJsonOptions);
+        
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
         alertDtos.Should().NotBeEmpty();
-        alertDtos![0].AlertId.Should().Be(alertId);
     }
 
     [Fact]
     public async Task Update_ShouldReturnOk()
     {
         // Arrange
-        int alertId = 1;
-        var alertDto = new AlertDto()
+        var alert = new Alert
         {
-            Title = "Test alert",
+            Title = "Test alert update",
             Description = "Test description",
             AlertDate = DateTime.Now,
             AlertType = AlertType.DeliveryDelay,
-            Seen = false
+            Seen = false,
+            WarehousesWarehouseId = 1
         };
-        await _client.PostAsJsonAsync("/api/Alert", alertDto);
-        var newAlertDto = new AlertDto
+        
+        var newAlert = new Alert
         {
-            Title = "Test alert",
+            Title = "Test alert updated",
             Description = "Test description",
             AlertDate = DateTime.Now,
             AlertType = AlertType.DeliveryCanceled,
-            Seen = false
+            Seen = false,
+            WarehousesWarehouseId = 1
         };
         
+        await _dbContext.Alerts.AddAsync(alert);
+        await _dbContext.SaveChangesAsync();
+        
+        var alertId = alert.AlertId;
+        
         // Act
-        var response = await _client.PutAsJsonAsync($"/api/Alert/{alertId}", newAlertDto);
+        var response = await _client.PutAsJsonAsync($"/api/Alert/{alertId}", newAlert);
         
         // Arrange
-        response.EnsureSuccessStatusCode();
         var content = await response.Content.ReadAsStringAsync();
         var responseDto = JsonSerializer.Deserialize<AlertDto>(content, customJsonOptions);
+        
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
         responseDto!.AlertId.Should().Be(alertId);
+        responseDto.Title.Should().Be("Test alert updated");
         responseDto.AlertType.Should().Be(AlertType.DeliveryCanceled);
     }
 
@@ -131,25 +153,62 @@ public class AlertIntegrationTest : BaseIntegrationTest
     public async Task ChangeSeen_ShouldReturnOk()
     {
         // Arrange
-        int alertId = 1;
-        var alertDto = new AlertDto()
+        var alert = new Alert()
         {
-            Title = "Test alert",
+            Title = "Test alert changeSeen",
             Description = "Test description",
             AlertDate = DateTime.Now,
             AlertType = AlertType.DeliveryDelay,
-            Seen = false
+            Seen = false,
+            WarehousesWarehouseId = 1
         };
-        await _client.PostAsJsonAsync("/api/Alert", alertDto);
+        
+        await _dbContext.Alerts.AddAsync(alert);
+        await _dbContext.SaveChangesAsync();
+
+        var alertId = alert.AlertId;
         
         // Act
         var response = await _client.PutAsJsonAsync($"/api/Alert/seen/{alertId}", alertId);
         
         // Arrange
-        response.EnsureSuccessStatusCode();
         var content = await response.Content.ReadAsStringAsync();
         var responseDto = JsonSerializer.Deserialize<AlertDto>(content, customJsonOptions);
+        
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
         responseDto!.AlertId.Should().Be(alertId);
+        responseDto.Title.Should().Be("Test alert changeSeen");
         responseDto.Seen.Should().Be(true);
+    }
+
+    [Fact]
+    public async Task Delete_ShouldReturnOk()
+    {
+        // Arrange
+        var alert = new Alert()
+        {
+            Title = "Test alert delete",
+            Description = "Test description",
+            AlertDate = DateTime.Now,
+            AlertType = AlertType.DeliveryDelay,
+            Seen = false,
+            WarehousesWarehouseId = 1
+        };
+        
+        await _dbContext.Alerts.AddAsync(alert);
+        await _dbContext.SaveChangesAsync();
+
+        var alertId = alert.AlertId;
+        
+        // Act
+        var response = await _client.DeleteAsync($"/api/Alert/{alertId}");
+        
+        // Arrange
+        var content = await response.Content.ReadAsStringAsync();
+        var responseDto = JsonSerializer.Deserialize<AlertDto>(content, customJsonOptions);
+        
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        responseDto!.AlertId.Should().Be(alertId);
+        responseDto.Title.Should().Be("Test alert delete");
     }
 }
