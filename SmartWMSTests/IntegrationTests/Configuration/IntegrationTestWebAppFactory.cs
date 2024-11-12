@@ -41,7 +41,12 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
             });
 
             services.RemoveAll(typeof(DbContextOptions<SmartwmsDbContext>));
+            
+            var dbOptions = new DbContextOptionsBuilder<SmartwmsDbContext>()
+                .UseNpgsql(ConfigureDb(_dbContainer.GetConnectionString()))
+                .Options;
 
+            services.AddSingleton(dbOptions);
             services.AddDbContext<SmartwmsDbContext>(options =>
             {
                 options.UseNpgsql(ConfigureDb(_dbContainer.GetConnectionString()));
@@ -52,93 +57,9 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
                 var dbContext = scope.ServiceProvider.GetRequiredService<SmartwmsDbContext>();
                 dbContext.Database.EnsureCreated();
             }
-            
-            InitializeRolesAsync(services).GetAwaiter().GetResult();
-            InitializeWarehouseAsync(services).GetAwaiter().GetResult();
-            // InitializeAdminUserAsync(services).GetAwaiter().GetResult();
         });
     }
     
-    private async Task MigrateDatabaseAsync(IServiceCollection services)
-    {
-        using (var scope = services.BuildServiceProvider().CreateScope())
-        {
-            var dbContext = scope.ServiceProvider.GetRequiredService<SmartwmsDbContext>();
-            await dbContext.Database.MigrateAsync();
-        }
-    }
-    
-    private async Task InitializeRolesAsync(IServiceCollection services)
-    {
-        using (var scope = services.BuildServiceProvider().CreateScope())
-        {
-            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            string[] roleNames = { "Admin", "Manager", "Employee" };
-            IdentityResult roleResult;
-
-            foreach (var roleName in roleNames)
-            {
-                var roleExist = await roleManager.RoleExistsAsync(roleName);
-                if (!roleExist)
-                {
-                    roleResult = await roleManager.CreateAsync(new IdentityRole(roleName));
-                }
-            }
-        }
-    }
-
-    private async Task InitializeWarehouseAsync(IServiceCollection services)
-    {
-        using (var scope = services.BuildServiceProvider().CreateScope())
-        {
-            var dbContext = scope.ServiceProvider.GetRequiredService<SmartwmsDbContext>();
-            var warehouse = await dbContext.Warehouses.FirstOrDefaultAsync(x => x.WarehouseId == 1);
-            if (warehouse is null)
-            {
-                string address = "Nadbystrzycka 38 a";
-                var newWarehouse = new Warehouse
-                {
-                    Address = address
-                };
-
-                await dbContext.AddAsync(newWarehouse);
-                await dbContext.SaveChangesAsync();
-            }
-        }
-    }
-
-    private async Task InitializeAdminUserAsync(IServiceCollection services)
-    {
-        using (var scope = services.BuildServiceProvider().CreateScope())
-        {
-            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
-            var dbContext = scope.ServiceProvider.GetRequiredService<SmartwmsDbContext>();
-
-            string email = "admin@admin.com";
-            string userName = "Admin";
-            string password = "Admin123@";
-
-            if (await userManager.FindByEmailAsync(email) == null)
-            {
-                var user = new User()
-                {
-                    Email = email,
-                    UserName = userName,
-                    PasswordHash = password,
-                    WarehousesWarehouseId = dbContext.Warehouses.FirstOrDefaultAsync(x => x.WarehouseId == 1).Id
-                };
-
-                var result = await userManager.CreateAsync(user, password);
-
-                if (result.Succeeded)
-                {
-                    await userManager.AddToRoleAsync(user, "Admin");
-                }
-            }
-        }
-    }
-
-
     private NpgsqlDataSource ConfigureDb(string connectionString)
     { 
         var dataSourceBuilder = new NpgsqlDataSourceBuilder(connectionString);

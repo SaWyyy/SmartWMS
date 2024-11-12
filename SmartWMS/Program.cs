@@ -252,7 +252,7 @@ try
                 Email = email,
                 UserName = userName,
                 PasswordHash = password,
-                WarehousesWarehouseId = dbContext.Warehouses.FirstOrDefaultAsync(x => x.WarehouseId == 1).Id
+                WarehousesWarehouseId = 1
             };
 
             var result = await userManager.CreateAsync(user, password);

@@ -16,6 +16,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace SmartWMSTests.IntegrationTests;
 
+[Collection("Non-Parallel tests")]
 public class AlertIntegrationTest : BaseIntegrationTest
 {
     private readonly HttpClient _client;

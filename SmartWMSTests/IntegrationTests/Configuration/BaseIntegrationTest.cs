@@ -5,7 +5,7 @@ using SmartWMS;
 
 namespace SmartWMSTests.IntegrationTests.Configuration;
 
-public abstract class BaseIntegrationTest : IClassFixture<IntegrationTestWebAppFactory>
+public abstract class BaseIntegrationTest
 {
     private readonly IServiceScope _scope;
     protected JsonSerializerOptions customJsonOptions { get; }
