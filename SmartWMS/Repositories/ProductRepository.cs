@@ -109,6 +109,43 @@ public class ProductRepository : IProductRepository
         return result!;
     }
 
+    public async Task<IEnumerable<ProductShelfDto>> GetAllWithShelves()
+    {
+        var result = await _dbContext.Products
+            .Include(s => s.Shelves)
+            .ThenInclude(r => r.RackRack)
+            .ThenInclude(l => l.LaneLane)
+            .Select(x => new ProductShelfDto
+            {
+                ProductId = x.ProductId,
+                ProductName = x.ProductName,
+                ProductDescription = x.ProductDescription,
+                Barcode = x.Barcode,
+                Price = x.Price,
+                Quantity = x.Quantity,
+                Shelves = x.Shelves.Select(y => new ShelfRackDto
+                {
+                    ShelfId = y.ShelfId,
+                    Level = y.Level,
+                    MaxQuant = y.MaxQuant,
+                    CurrentQuant = y.CurrentQuant,
+                    RackLane = new RackLaneDto
+                    {
+                        RackId = y.RackRack.RackId,
+                        RackNumber = y.RackRack.RackNumber,
+                        Lane = new LaneDto
+                        {
+                            LaneId = y.RackRack.LaneLane.LaneId,
+                            LaneCode = y.RackRack.LaneLane.LaneCode
+                        }
+                    }
+                }).ToList()
+            }).ToListAsync();
+
+        return result;
+    }
+
+
     public async Task<Product> Update(int id, ProductDto dto)
     {
         var subcategory =

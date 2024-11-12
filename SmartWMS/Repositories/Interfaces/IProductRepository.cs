@@ -9,6 +9,8 @@ public interface IProductRepository
     Task<IEnumerable<ProductDto>> GetAll();
     Task<ProductDto> Get(int id);
     Task<ProductShelfDto> GetWithShelves(int id);
+    Task<IEnumerable<ProductShelfDto>> GetAllWithShelves();
+
     Task<Product> Update(int id, ProductDto dto);
     Task<Product> Delete(int id);
 }
