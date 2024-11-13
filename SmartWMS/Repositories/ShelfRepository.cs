@@ -112,6 +112,9 @@ public class ShelfRepository : IShelfRepository
         if (shelf is null)
             throw new SmartWMSExceptionHandler("Shelf with specified id hasn't been found");
 
+        if (dto.CurrentQuant > dto.MaxQuant)
+            throw new SmartWMSExceptionHandler("Current quantity cannot exceed max quantity");
+        
         shelf.ProductsProductId = dto.ProductsProductId;
         shelf.CurrentQuant = dto.CurrentQuant;
         shelf.MaxQuant = dto.MaxQuant;

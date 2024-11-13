@@ -8,12 +8,14 @@ using SmartWMS.Controllers;
 using SmartWMS.Entities;
 using SmartWMS.Models.DTOs;
 using SmartWMS.Repositories.Interfaces;
+using SmartWMS.Services.Interfaces;
 
 namespace SmartWMSTests.Controller;
 
 public class ProductControllerTest
 {
     private readonly IProductRepository _productRepository;
+    private readonly IProductAssignmentService _service;
     private readonly ILogger<ProductController> _logger;
     private readonly ProductController _productController;
 
@@ -21,7 +23,8 @@ public class ProductControllerTest
     {
         this._productRepository = A.Fake<IProductRepository>();
         this._logger = A.Fake<ILogger<ProductController>>();
-        this._productController = new ProductController(_productRepository, _logger);
+        this._service = A.Fake<IProductAssignmentService>();
+        this._productController = new ProductController(_productRepository, _service, _logger);
     }
 
     private static Product CreateFakeProduct()

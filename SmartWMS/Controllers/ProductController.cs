@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartWMS.Models.DTOs;
 using SmartWMS.Repositories.Interfaces;
+using SmartWMS.Services.Interfaces;
 
 namespace SmartWMS.Controllers;
 
@@ -10,11 +11,13 @@ namespace SmartWMS.Controllers;
 public class ProductController : ControllerBase
 {
     private readonly IProductRepository _repository;
+    private readonly IProductAssignmentService _service;
     private readonly ILogger<ProductController> _logger;
     
-    public ProductController(IProductRepository repository, ILogger<ProductController> logger)
+    public ProductController(IProductRepository repository, IProductAssignmentService service, ILogger<ProductController> logger)
     {
         this._repository = repository;
+        this._service = service;
         this._logger = logger;
     }
 
@@ -27,6 +30,22 @@ public class ProductController : ControllerBase
             
             _logger.LogInformation($"Product with id: {result.ProductId} has been added");
             return Ok($"Product with id: {result.ProductId} has been added");
+        }
+        catch (SmartWMSExceptionHandler e)
+        {
+            _logger.LogError(e.Message);
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpPost("createAndAssignToShelves")]
+    public async Task<IActionResult> CreateAndAssignToShelves(CreateProductAsssignShelfDto dto)
+    {
+        try
+        {
+            await _service.CreateAndAssignProductToShelves(dto);
+            _logger.LogInformation("Product created and assigned successfully");
+            return Ok("Product created and assigned successfully");
         }
         catch (SmartWMSExceptionHandler e)
         {

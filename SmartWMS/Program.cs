@@ -93,6 +93,7 @@ try
     //===============================================//
     builder.Services.AddScoped<IOrderValidationService, OrderValidationService>();
     builder.Services.AddScoped<IInventoryStatusService, InventoryStatusService>();
+    builder.Services.AddScoped<IProductAssignmentService, ProductAssignmentService>();
     //====================================================================================================//
     
     
