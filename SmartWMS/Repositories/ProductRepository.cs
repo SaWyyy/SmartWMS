@@ -129,6 +129,7 @@ public class ProductRepository : IProductRepository
                     Level = y.Level,
                     MaxQuant = y.MaxQuant,
                     CurrentQuant = y.CurrentQuant,
+                    ProductId = y.ProductsProductId,
                     RackLane = new RackLaneDto
                     {
                         RackId = y.RackRack.RackId,
@@ -186,6 +187,17 @@ public class ProductRepository : IProductRepository
 
         if (product.OrderDetails.Any())
             throw new ConflictException("There are order details assigned to this product");
+        
+        var assignedShelves = await _dbContext.Shelves
+            .Where(x => x.ProductsProductId == id)
+            .ToListAsync();
+
+        foreach (var shelf in assignedShelves)
+        {
+            shelf.ProductsProductId = null;
+            shelf.CurrentQuant = 0;
+            shelf.MaxQuant = 0;
+        }
 
         product.IsDeleted = true;
 
