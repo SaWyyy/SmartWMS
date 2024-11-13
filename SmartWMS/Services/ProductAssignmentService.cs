@@ -23,21 +23,21 @@ public class ProductAssignmentService : IProductAssignmentService
         try
         {
             var productDto = _mapper.Map<ProductDto>(dto.ProductDto);
+            var shelves = _mapper.Map<List<ShelfDto>>(dto.Shelves);
 
             if (productDto is null)
                 throw new SmartWMSExceptionHandler("Product is null");
-
-            var product = await _productRepository.Add(productDto);
-            var shelves = _mapper.Map<List<ShelfDto>>(dto.Shelves);
-
+            
             if (!shelves.Any())
                 throw new SmartWMSExceptionHandler("Sheves are empty");
 
-            if (product.Quantity > shelves.Sum(x => x.MaxQuant))
+            if (productDto.Quantity > shelves.Sum(x => x.MaxQuant))
                 throw new SmartWMSExceptionHandler("Product quantity cannot exceed max quantity of shelves");
             
-            if (!product.Quantity.Equals(shelves.Sum(x => x.CurrentQuant)))
+            if (!productDto.Quantity.Equals(shelves.Sum(x => x.CurrentQuant)))
                 throw new SmartWMSExceptionHandler("Product quantity is not equal to summed current quantity in shelves");
+            
+            var product = await _productRepository.Add(productDto);
             
             foreach (var shelfDto in shelves)
             {
