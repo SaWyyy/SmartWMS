@@ -50,6 +50,40 @@ public class ProductAssignmentService : IProductAssignmentService
         {
             throw (new SmartWMSExceptionHandler(e.Message));
         }
-        
+    }
+
+    public async Task AssignProductForDelivery(CreateProductAsssignShelfDto dto)
+    {
+        try
+        {
+            var productDto = _mapper.Map<ProductDto>(dto.ProductDto);
+            var shelves = _mapper.Map<List<ShelfDto>>(dto.Shelves);
+
+            if (productDto is null)
+                throw new SmartWMSExceptionHandler("Product is null");
+
+            if (!shelves.Any())
+                throw new SmartWMSExceptionHandler("Sheves are empty");
+
+            await _productRepository.UpdateQuantity(productDto);
+
+            if (shelves.All(x => x.ProductsProductId != productDto.ProductId && x.ProductsProductId != null))
+                throw new ConflictException("Trying to reassign product to shelf");
+            
+            foreach (var shelfDto in shelves)
+            {
+                if (shelfDto.ProductsProductId != productDto.ProductId && shelfDto.ProductsProductId == null)
+                {
+                    shelfDto.ProductsProductId = productDto.ProductId;
+                }
+
+                int shelfId = shelfDto.ShelfId.GetValueOrDefault();
+                await _shelfRepository.Update(shelfId, shelfDto);
+            }
+        }
+        catch (SmartWMSExceptionHandler e)
+        {
+            throw new SmartWMSExceptionHandler(e.Message);
+        }
     }
 }

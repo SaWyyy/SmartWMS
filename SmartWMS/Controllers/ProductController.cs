@@ -54,6 +54,27 @@ public class ProductController : ControllerBase
         }
     }
 
+    [HttpPost("takeDeliveryAndDistribute")]
+    public async Task<IActionResult> AssignProductForDelivery(CreateProductAsssignShelfDto dto)
+    {
+        try
+        {
+            await _service.AssignProductForDelivery(dto);
+            _logger.LogInformation("Product assigned for delivery");
+            return Ok("Product assigned for delivery");
+        }
+        catch (SmartWMSExceptionHandler e)
+        {
+            _logger.LogError(e.Message);
+            return BadRequest(e.Message);
+        }
+        catch (ConflictException e)
+        {
+            _logger.LogError(e.Message);
+            return Conflict(e.Message);
+        }
+    }
+
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SmartWMS.Entities;
 using SmartWMS.Models.DTOs;
 using SmartWMS.Repositories.Interfaces;
+using Task = System.Threading.Tasks.Task;
 
 namespace SmartWMS.Repositories;
 
@@ -174,6 +175,20 @@ public class ProductRepository : IProductRepository
             return result;
 
         throw new SmartWMSExceptionHandler("Error has occured while saving changes to products table");
+    }
+
+    public async Task<Product> UpdateQuantity(ProductDto dto)
+    {
+        var product = await _dbContext.Products.FirstOrDefaultAsync(x => x.ProductId == dto.ProductId);
+
+        if (product is null)
+            throw new SmartWMSExceptionHandler("Product with specified id does not exist");
+
+        product.Quantity += dto.Quantity;
+
+        await _dbContext.SaveChangesAsync();
+
+        return product;
     }
 
     public async Task<Product> Delete(int id)
