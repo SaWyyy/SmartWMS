@@ -10,7 +10,7 @@ public class ShelfDto
     [Range(0, 4, ErrorMessage = "Level must be between 0 and 4")]
     public LevelType Level { get; set; }
     
-    [Range(0, int.MaxValue, MinimumIsExclusive = true, ErrorMessage = "Quantity cant be less than 1")]
+    [Range(0, int.MaxValue, MinimumIsExclusive = false, ErrorMessage = "Quantity cant be less than 1")]
     public int MaxQuant { get; set; }
 
     [Range(0, int.MaxValue, MinimumIsExclusive = false, ErrorMessage = "Quantity cant be less than 0")]
