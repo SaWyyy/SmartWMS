@@ -4,6 +4,7 @@ using System.Text.Json;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using SmartWMS.Entities;
+using SmartWMS.Entities.Enums;
 using SmartWMS.Models.DTOs;
 using SmartWMSTests.IntegrationTests.Configuration;
 using Task = System.Threading.Tasks.Task;
@@ -89,6 +90,55 @@ public class LaneIntegrationTest : BaseIntegrationTest
         responseDto.Should().NotBeEmpty();
     }
 
+    [Fact]
+    public async Task GetAllWithShelves_ShouldReturnOk()
+    {
+        // Arrange
+        var lane = new Lane
+        {
+            LaneCode = "A7"
+        };
+
+        await _dbContext.Lanes.AddAsync(lane);
+        await _dbContext.SaveChangesAsync();
+
+        var rack = new Rack
+        {
+            RackNumber = 1,
+            LanesLaneId = lane.LaneId
+        };
+
+        await _dbContext.Racks.AddAsync(rack);
+        await _dbContext.SaveChangesAsync();
+
+        var shelf = new Shelf
+        {
+            CurrentQuant = 0,
+            MaxQuant = 10,
+            Level = LevelType.P0,
+            RacksRackId = rack.RackId
+        };
+
+        await _dbContext.Shelves.AddAsync(shelf);
+        await _dbContext.SaveChangesAsync();
+
+        var laneId = lane.LaneId;
+        
+        // Act
+        var response = await _client.GetAsync("/api/Lane/getAllWithRacksShelves");
+        
+        // Assert
+        var content = await response.Content.ReadAsStringAsync();
+        var responseList = JsonSerializer.Deserialize<List<LaneRacksShelvesDto>>(content, customJsonOptions);
+        var responseDto = responseList!.Find(x => x.LaneId == laneId);
+        
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        responseList.Should().NotBeEmpty();
+        responseDto!.LaneId.Should().Be(laneId);
+        responseDto.LaneCode.Should().Be("A7");
+        responseDto.Racks.ToList()[0].Should().BeOfType<RackShelvesDto>();
+    }
+    
     [Fact]
     public async Task Update_ShouldReturnOk()
     {
