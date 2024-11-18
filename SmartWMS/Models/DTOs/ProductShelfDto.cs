@@ -10,5 +10,6 @@ public class ProductShelfDto
     public decimal Price { get; set; }
     public int Quantity { get; set; }
     public string Barcode { get; set; }
+    public int SubcategoryId { get; set; }
     public IEnumerable<ShelfRackDto> Shelves { get; set; } = new List<ShelfRackDto>();
 }

@@ -113,6 +113,7 @@ public class ProductRepository : IProductRepository
     public async Task<IEnumerable<ProductShelfDto>> GetAllWithShelves()
     {
         var result = await _dbContext.Products
+            .Include(s => s.SubcategoriesSubcategory)
             .Include(s => s.Shelves)
             .ThenInclude(r => r.RackRack)
             .ThenInclude(l => l.LaneLane)
@@ -124,6 +125,7 @@ public class ProductRepository : IProductRepository
                 Barcode = x.Barcode,
                 Price = x.Price,
                 Quantity = x.Quantity,
+                SubcategoryId = x.SubcategoriesSubcategoryId,
                 Shelves = x.Shelves.Select(y => new ShelfRackDto
                 {
                     ShelfId = y.ShelfId,
