@@ -43,7 +43,7 @@ public class InventoryStatusService : IInventoryStatusService
                 AlertType = AlertType.ProductShortage
             };
             await _alertRepository.Add(alertDto);
-            await _hubContext.Clients.Groups("Employee").SendAsync($"Low quantity of: {result}");
+            await _hubContext.Clients.All.SendAsync("Receive alert", $"Low quantity of: {result}");
             
             return true;
         }
