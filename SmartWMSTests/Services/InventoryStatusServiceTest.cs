@@ -12,14 +12,16 @@ namespace SmartWMSTests.Services;
 public class InventoryStatusServiceTest
 {
     private readonly IProductRepository _repository;
+    private readonly IAlertRepository _alertRepository;
     private readonly IHubContext<NotificationHub> _hubContext;
     private readonly IInventoryStatusService _service;
 
     public InventoryStatusServiceTest()
     {
         this._repository = A.Fake<IProductRepository>();
+        this._alertRepository = A.Fake<IAlertRepository>();
         this._hubContext = A.Fake<IHubContext<NotificationHub>>();
-        this._service = new InventoryStatusService(_repository, _hubContext);
+        this._service = new InventoryStatusService(_repository, _alertRepository, _hubContext);
 
     }
 
