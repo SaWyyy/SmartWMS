@@ -34,7 +34,7 @@ public class OrderDetailControllerTest
         orderDetail.ProductsProductId = 1;
         orderDetail.OrderHeadersOrdersHeader = new OrderHeader();
         orderDetail.ProductsProduct = new Product();
-        orderDetail.TasksTask = new List<Task>();
+        orderDetail.TasksTask = new Task();
         return orderDetail;
     }
 

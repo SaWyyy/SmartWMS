@@ -116,7 +116,7 @@ public class OrderDetailRepository : IOrderDetailRepository
         if (orderDetail is null)
             return false;
 
-        if (orderDetail.TasksTask is not null && orderDetail.TasksTask!.All(task => task.Done))
+        if (orderDetail.TasksTask is not null && orderDetail.TasksTask!.Done)
             return true;
 
         return false;

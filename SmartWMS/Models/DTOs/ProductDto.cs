@@ -19,7 +19,7 @@ public class ProductDto
     public int Quantity { get; set; }
     
     [MinLength(8)]
-    [MaxLength(8)]
+    [MaxLength(14)]
     public string Barcode { get; set; }
     
     [Range(0, int.MaxValue)]

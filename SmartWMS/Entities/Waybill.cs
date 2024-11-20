@@ -15,6 +15,7 @@ public partial class Waybill
     public string PostalCode { get; set; } = null!;
 
     public string SupplierName { get; set; } = null!;
+    public string Barcode { get; set; } = null!;
 
     public virtual Country CountriesCountry { get; set; } = null!;
 

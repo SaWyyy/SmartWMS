@@ -366,8 +366,8 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
                 .HasDefaultValue(false);
             entity.Property(e => e.OrderDetailsOrderDetailId).HasColumnName("orderDetails_orderDetail_id");
             
-            entity.HasOne(d => d.OrderDetailsOrderDetail).WithMany(p => p.TasksTask)
-                .HasForeignKey(d => d.OrderDetailsOrderDetailId)
+            entity.HasOne<OrderDetail>(d => d.OrderDetailsOrderDetail).WithOne(p => p.TasksTask)
+                .HasForeignKey<Task>(d => d.OrderDetailsOrderDetailId)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fk_order_details_tasks1");
         });

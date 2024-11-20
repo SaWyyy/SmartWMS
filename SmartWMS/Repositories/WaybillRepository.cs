@@ -107,6 +107,7 @@ public class WaybillRepository : IWaybillRepository
         waybill.SupplierName = dto.SupplierName;
         waybill.ShippingDate = dto.ShippingDate;
         waybill.PostalCode = dto.PostalCode;
+        waybill.Barcode = dto.Barcode;
 
         var result = await _dbContext.SaveChangesAsync();
 

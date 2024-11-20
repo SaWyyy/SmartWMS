@@ -23,4 +23,8 @@ public class WaybillDto
     [MinLength(3, ErrorMessage = "Supplier name must have at least 3 characters")]
     [MaxLength(45, ErrorMessage = "Supplier name is too long")]
     public string SupplierName { get; set; } = null!;
+    
+    [MinLength(8)]
+    [MaxLength(14)]
+    public string Barcode { get; set; } = null!;
 }
