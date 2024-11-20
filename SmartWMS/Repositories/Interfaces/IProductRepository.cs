@@ -7,6 +7,7 @@ public interface IProductRepository
 {
     Task<Product> Add(ProductDto dto);
     Task<IEnumerable<ProductDto>> GetAll();
+    Task<IEnumerable<ProductDto>> GetAllWithQuantityGtZero();
     Task<ProductDto> Get(int id);
     Task<ProductShelfDto> GetWithShelves(int id);
     Task<IEnumerable<ProductShelfDto>> GetAllWithShelves();

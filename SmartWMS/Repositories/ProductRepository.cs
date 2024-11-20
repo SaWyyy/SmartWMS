@@ -59,6 +59,15 @@ public class ProductRepository : IProductRepository
         return _mapper.Map<List<ProductDto>>(result);
     }
 
+    public async Task<IEnumerable<ProductDto>> GetAllWithQuantityGtZero()
+    {
+        var result = await _dbContext.Products
+            .Where(x => x.Quantity > 0)
+            .ToListAsync();
+
+        return _mapper.Map<List<ProductDto>>(result);
+    }
+
     public async Task<ProductDto> Get(int id)
     {
         var result = await _dbContext.Products.FirstOrDefaultAsync(x => x.ProductId == id);

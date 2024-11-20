@@ -82,6 +82,13 @@ public class ProductController : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet("quantityGtZero")]
+    public async Task<IActionResult> GetAllWithQuantityGtZero()
+    {
+        var result = await _repository.GetAllWithQuantityGtZero();
+        return Ok(result);
+    }
+
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
