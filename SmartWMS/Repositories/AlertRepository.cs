@@ -47,7 +47,9 @@ public class AlertRepository : IAlertRepository
 
     public async Task<IEnumerable<AlertDto>> GetAll()
     {
-        var result = await _dbContext.Alerts.ToListAsync();
+        var result = await _dbContext.Alerts
+            .OrderByDescending(x => x.AlertDate)
+            .ToListAsync();
 
         return _mapper.Map<List<AlertDto>>(result);
     }
