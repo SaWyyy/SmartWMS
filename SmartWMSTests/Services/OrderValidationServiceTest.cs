@@ -98,9 +98,7 @@ public class OrderValidationServiceTest
         var tasks = new List<TaskEntity>
         {
             CreateFakeTask(1, orderDetails[0]),
-            CreateFakeTask(2, orderDetails[0]),
-            CreateFakeTask(3, orderDetails[1]),
-            CreateFakeTask(4, orderDetails[1])
+            CreateFakeTask(2, orderDetails[1])
         };
         
         await _dbContext.OrderHeaders.AddAsync(orderHeader);
@@ -113,8 +111,6 @@ public class OrderValidationServiceTest
     [Theory]
     [InlineData(1)]
     [InlineData(2)]
-    [InlineData(3)]
-    [InlineData(4)]
     public async void CheckOrderCompletion_OrderHeaderCompleted_ReturnsOrderHeaderFinished(int id)
     {
         // Arrange
@@ -160,7 +156,7 @@ public class OrderValidationServiceTest
         // Act
         var result = await _service.CheckOrderCompletion(id);
         var orderDetailresult = await _dbContext.OrderDetails.IgnoreQueryFilters()
-            .FirstOrDefaultAsync(x => x.OrderDetailId == 1);
+            .FirstOrDefaultAsync(x => x.OrderDetailId == id);
         
         // Assert
         result.Should().Be(OrderValidation.OrderDetailFinished);
