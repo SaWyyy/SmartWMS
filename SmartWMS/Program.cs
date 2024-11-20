@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using NLog.Web;
 using NLog;
 using Npgsql;
+using SmartWMS.Data;
 using SmartWMS.Entities;
 using SmartWMS.Entities.Enums;
 using SmartWMS.Models;
@@ -212,7 +213,7 @@ try
     //====================================================================================================//
 
       //==================================================================================================//
-     //Create warehouse//
+     //Create warehouse and countries//
     //================//
 
     using (var scope = app.Services.CreateScope())
@@ -230,6 +231,9 @@ try
             await dbContext.AddAsync(newWarehouse);
             await dbContext.SaveChangesAsync();
         }
+
+        var countryInitializer = new CountryInitializer(dbContext);
+        await countryInitializer.InitializeAsync();
     }
     
     //====================================================================================================//
@@ -240,7 +244,6 @@ try
     using (var scope = app.Services.CreateScope())
     {
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
-        var dbContext = scope.ServiceProvider.GetRequiredService<SmartwmsDbContext>();
 
         string email = "admin@admin.com";
         string userName = "Admin";

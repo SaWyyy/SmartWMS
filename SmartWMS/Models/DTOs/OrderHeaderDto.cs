@@ -13,7 +13,7 @@ public class OrderHeaderDto
     [DataType(DataType.DateTime)]
     public DateTime? DeliveryDate { get; set; }
     
-    [RegularExpression("^([A-ZŁŚŹŻ][A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż]{2,}\\s){1,5}\\d{1,5}([A-Za-z]|(/\\d{1,5}))?$",
+    [RegularExpression("^([A-ZŁŚŹŻ][A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż]{2,}\\s){1,5}\\d{1,5}(([A-Za-z](/\\d{1,5})?)|(/\\d{1,5}))?$",
         ErrorMessage = "Bad pattern")]
     [MaxLength(45, ErrorMessage = "Address too long")]
     public string DestinationAddress { get; set; } = null!;
