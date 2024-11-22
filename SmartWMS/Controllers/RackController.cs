@@ -85,7 +85,7 @@ public class RackController : ControllerBase
             var result = await _repository.Update(id, dto);
             _logger.LogInformation("Rack updated");
 
-            return Ok($"Rack with id: {result.RackId} has been deleted");
+            return Ok($"Rack with id: {result.RackId} has been updated");
         }
         catch (SmartWMSExceptionHandler e)
         {
