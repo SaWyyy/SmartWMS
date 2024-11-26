@@ -11,6 +11,7 @@ using SmartWMS.Entities;
 using SmartWMS.Entities.Enums;
 using SmartWMS.Models.DTOs;
 using SmartWMS.Repositories.Interfaces;
+using SmartWMS.Services.Interfaces;
 using ILogger = NLog.ILogger;
 
 namespace SmartWMSTests.Controller;
@@ -20,12 +21,16 @@ public class OrderHeaderControllerTest
     private readonly IOrderHeaderRepository _orderHeaderRepository;
     private readonly ILogger<OrderHeaderController> _logger;
     private readonly OrderHeaderController _orderHeaderController;
+    private readonly IOrderAndTasksCreationService _createOrderService;
+    private readonly IOrderCancellationService _cancelOrderService;
 
     public OrderHeaderControllerTest()
     {
         this._orderHeaderRepository = A.Fake<IOrderHeaderRepository>();
         this._logger = A.Fake<ILogger<OrderHeaderController>>();
-        this._orderHeaderController = new OrderHeaderController(_orderHeaderRepository, _logger);
+        this._createOrderService = A.Fake<IOrderAndTasksCreationService>();
+        this._cancelOrderService = A.Fake<IOrderCancellationService>();
+        this._orderHeaderController = new OrderHeaderController(_orderHeaderRepository, _logger, _createOrderService, _cancelOrderService);
     }
 
     private static OrderHeader CreateFakeOrderHeader()

@@ -95,6 +95,8 @@ try
     builder.Services.AddScoped<IOrderValidationService, OrderValidationService>();
     builder.Services.AddScoped<IInventoryStatusService, InventoryStatusService>();
     builder.Services.AddScoped<IProductAssignmentService, ProductAssignmentService>();
+    builder.Services.AddScoped<IOrderAndTasksCreationService, OrderAndTasksCreationService>();
+    builder.Services.AddScoped<IOrderCancellationService, OrderCancellationService>();
     //====================================================================================================//
     
     

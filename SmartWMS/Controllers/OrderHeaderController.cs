@@ -1,22 +1,62 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartWMS.Models;
+using SmartWMS.Models.CreateOrderDtos;
 using SmartWMS.Models.DTOs;
 using SmartWMS.Repositories;
 using SmartWMS.Repositories.Interfaces;
+using SmartWMS.Services.Interfaces;
 
 namespace SmartWMS.Controllers;
 
 [Route("/api/[controller]")]
 [ApiController]
+[Authorize]
 public class OrderHeaderController : ControllerBase
 {
     private readonly IOrderHeaderRepository _repository;
     private readonly ILogger<OrderHeaderController> _logger;
+    private readonly IOrderAndTasksCreationService _createOrderService;
+    private readonly IOrderCancellationService _cancelOrderService;
 
-    public OrderHeaderController(IOrderHeaderRepository repository, ILogger<OrderHeaderController> logger)
+    public OrderHeaderController(
+        IOrderHeaderRepository repository, 
+        ILogger<OrderHeaderController> logger, 
+        IOrderAndTasksCreationService createOrderService,
+        IOrderCancellationService cancelOrderService)
     {
         this._repository = repository;
         this._logger = logger;
+        this._createOrderService = createOrderService;
+        this._cancelOrderService = cancelOrderService;
+    }
+
+    [HttpPost("createOrder")]
+    public async Task<IActionResult> CreateOrder(CreateOrderDto dto)
+    {
+        try
+        {
+            await _createOrderService.CreateOrder(dto);
+            return Ok("Order created successfully");
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpDelete("cancelOrder/{orderHeaderId}")]
+    public async Task<IActionResult> CancelOrder(int orderHeaderId)
+    {
+        try
+        {
+            await _cancelOrderService.CancelOrder(orderHeaderId);
+            return Ok("Order cancelled successfully");
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpPost]

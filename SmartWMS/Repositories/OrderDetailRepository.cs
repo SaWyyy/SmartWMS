@@ -59,6 +59,22 @@ public class OrderDetailRepository : IOrderDetailRepository
         return _mapper.Map<List<OrderDetailDto>>(result);
     }
 
+    public async Task<IEnumerable<OrderDetailDto>> GetAllByOrderHeaderId(int orderHeaderId)
+    {
+        var orderHeader = await _dbContext.OrderHeaders
+            .FirstOrDefaultAsync(x => x.OrdersHeaderId == orderHeaderId);
+
+        if (orderHeader is null)
+            throw new SmartWMSExceptionHandler("Order header does not exist");
+        
+        var result = await _dbContext.OrderDetails
+            .Where(x => x.OrderHeadersOrdersHeaderId == orderHeaderId)
+            .ToListAsync();
+
+        return _mapper.Map<List<OrderDetailDto>>(result);
+    }
+
+
     public async Task<OrderDetailDto> Get(int id)
     {
         var result = 
@@ -79,13 +95,14 @@ public class OrderDetailRepository : IOrderDetailRepository
             throw new SmartWMSExceptionHandler("Order detail hasn't been found");
 
         orderDetail.Quantity = dto.Quantity;
+        orderDetail.Done = dto.Done;
 
         var result = await _dbContext.SaveChangesAsync();
 
         if (result > 0)
             return orderDetail;
 
-        throw new SmartWMSExceptionHandler("Error has occured while adding order detail");
+        throw new SmartWMSExceptionHandler("Error has occured while updating order detail");
     }
 
     public async Task<OrderDetail> Delete(int id)
