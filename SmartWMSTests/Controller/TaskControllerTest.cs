@@ -39,7 +39,7 @@ public class TaskControllerTest
         task.TaskId = 1;
         task.Priority = 1;
         task.UsersHasTasks = new List<UsersHasTask>();
-        task.Seen = false;
+        task.Taken = false;
         task.FinishDate = new DateTime();
         task.QuantityAllocated = 1;
         task.QuantityCollected = 1;
@@ -56,7 +56,7 @@ public class TaskControllerTest
         taskDto.Priority = 1;
         taskDto.FinishDate = new DateTime();
         taskDto.FinishDate = new DateTime();
-        taskDto.Seen = false;
+        taskDto.Taken = false;
         taskDto.QuantityAllocated = 1;
         taskDto.QuantityCollected = 1;
         taskDto.OrderDetailsOrderDetailId = 1;

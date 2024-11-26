@@ -119,6 +119,25 @@ public class TaskRepository : ITaskRepository
         return _mapper.Map<TaskDto>(result);
     }
 
+    public async Task<TaskDto> GetByOrderDetailId(int orderDetailId)
+    {
+        var orderDetail = await _dbContext.OrderDetails
+            .IgnoreQueryFilters()
+            .FirstOrDefaultAsync(x => x.OrderDetailId == orderDetailId);
+
+        if (orderDetail is null)
+            throw new SmartWMSExceptionHandler("Order detail does not exist");
+
+        var result = await _dbContext.Tasks
+            .IgnoreQueryFilters()
+            .FirstOrDefaultAsync(x => x.OrderDetailsOrderDetailId == orderDetailId);
+
+        if (result is null)
+            throw new SmartWMSExceptionHandler("Task does not exist");
+        
+        return _mapper.Map<TaskDto>(result);
+    }
+
     public async Task<Task> Delete(int id)
     {
         var task = await _dbContext.Tasks.FirstOrDefaultAsync(x => x.TaskId == id);
@@ -156,11 +175,12 @@ public class TaskRepository : ITaskRepository
             throw new SmartWMSExceptionHandler("Task with specified id hasn't been found");
 
         task.Priority = dto.Priority;
-        task.Seen = dto.Seen;
+        task.Taken = dto.Taken;
         task.FinishDate = dto.FinishDate;
         task.StartDate = dto.StartDate;
         task.QuantityAllocated = dto.QuantityAllocated;
         task.QuantityCollected = dto.QuantityCollected;
+        task.Done = dto.Done;
 
         var result = await _dbContext.SaveChangesAsync();
 

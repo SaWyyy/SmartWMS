@@ -15,7 +15,7 @@ public class OrderHeaderDto
     
     [RegularExpression("^([A-ZŁŚŹŻ][A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż]{2,}\\s){1,5}\\d{1,5}(([A-Za-z](/\\d{1,5})?)|(/\\d{1,5}))?$",
         ErrorMessage = "Bad pattern")]
-    [MaxLength(45, ErrorMessage = "Address too long")]
+    [MaxLength(65, ErrorMessage = "Address too long")]
     public string DestinationAddress { get; set; } = null!;
     
     [Range(0, 1, ErrorMessage = "Type name must be 0 or 1")]

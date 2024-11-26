@@ -12,7 +12,7 @@ public partial class Task
 
     public int Priority { get; set; }
 
-    public bool? Seen { get; set; }
+    public bool? Taken { get; set; }
     
     public int QuantityCollected { get; set; }
     

@@ -19,7 +19,7 @@ public class TaskDto
     public int OrderDetailsOrderDetailId { get; set; }
     
     [DefaultValue(false)]
-    public bool? Seen { get; set; }
+    public bool? Taken { get; set; }
     
     [Range(0, int.MaxValue)]
     public int QuantityCollected { get; set; }

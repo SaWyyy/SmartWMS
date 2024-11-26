@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SmartWMS.Entities;
@@ -12,9 +13,11 @@ using SmartWMS.Entities.Enums;
 namespace SmartWMS.Migrations
 {
     [DbContext(typeof(SmartwmsDbContext))]
-    partial class SmartwmsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241126123306_RenameFieldSeenToTakenInTask")]
+    partial class RenameFieldSeenToTakenInTask
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -339,8 +342,8 @@ namespace SmartWMS.Migrations
 
                     b.Property<string>("DestinationAddress")
                         .IsRequired()
-                        .HasMaxLength(65)
-                        .HasColumnType("character varying(65)")
+                        .HasMaxLength(45)
+                        .HasColumnType("character varying(45)")
                         .HasColumnName("destination_address");
 
                     b.Property<DateTime>("OrderDate")
