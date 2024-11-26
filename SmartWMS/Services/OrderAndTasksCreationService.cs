@@ -1,10 +1,13 @@
 using AutoMapper;
+using SmartWMS.Entities;
 using SmartWMS.Entities.Enums;
 using SmartWMS.Models.CreateOrderDtos;
 using SmartWMS.Models.DTOs;
+using SmartWMS.Models.DTOs.CreateOrderDtos;
 using SmartWMS.Repositories;
 using SmartWMS.Repositories.Interfaces;
 using SmartWMS.Services.Interfaces;
+using Task = System.Threading.Tasks.Task;
 
 namespace SmartWMS.Services;
 
@@ -16,6 +19,7 @@ public class OrderAndTasksCreationService : IOrderAndTasksCreationService
     private readonly ITaskRepository _taskRepository;
     private readonly ICountryRepository _countryRepository;
     private readonly IWaybillRepository _waybillRepository;
+    private readonly IShelfRepository _shelfRepository;
     private readonly IMapper _mapper;
     
     public OrderAndTasksCreationService(
@@ -25,6 +29,7 @@ public class OrderAndTasksCreationService : IOrderAndTasksCreationService
         ITaskRepository taskRepository,
         ICountryRepository countryRepository,
         IWaybillRepository waybillRepository,
+        IShelfRepository shelfRepository,
         IMapper mapper
         )
     {
@@ -34,6 +39,7 @@ public class OrderAndTasksCreationService : IOrderAndTasksCreationService
         this._taskRepository = taskRepository;
         this._countryRepository = countryRepository;
         this._waybillRepository = waybillRepository;
+        this._shelfRepository = shelfRepository;
         this._mapper = mapper;
     }
     
@@ -66,6 +72,8 @@ public class OrderAndTasksCreationService : IOrderAndTasksCreationService
 
             foreach (var product in dto.Products)
             {
+                var allocations = await AllocateShelves(product.ProductId, product.Quantity);
+                
                 var orderDetailDto = new OrderDetailDto
                 {
                     Quantity = product.Quantity,
@@ -74,6 +82,8 @@ public class OrderAndTasksCreationService : IOrderAndTasksCreationService
                 };
 
                 var orderDetail = await _orderDetailRepository.Add(orderDetailDto);
+                
+                await SaveShelfAllocations(product.ProductId, allocations.ToList());
 
                 var taskDto = new TaskDto
                 {
@@ -106,6 +116,68 @@ public class OrderAndTasksCreationService : IOrderAndTasksCreationService
         catch (SmartWMSExceptionHandler e)
         {
             throw new SmartWMSExceptionHandler(e.Message);
+        }
+    }
+
+    private async Task<IEnumerable<CreateOrderAllocateShelvesDto>> AllocateShelves(int productId, int requiredQuantity)
+    {
+        var product = await _productRepository.GetWithShelves(productId);
+        var shelves = product.Shelves.ToList();
+        shelves = shelves.OrderByDescending(s => s.CurrentQuant).ToList();
+
+        var allocations = new List<CreateOrderAllocateShelvesDto>();
+        int allocatedQuantity = 0;
+
+        foreach (var shelf in shelves)
+        {
+            if (allocatedQuantity >= requiredQuantity)
+                break;
+
+            int quantityToAllocate = Math.Min(shelf.CurrentQuant, requiredQuantity - allocatedQuantity);
+            if (quantityToAllocate > 0)
+            {
+                allocatedQuantity += quantityToAllocate;
+
+                allocations.Add(new CreateOrderAllocateShelvesDto
+                {
+                    ShelfId = shelf.ShelfId,
+                    Quantity = quantityToAllocate
+                });
+
+                shelf.CurrentQuant -= quantityToAllocate;
+
+                var shelfDto = new ShelfDto
+                {
+                    Level = shelf.Level,
+                    CurrentQuant = shelf.CurrentQuant,
+                    MaxQuant = shelf.MaxQuant,
+                    ProductsProductId = product.ProductId
+                };
+                
+                await _shelfRepository.Update(shelf.ShelfId, shelfDto);
+            }
+        }
+
+        if (allocatedQuantity < requiredQuantity)
+            throw new SmartWMSExceptionHandler("Not enough products available on shelves.");
+
+        return allocations;
+    }
+
+
+    
+    private async Task SaveShelfAllocations(int productId, List<CreateOrderAllocateShelvesDto> allocations)
+    {
+        foreach (var allocation in allocations)
+        {
+            var orderShelfAllocation = new OrderShelvesAllocation
+            {
+                ProductId = productId,
+                ShelfId = allocation.ShelfId,
+                Quantity = allocation.Quantity
+            };
+            
+            await _shelfRepository.SaveAllocation(orderShelfAllocation);
         }
     }
 

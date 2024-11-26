@@ -43,6 +43,31 @@ public class ShelfRepository : IShelfRepository
         throw new SmartWMSExceptionHandler("Error has occured while saving changes to shelf table");
     }
 
+    public async Task<OrderShelvesAllocation> SaveAllocation(OrderShelvesAllocation dto)
+    {
+        var product = await _dbContext.Products
+            .FirstOrDefaultAsync(x => x.ProductId == dto.ProductId);
+
+        if (product is null)
+            throw new SmartWMSExceptionHandler("Order detail does not exist");
+
+        var shelf = await _dbContext.Shelves
+            .FirstOrDefaultAsync(x => x.ShelfId == dto.ShelfId);
+
+        if (shelf is null)
+            throw new SmartWMSExceptionHandler("Shelf does not exist");
+
+        await _dbContext.OrderShelvesAllocations.AddAsync(dto);
+        
+        var result = await _dbContext.SaveChangesAsync();
+        
+        
+        if (result > 0)
+            return dto;
+
+        throw new SmartWMSExceptionHandler("Error has occured while saving changes to order shelf allocation table");
+    }
+
     public async Task<IEnumerable<ShelfDto>> GetAll()
     {
         var shelves = await _dbContext.Shelves.ToListAsync();
@@ -89,6 +114,19 @@ public class ShelfRepository : IShelfRepository
         return result;
     }
 
+    public async Task<IEnumerable<OrderShelvesAllocation>> GetAllocationsByProduct(int productId)
+    {
+        var product = await _dbContext.Products
+            .FirstOrDefaultAsync(x => x.ProductId == productId);
+        if (product is null)
+            throw new SmartWMSExceptionHandler("Product does not exist");
+
+        var result = await _dbContext.OrderShelvesAllocations
+            .Where(x => x.ProductId == productId)
+            .ToListAsync();
+        return result;
+    }
+
     public async Task<Shelf> Delete(int id)
     {
         var shelf = await _dbContext.Shelves.FirstOrDefaultAsync(r => r.ShelfId == id);
@@ -103,6 +141,27 @@ public class ShelfRepository : IShelfRepository
             return shelf;
 
         throw new SmartWMSExceptionHandler("Error has occured while saving changes to shelf table");
+    }
+
+    public async Task<IEnumerable<OrderShelvesAllocation>> DeleteAllocationsByProduct(int productId)
+    {
+        var product = await _dbContext.Products
+            .FirstOrDefaultAsync(x => x.ProductId == productId);
+        if (product is null)
+            throw new SmartWMSExceptionHandler("Product does not exist");
+        
+        var allocations = await _dbContext.OrderShelvesAllocations
+            .Where(x => x.ProductId == productId)
+            .ToListAsync();
+
+        _dbContext.OrderShelvesAllocations.RemoveRange(allocations);
+
+        int result = await _dbContext.SaveChangesAsync();
+
+        if (result > 0)
+            return allocations;
+
+        throw new SmartWMSExceptionHandler("Error has occured while deleting allocations");
     }
 
     public async Task<Shelf> Update(int id, ShelfDto dto)

@@ -42,6 +42,8 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
 
     public virtual DbSet<Waybill> Waybills { get; set; }
     
+    public virtual DbSet<OrderShelvesAllocation> OrderShelvesAllocations { get; set; }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -428,6 +430,20 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
                 .HasForeignKey(d => d.CountriesCountryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_waybills_countries1");
+        });
+
+        modelBuilder.Entity<OrderShelvesAllocation>(entity =>
+        {
+            entity.HasKey(e => e.OrderShelvesAllocationId).HasName("order_shelves_allocation_id");
+
+            entity.ToTable("orderShelvesAllocation");
+
+            entity.Property(e => e.ProductId)
+                .HasColumnName("product_id");
+            entity.Property(e => e.ShelfId)
+                .HasColumnName("shelf_id");
+            entity.Property(e => e.Quantity)
+                .HasColumnName("quantity");
         });
 
         OnModelCreatingPartial(modelBuilder);

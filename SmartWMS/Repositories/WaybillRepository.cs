@@ -68,6 +68,20 @@ public class WaybillRepository : IWaybillRepository
         return result;
     }
 
+    public async Task<WaybillDto> GetByOrderHeaderId(int orderHeaderId)
+    {
+        var orderHeader = await _dbContext.OrderHeaders
+            .FirstOrDefaultAsync(x => x.OrdersHeaderId == orderHeaderId);
+
+        if (orderHeader is null)
+            throw new SmartWMSExceptionHandler("Order header does not exist");
+
+        var result = await _dbContext.Waybills
+            .FirstOrDefaultAsync(x => x.OrderHeadersOrderHeaderId == orderHeaderId);
+
+        return _mapper.Map<WaybillDto>(result);
+    }
+
     public async Task<Waybill> Delete(int id)
     {
         var waybill = await _dbContext.Waybills.FirstOrDefaultAsync(r => r.WaybillId == id);

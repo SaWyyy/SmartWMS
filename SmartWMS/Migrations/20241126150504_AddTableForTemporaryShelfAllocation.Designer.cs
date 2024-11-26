@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SmartWMS.Entities;
@@ -12,9 +13,11 @@ using SmartWMS.Entities.Enums;
 namespace SmartWMS.Migrations
 {
     [DbContext(typeof(SmartwmsDbContext))]
-    partial class SmartwmsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241126150504_AddTableForTemporaryShelfAllocation")]
+    partial class AddTableForTemporaryShelfAllocation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -369,9 +372,9 @@ namespace SmartWMS.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("OrderShelvesAllocationId"));
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("OrderDetailId")
                         .HasColumnType("integer")
-                        .HasColumnName("product_id");
+                        .HasColumnName("order_detail_id");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer")
