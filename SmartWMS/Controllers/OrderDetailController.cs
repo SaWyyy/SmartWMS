@@ -43,6 +43,20 @@ public class OrderDetailController : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet("byOrderHeader/{orderHeaderId}")]
+    public async Task<IActionResult> GetAllByOrderHeader(int orderHeaderId)
+    {
+        try
+        {
+            var result = await _repository.GetAllByOrderHeaderId(orderHeaderId);
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            return NotFound(e.Message);
+        }
+    }
+
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
