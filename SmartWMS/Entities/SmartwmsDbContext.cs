@@ -161,7 +161,7 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("delivery_date");
             entity.Property(e => e.DestinationAddress)
-                .HasMaxLength(65)
+                .HasMaxLength(67)
                 .HasColumnName("destination_address");
             entity.Property(e => e.OrderDate)
                 .HasColumnType("timestamp without time zone")

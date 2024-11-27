@@ -339,8 +339,8 @@ namespace SmartWMS.Migrations
 
                     b.Property<string>("DestinationAddress")
                         .IsRequired()
-                        .HasMaxLength(65)
-                        .HasColumnType("character varying(65)")
+                        .HasMaxLength(67)
+                        .HasColumnType("character varying(67)")
                         .HasColumnName("destination_address");
 
                     b.Property<DateTime>("OrderDate")
