@@ -29,6 +29,7 @@ public class TaskRepository : ITaskRepository
     
     public async Task<Task> AddTask(TaskDto dto)
     {
+        dto.Taken = false;
         dto.TaskId = null;
         dto.Done = false;
         var orderDetail =
@@ -203,7 +204,10 @@ public class TaskRepository : ITaskRepository
         
         if (duplicateTask is not null)
             throw new SmartWMSExceptionHandler("Task with specified id is assigned to another user");
-        
+
+        task.Taken = true;
+        await _dbContext.SaveChangesAsync();
+
         var user = _accessor.HttpContext?.User;
         var userId = user?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
