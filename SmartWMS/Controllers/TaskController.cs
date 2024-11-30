@@ -141,6 +141,23 @@ public class TaskController : ControllerBase
         }
     }
 
+    [HttpGet("orderInfo/{id}")]
+    public async Task<IActionResult> GetOrderInfo(int id)
+    {
+        try
+        {
+            var result = await _repository.GetTaskItems(id);
+            
+            _logger.LogInformation("Order info fetched successfully");
+            return Ok(result);
+        }
+        catch (SmartWMSExceptionHandler e)
+        {
+            _logger.LogError(e.Message);
+            return BadRequest(e.Message);
+        }
+    }
+
     [HttpPost("UpdateQuantity/{id}")]
     public async Task<IActionResult> UpdateQuantity(int id)
     {

@@ -139,6 +139,65 @@ public class TaskRepository : ITaskRepository
         return _mapper.Map<TaskDto>(result);
     }
 
+    public async Task<OrderInfoDto> GetTaskItems(int id)
+    {
+        var task = await _dbContext.Tasks
+            .Include(od => od.OrderDetailsOrderDetail)
+            .ThenInclude(p => p.ProductsProduct)
+            .FirstOrDefaultAsync(x => x.TaskId == id);
+    
+        if (task is null)
+            throw new SmartWMSExceptionHandler("Task does not exist");
+        
+        var itemsInfo = await _dbContext.OrderShelvesAllocations
+            .Where(x => x.ProductId == task.OrderDetailsOrderDetail.ProductsProductId)
+            .ToListAsync();
+
+        if (!itemsInfo.Any())
+            throw new SmartWMSExceptionHandler("Order information does not exist");
+
+        var shelfIds = itemsInfo
+            .Select(x => x.ShelfId)
+            .Distinct()
+            .ToList();
+        
+        var shelves = await _dbContext.Shelves
+            .Include(r => r.RackRack)
+            .ThenInclude(l => l.LaneLane)
+            .Where(x => shelfIds.Contains(x.ShelfId))
+            .ToListAsync();
+
+        var itemsLocation = shelves.Select(x => new ShelfRackDto()
+        {
+            ShelfId = x.ShelfId,
+            CurrentQuant = itemsInfo
+                .FirstOrDefault(i => i.ShelfId == x.ShelfId)?.Quantity ?? 0,
+            MaxQuant = x.MaxQuant,
+            Level = x.Level,
+            ProductId = x.ProductsProductId,
+            RackLane = new RackLaneDto
+            {
+                RackId = x.RackRack.RackId,
+                RackNumber = x.RackRack.RackNumber,
+                Lane = new LaneDto
+                {
+                    LaneId = x.RackRack.LaneLane.LaneId,
+                    LaneCode = x.RackRack.LaneLane.LaneCode
+                }
+            }
+        }).ToList();
+
+        var orderInfo = new OrderInfoDto
+        {
+            ProductName = task.OrderDetailsOrderDetail.ProductsProduct.ProductName,
+            Barcode = task.OrderDetailsOrderDetail.ProductsProduct.Barcode,
+            QuantityAll = itemsInfo.Sum(x => x.Quantity),
+            Shelves = itemsLocation
+        };
+
+        return orderInfo;
+    }
+
     public async Task<Task> Delete(int id)
     {
         var task = await _dbContext.Tasks.FirstOrDefaultAsync(x => x.TaskId == id);
