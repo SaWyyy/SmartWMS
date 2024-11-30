@@ -302,8 +302,12 @@ public class TaskRepository : ITaskRepository
 
         var userHasTasks =
             await _dbContext.Tasks
+                .IgnoreQueryFilters()
                 .Where(task => _dbContext.UsersHasTasks
-                    .Any(ut => ut.UsersUserId == userId && ut.Action == ActionType.Taken))
+                    .Any(ut => ut.UsersUserId == userId 
+                               && ut.TasksTaskId == task.TaskId
+                               && ut.Action == ActionType.Taken)
+                    && task.Done == false)
                 .ToListAsync();
         
         if (!userHasTasks.Any())
