@@ -62,7 +62,7 @@ public class OrderAndTasksCreationService : IOrderAndTasksCreationService
             var orderHeaderDto = new OrderHeaderDto
             {
                 DestinationAddress = dto.OrderHeader.DestinationAddress,
-                DeliveryDate = DateTime.Now,
+                DeliveryDate = DateTime.Now.AddDays(2),
                 OrderDate = DateTime.Now,
                 StatusName = OrderName.Planned,
                 TypeName = OrderType.Shipment
@@ -104,8 +104,8 @@ public class OrderAndTasksCreationService : IOrderAndTasksCreationService
             {
                 Barcode = await GenerateBarcode(),
                 CountriesCountryId = country.CountryId.GetValueOrDefault(),
-                LoadingDate = DateTime.Now,
-                ShippingDate = DateTime.Now,
+                LoadingDate = DateTime.Now.AddHours(10),
+                ShippingDate = DateTime.Now.AddDays(2),
                 OrderHeadersOrderHeaderId = orderHeader.OrdersHeaderId,
                 PostalCode = dto.Waybill.PostalCode,
                 SupplierName = dto.Waybill.SupplierName
