@@ -150,7 +150,9 @@ public class TaskRepository : ITaskRepository
             throw new SmartWMSExceptionHandler("Task does not exist");
         
         var itemsInfo = await _dbContext.OrderShelvesAllocations
-            .Where(x => x.ProductId == task.OrderDetailsOrderDetail.ProductsProductId)
+            .Where(x => 
+                x.ProductId == task.OrderDetailsOrderDetail.ProductsProductId
+                && x.TaskId == task.TaskId)
             .ToListAsync();
 
         if (!itemsInfo.Any())

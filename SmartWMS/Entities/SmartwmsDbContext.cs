@@ -442,6 +442,8 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
                 .HasColumnName("product_id");
             entity.Property(e => e.ShelfId)
                 .HasColumnName("shelf_id");
+            entity.Property(e => e.TaskId)
+                .HasColumnName("task_id");
             entity.Property(e => e.Quantity)
                 .HasColumnName("quantity");
         });

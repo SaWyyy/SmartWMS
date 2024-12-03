@@ -83,8 +83,6 @@ public class OrderAndTasksCreationService : IOrderAndTasksCreationService
 
                 var orderDetail = await _orderDetailRepository.Add(orderDetailDto);
                 
-                await SaveShelfAllocations(product.ProductId, allocations.ToList());
-
                 var taskDto = new TaskDto
                 {
                     OrderDetailsOrderDetailId = orderDetail.OrderDetailId,
@@ -93,7 +91,9 @@ public class OrderAndTasksCreationService : IOrderAndTasksCreationService
                     QuantityAllocated = orderDetail.Quantity
                 };
 
-                await _taskRepository.AddTask(taskDto);
+                var task = await _taskRepository.AddTask(taskDto);
+                
+                await SaveShelfAllocations(product.ProductId, task.TaskId, allocations.ToList());
 
                 var updateProduct = await _productRepository.Get(product.ProductId);
                 updateProduct.Quantity -= product.Quantity;
@@ -166,13 +166,14 @@ public class OrderAndTasksCreationService : IOrderAndTasksCreationService
 
 
     
-    private async Task SaveShelfAllocations(int productId, List<CreateOrderAllocateShelvesDto> allocations)
+    private async Task SaveShelfAllocations(int productId, int taskId, List<CreateOrderAllocateShelvesDto> allocations)
     {
         foreach (var allocation in allocations)
         {
             var orderShelfAllocation = new OrderShelvesAllocation
             {
                 ProductId = productId,
+                TaskId = taskId,
                 ShelfId = allocation.ShelfId,
                 Quantity = allocation.Quantity
             };
