@@ -104,8 +104,7 @@ public class TaskController : ControllerBase
         }
     }
 
-    // [Authorize(Roles = "Employee")]
-    [Authorize]
+    [Authorize(Roles = "Employee")]
     [HttpPost("take/{id}")]
     public async Task<IActionResult> TakeTask(int id)
     {

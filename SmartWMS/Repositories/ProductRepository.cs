@@ -78,6 +78,17 @@ public class ProductRepository : IProductRepository
         return _mapper.Map<ProductDto>(result);
     }
 
+    public async Task<ProductDto> GetByBarcode(string barcode)
+    {
+        var result = await _dbContext.Products
+            .FirstOrDefaultAsync(x => x.Barcode.Equals(barcode));
+
+        if (result is null)
+            throw new SmartWMSExceptionHandler("Product with specified barcode hasn't been found");
+
+        return _mapper.Map<ProductDto>(result);
+    }
+
     public async Task<ProductShelfDto> GetWithShelves(int id)
     {
         var product = await _dbContext.Products.FirstOrDefaultAsync(x => x.ProductId == id);

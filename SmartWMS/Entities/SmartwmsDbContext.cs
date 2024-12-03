@@ -195,7 +195,7 @@ public partial class SmartwmsDbContext : IdentityDbContext<User>
             entity.Property(e => e.Quantity)
                 .HasColumnName("quantity");
             entity.Property(e => e.Barcode)
-                .HasMaxLength(8)
+                .HasMaxLength(14)
                 .HasColumnName("barcode");
             entity.Property(e => e.ProductName)
                 .HasMaxLength(45)

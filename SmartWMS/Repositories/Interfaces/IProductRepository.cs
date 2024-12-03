@@ -9,6 +9,7 @@ public interface IProductRepository
     Task<IEnumerable<ProductDto>> GetAll();
     Task<IEnumerable<ProductDto>> GetAllWithQuantityGtZero();
     Task<ProductDto> Get(int id);
+    Task<ProductDto> GetByBarcode(string barcode);
     Task<ProductShelfDto> GetWithShelves(int id);
     Task<IEnumerable<ProductShelfDto>> GetAllWithShelves();
 

@@ -106,6 +106,23 @@ public class ProductController : ControllerBase
         }
     }
 
+    [HttpGet("byBarcode/{barcode}")]
+    public async Task<IActionResult> GetByBarcode(string barcode)
+    {
+        try
+        {
+            var result = await _repository.GetByBarcode(barcode);
+            
+            _logger.LogInformation("Product found by barcode");
+            return Ok(result);
+        }
+        catch (SmartWMSExceptionHandler e)
+        {
+            _logger.LogError(e.Message);
+            return BadRequest(e.Message);
+        }
+    }
+
     [HttpGet("withShelves/{id}")]
     public async Task<IActionResult> GetWithShelves(int id)
     {
