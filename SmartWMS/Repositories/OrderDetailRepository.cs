@@ -68,6 +68,7 @@ public class OrderDetailRepository : IOrderDetailRepository
             throw new SmartWMSExceptionHandler("Order header does not exist");
         
         var result = await _dbContext.OrderDetails
+            .IgnoreQueryFilters()
             .Where(x => x.OrderHeadersOrdersHeaderId == orderHeaderId)
             .ToListAsync();
 
@@ -134,7 +135,11 @@ public class OrderDetailRepository : IOrderDetailRepository
             return false;
 
         if (orderDetail.TasksTask is not null && orderDetail.TasksTask!.Done)
+        {
+            orderDetail.TasksTask.FinishDate = DateTime.Now;
+            await _dbContext.SaveChangesAsync();
             return true;
+        }
 
         return false;
     }
