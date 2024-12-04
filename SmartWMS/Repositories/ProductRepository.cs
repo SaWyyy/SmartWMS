@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SmartWMS.Entities;
 using SmartWMS.Models.DTOs;
+using SmartWMS.Models.DTOs.ResponseDTOs;
 using SmartWMS.Repositories.Interfaces;
 using Task = System.Threading.Tasks.Task;
 

@@ -1,5 +1,6 @@
 ﻿using SmartWMS.Entities;
 using SmartWMS.Models.DTOs;
+using SmartWMS.Models.DTOs.ResponseDTOs;
 
 namespace SmartWMS.Repositories.Interfaces;
 

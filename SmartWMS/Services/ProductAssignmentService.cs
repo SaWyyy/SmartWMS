@@ -1,5 +1,6 @@
 using AutoMapper;
 using SmartWMS.Models.DTOs;
+using SmartWMS.Models.DTOs.CreateOrderDtos;
 using SmartWMS.Repositories.Interfaces;
 using SmartWMS.Services.Interfaces;
 

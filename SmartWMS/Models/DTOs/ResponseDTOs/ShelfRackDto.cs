@@ -1,6 +1,6 @@
 using SmartWMS.Entities.Enums;
 
-namespace SmartWMS.Models.DTOs;
+namespace SmartWMS.Models.DTOs.ResponseDTOs;
 
 public class ShelfRackDto
 {

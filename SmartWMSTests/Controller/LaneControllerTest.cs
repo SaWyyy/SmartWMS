@@ -7,6 +7,7 @@ using SmartWMS;
 using SmartWMS.Controllers;
 using SmartWMS.Entities;
 using SmartWMS.Models.DTOs;
+using SmartWMS.Models.DTOs.ResponseDTOs;
 using SmartWMS.Repositories.Interfaces;
 
 namespace SmartWMSTests.Controller;

@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using SmartWMS.Entities;
 using SmartWMS.Models.DTOs;
+using SmartWMS.Models.DTOs.ResponseDTOs;
 using SmartWMSTests.IntegrationTests.Configuration;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 using Task = System.Threading.Tasks.Task;

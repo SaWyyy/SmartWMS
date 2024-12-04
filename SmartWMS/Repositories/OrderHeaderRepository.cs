@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SmartWMS.Entities;
 using SmartWMS.Models;
 using SmartWMS.Models.DTOs;
+using SmartWMS.Models.DTOs.ResponseDTOs;
 using SmartWMS.Repositories.Interfaces;
 
 namespace SmartWMS.Repositories;
@@ -38,6 +39,34 @@ public class OrderHeaderRepository : IOrderHeaderRepository
         var ordersDto = _mapper.Map<List<OrderHeaderDto>>(orders);
 
         return ordersDto;
+    }
+
+    public async Task<IEnumerable<AllOrdersInfoDto>> GetAllWithDetails()
+    {
+        var result = await _dbContext.OrderHeaders
+            .IgnoreQueryFilters()
+            .Include(x => x.OrderDetails)
+            .ThenInclude(x => x.ProductsProduct)
+            .Select(x => new AllOrdersInfoDto
+            {
+                OrdersHeaderId = x.OrdersHeaderId,
+                DestinationAddress = x.DestinationAddress,
+                DeliveryDate = x.DeliveryDate.GetValueOrDefault(),
+                OrderDate = x.OrderDate,
+                StatusName = x.StatusName,
+                TypeName = x.TypeName,
+                OrderDetails = x.OrderDetails.Select(y => new OrderDetailsProductNameDto
+                {
+                    OrderDetailId = y.OrderDetailId,
+                    OrderHeadersOrdersHeaderId = y.OrderHeadersOrdersHeaderId,
+                    Done = y.Done,
+                    ProductsProductId = y.ProductsProductId,
+                    Quantity = y.Quantity,
+                    ProductName = y.ProductsProduct.ProductName
+                }).ToList()
+            }).ToListAsync();
+
+        return result;
     }
 
     public async Task<OrderHeaderDto> Get(int id)

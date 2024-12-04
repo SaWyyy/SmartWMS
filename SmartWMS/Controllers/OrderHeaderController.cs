@@ -85,6 +85,15 @@ public class OrderHeaderController : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet("withDetails")]
+    public async Task<IActionResult> GetAllWithDetails()
+    {
+        var result = await _repository.GetAllWithDetails();
+        
+        _logger.LogInformation("All Order Headers with Details fetched");
+        return Ok(result);
+    }
+    
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {

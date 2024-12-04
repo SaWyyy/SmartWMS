@@ -1,4 +1,5 @@
 using SmartWMS.Models.DTOs;
+using SmartWMS.Models.DTOs.CreateOrderDtos;
 
 namespace SmartWMS.Services.Interfaces;
 

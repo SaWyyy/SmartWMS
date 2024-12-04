@@ -5,6 +5,7 @@ using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using SmartWMS.Entities;
 using SmartWMS.Models.DTOs;
+using SmartWMS.Models.DTOs.ResponseDTOs;
 using SmartWMSTests.IntegrationTests.Configuration;
 using Task = System.Threading.Tasks.Task;
 

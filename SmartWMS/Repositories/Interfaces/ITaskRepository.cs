@@ -1,5 +1,6 @@
 using SmartWMS.Entities.Enums;
 using SmartWMS.Models.DTOs;
+using SmartWMS.Models.DTOs.ResponseDTOs;
 using SmartWMS.Models.ReturnEnums;
 using Task = SmartWMS.Entities.Task;
 

@@ -1,6 +1,4 @@
-using SmartWMS.Entities;
-
-namespace SmartWMS.Models.DTOs;
+namespace SmartWMS.Models.DTOs.ResponseDTOs;
 
 public class ProductShelfDto
 {
