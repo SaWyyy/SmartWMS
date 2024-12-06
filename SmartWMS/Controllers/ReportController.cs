@@ -117,7 +117,7 @@ public class ReportController: ControllerBase
             var result = await _repository.DownloadFile(id);
             _logger.LogInformation("Downloading requested file");
 
-            return File(result, "application/pdf");
+            return File(result, "application/pdf", $"report-{id}.pdf");
         }
         catch (SmartWMSExceptionHandler e)
         {
