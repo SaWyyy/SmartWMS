@@ -46,7 +46,7 @@ public class ReportRepository: IReportRepository
         throw new SmartWMSExceptionHandler("Error occurred while trying to save file");
     }
 
-    public async Task<Report> Add(ReportDto dto)
+    public async Task<ReportDto> Add(ReportDto dto)
     {
         
         var warehouse = await _dbContext.Warehouses.FirstOrDefaultAsync(w => w.WarehouseId == 1);
@@ -71,7 +71,7 @@ public class ReportRepository: IReportRepository
         var result = await _dbContext.SaveChangesAsync();
 
         if (result > 0)
-            return report;
+            return _mapper.Map<ReportDto>(report);
 
         throw new SmartWMSExceptionHandler("Error has occured while adding report");
     }

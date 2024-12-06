@@ -1,6 +1,7 @@
 using System.Data.SqlTypes;
 using System.Security.Claims;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NLog.LayoutRenderers.Wrappers;
 using SmartWMS.Entities;
@@ -20,12 +21,14 @@ public class TaskRepository : ITaskRepository
     private readonly SmartwmsDbContext _dbContext;
     private readonly IMapper _mapper;
     private readonly IHttpContextAccessor _accessor;
+    private readonly UserManager<User> _userManager;
 
-    public TaskRepository(SmartwmsDbContext dbContext, IMapper mapper, IHttpContextAccessor accessor)
+    public TaskRepository(SmartwmsDbContext dbContext, IMapper mapper, IHttpContextAccessor accessor, UserManager<User> userManager)
     {
         this._dbContext = dbContext;
         this._mapper = mapper;
         this._accessor = accessor;
+        this._userManager = userManager;
     }
     
     public async Task<Task> AddTask(TaskDto dto)
@@ -318,6 +321,48 @@ public class TaskRepository : ITaskRepository
 
         var tasks = _mapper.Map<List<TaskDto>>(userHasTasks);
         return tasks;
+    }
+
+    public async Task<IEnumerable<UsersTasksDto>> GetAllUsersWithTasks()
+    { 
+        var users = await _userManager.GetUsersInRoleAsync("employee");
+
+        var userIds = users.Select(u => u.Id).ToList();
+
+        var tasks = await _dbContext.UsersHasTasks
+            .IgnoreQueryFilters()
+            .Where(ut => userIds
+                             .Contains(ut.UsersUserId) 
+                             && ut.TasksTask.Taken == true 
+                             && ut.TasksTask.Done == true
+                             )
+            .Select(ut => new {
+                ut.UsersUserId,
+                Task = ut.TasksTask
+            })
+            .ToListAsync();
+
+        var result = users.Select(user => new UsersTasksDto
+        {
+            UserId = user.Id,
+            Username = user.UserName!,
+            Tasks = tasks
+                .Where(t => t.UsersUserId == user.Id)
+                .Select(t => new TaskDto
+                {
+                    TaskId = t.Task.TaskId,
+                    StartDate = t.Task.StartDate,
+                    FinishDate = t.Task.FinishDate,
+                    Priority = t.Task.Priority,
+                    OrderDetailsOrderDetailId = t.Task.OrderDetailsOrderDetailId,
+                    Taken = t.Task.Taken,
+                    QuantityCollected = t.Task.QuantityCollected,
+                    QuantityAllocated = t.Task.QuantityAllocated,
+                    Done = t.Task.Done
+                }).ToList()
+        });
+
+        return result;
     }
 
     public async Task<Task> UpdateQuantity(int id)

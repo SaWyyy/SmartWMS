@@ -18,5 +18,6 @@ public interface ITaskRepository
     Task<Task> Update(int id, TaskDto dto);
     Task<TaskDto> TakeTask(int id);
     Task<IEnumerable<TaskDto>> UserTasks();
+    Task<IEnumerable<UsersTasksDto>> GetAllUsersWithTasks();
     Task<Task> UpdateQuantity(int id);
 }

@@ -42,7 +42,7 @@ public class ReportController: ControllerBase
             var result = await _repository.Add(dto);
             
             _logger.LogInformation("Report added successfully");
-            return Ok($"Report with id: {result.ReportId} has been added successfully");
+            return Ok(result);
         }
         catch (SmartWMSExceptionHandler e)
         {

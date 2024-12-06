@@ -59,7 +59,7 @@ public class ReportControllerTests
         var reportDto = CreateFakeReportDto();
 
         // Act
-        A.CallTo(() => _reportRepository.Add(reportDto)).Returns(report);
+        A.CallTo(() => _reportRepository.Add(reportDto)).Returns(reportDto);
         var result = (OkObjectResult)await _reportController.Add(reportDto);
 
         // Assert

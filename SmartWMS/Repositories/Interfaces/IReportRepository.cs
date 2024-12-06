@@ -6,7 +6,7 @@ namespace SmartWMS.Repositories.Interfaces;
 
 public interface IReportRepository
 {
-    Task<Report> Add(ReportDto dto);
+    Task<ReportDto> Add(ReportDto dto);
     Task<IEnumerable<ReportDto>> GetAll();
     Task<ReportDto> Get(int id);
     Task<Report> Delete(int id);

@@ -140,6 +140,14 @@ public class TaskController : ControllerBase
         }
     }
 
+    [HttpGet("usersFinishedTasks")]
+    public async Task<IActionResult> GetUsersWithFinishedTasks()
+    {
+        var result = await _repository.GetAllUsersWithTasks();
+
+        return Ok(result);
+    }
+
     [HttpGet("orderInfo/{id}")]
     public async Task<IActionResult> GetOrderInfo(int id)
     {
