@@ -17,7 +17,7 @@ public class ReportController: ControllerBase
         this._logger = logger;
     }
 
-    [HttpPut("uploadFile")]
+    [HttpPut("uploadFile/{id}")]
     public async Task<IActionResult> AttachFile(IFormFile file, int id)
     {
         try
