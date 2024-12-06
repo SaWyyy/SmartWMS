@@ -28,6 +28,9 @@ public class ReportRepository: IReportRepository
         if (file is null || file.Length == 0)
             throw new SmartWMSExceptionHandler("File does not exist or does not have any content");
         
+        if (!file.FileName.EndsWith(".pdf"))
+            throw new SmartWMSExceptionHandler("Wrong file format");
+        
         byte[] fileData;
 
         using (var memoryStream = new MemoryStream())
