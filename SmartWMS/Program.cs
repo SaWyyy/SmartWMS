@@ -97,6 +97,7 @@ try
     builder.Services.AddScoped<IProductAssignmentService, ProductAssignmentService>();
     builder.Services.AddScoped<IOrderAndTasksCreationService, OrderAndTasksCreationService>();
     builder.Services.AddScoped<IOrderCancellationService, OrderCancellationService>();
+    builder.Services.AddScoped<IBarcodeGeneratorService, BarcodeGeneratorService>();
     //====================================================================================================//
     
     

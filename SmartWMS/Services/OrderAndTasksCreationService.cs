@@ -20,6 +20,7 @@ public class OrderAndTasksCreationService : IOrderAndTasksCreationService
     private readonly ICountryRepository _countryRepository;
     private readonly IWaybillRepository _waybillRepository;
     private readonly IShelfRepository _shelfRepository;
+    private readonly IBarcodeGeneratorService _barcodeGeneratorService;
     private readonly IMapper _mapper;
     
     public OrderAndTasksCreationService(
@@ -30,6 +31,7 @@ public class OrderAndTasksCreationService : IOrderAndTasksCreationService
         ICountryRepository countryRepository,
         IWaybillRepository waybillRepository,
         IShelfRepository shelfRepository,
+        IBarcodeGeneratorService barcodeGeneratorService,
         IMapper mapper
         )
     {
@@ -40,6 +42,7 @@ public class OrderAndTasksCreationService : IOrderAndTasksCreationService
         this._countryRepository = countryRepository;
         this._waybillRepository = waybillRepository;
         this._shelfRepository = shelfRepository;
+        this._barcodeGeneratorService = barcodeGeneratorService;
         this._mapper = mapper;
     }
     
@@ -102,7 +105,7 @@ public class OrderAndTasksCreationService : IOrderAndTasksCreationService
 
             var waybillDto = new WaybillDto
             {
-                Barcode = await GenerateBarcode(),
+                Barcode = await _barcodeGeneratorService.GenerateBarcode(),
                 CountriesCountryId = country.CountryId.GetValueOrDefault(),
                 LoadingDate = DateTime.Now.AddHours(10),
                 ShippingDate = DateTime.Now.AddDays(2),
@@ -180,41 +183,5 @@ public class OrderAndTasksCreationService : IOrderAndTasksCreationService
             
             await _shelfRepository.SaveAllocation(orderShelfAllocation);
         }
-    }
-
-    private async Task<string> GenerateBarcode()
-    {
-        var productsDtos = await _productRepository.GetAll();
-        var products = productsDtos.ToList();
-
-        var random = new Random();
-        string ean13Code;
-        do
-        {
-            string baseDigits = new string(Enumerable.Range(0, 12).Select(_ => random.Next(0, 10).ToString()[0]).ToArray());
-            int checkDigit = CalculateEan13CheckDigit(baseDigits);
-            ean13Code = baseDigits + checkDigit;
-
-        } while (products.Any(product => product.Barcode == ean13Code));
-
-        return ean13Code;
-    }
-
-    private int CalculateEan13CheckDigit(string baseDigits)
-    {
-        if (baseDigits.Length != 12 || !baseDigits.All(char.IsDigit))
-            throw new ArgumentException("Podstawa kodu EAN-13 musi mieć dokładnie 12 cyfr.");
-
-        int sum = 0;
-
-        for (int i = 0; i < baseDigits.Length; i++)
-        {
-            int digit = int.Parse(baseDigits[i].ToString());
-            sum += (i % 2 == 0) ? digit : digit * 3;
-        }
-
-        int checkDigit = (10 - (sum % 10)) % 10;
-
-        return checkDigit;
     }
 }
