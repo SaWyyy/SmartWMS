@@ -46,13 +46,14 @@ public class OrderCancellationService : IOrderCancellationService
                 var product = await _productRepository.Get(orderDetail.ProductsProductId);
                 product.Quantity += orderDetail.Quantity;
                 await _productRepository.Update(orderDetail.ProductsProductId, product);
+                var task = await _taskRepository.GetByOrderDetailId(orderDetail.OrderDetailId.GetValueOrDefault());
 
-                await RetrieveShelfAllocation(product.ProductId.GetValueOrDefault());
+
+                await RetrieveShelfAllocation(product.ProductId.GetValueOrDefault(), task.TaskId.GetValueOrDefault());
                 
                 orderDetail.Done = true;
                 await _orderDetailRepository.Update(orderDetail.OrderDetailId.GetValueOrDefault(), orderDetail);
                 
-                var task = await _taskRepository.GetByOrderDetailId(orderDetail.OrderDetailId.GetValueOrDefault());
                 task.Done = true;
                 await _taskRepository.Update(task.TaskId.GetValueOrDefault(), task);
             }
@@ -69,9 +70,9 @@ public class OrderCancellationService : IOrderCancellationService
         }
     }
 
-    private async Task RetrieveShelfAllocation(int productId)
+    private async Task RetrieveShelfAllocation(int productId, int taskId)
     {
-        var allocations = await _shelfRepository.GetAllocationsByProduct(productId);
+        var allocations = await _shelfRepository.GetAllocationsByProductAndTask(productId, taskId);
         foreach (var allocation in allocations)
         {
             var shelf = await _shelfRepository.Get(allocation.ShelfId);
@@ -79,6 +80,6 @@ public class OrderCancellationService : IOrderCancellationService
             await _shelfRepository.Update(shelf.ShelfId.GetValueOrDefault(), shelf);
         }
 
-        await _shelfRepository.DeleteAllocationsByProduct(productId);
+        await _shelfRepository.DeleteAllocationsByProductAndTask(productId, taskId);
     }
 }

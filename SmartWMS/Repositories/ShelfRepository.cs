@@ -115,15 +115,22 @@ public class ShelfRepository : IShelfRepository
         return result;
     }
 
-    public async Task<IEnumerable<OrderShelvesAllocation>> GetAllocationsByProduct(int productId)
+    public async Task<IEnumerable<OrderShelvesAllocation>> GetAllocationsByProductAndTask(int productId, int taskId)
     {
         var product = await _dbContext.Products
             .FirstOrDefaultAsync(x => x.ProductId == productId);
+        
         if (product is null)
             throw new SmartWMSExceptionHandler("Product does not exist");
 
+        var task = await _dbContext.Tasks
+            .FirstOrDefaultAsync(x => x.TaskId == taskId);
+
+        if (task is null)
+            throw new SmartWMSExceptionHandler("Task does not exist");
+
         var result = await _dbContext.OrderShelvesAllocations
-            .Where(x => x.ProductId == productId)
+            .Where(x => x.ProductId == productId && x.TaskId == taskId)
             .ToListAsync();
         return result;
     }
@@ -149,15 +156,21 @@ public class ShelfRepository : IShelfRepository
         throw new SmartWMSExceptionHandler("Error has occured while saving changes to shelf table");
     }
 
-    public async Task<IEnumerable<OrderShelvesAllocation>> DeleteAllocationsByProduct(int productId)
+    public async Task<IEnumerable<OrderShelvesAllocation>> DeleteAllocationsByProductAndTask(int productId, int taskId)
     {
         var product = await _dbContext.Products
             .FirstOrDefaultAsync(x => x.ProductId == productId);
         if (product is null)
             throw new SmartWMSExceptionHandler("Product does not exist");
         
+        var task = await _dbContext.Tasks
+            .FirstOrDefaultAsync(x => x.TaskId == taskId);
+
+        if (task is null)
+            throw new SmartWMSExceptionHandler("Task does not exist");
+        
         var allocations = await _dbContext.OrderShelvesAllocations
-            .Where(x => x.ProductId == productId)
+            .Where(x => x.ProductId == productId && x.TaskId == taskId)
             .ToListAsync();
 
         _dbContext.OrderShelvesAllocations.RemoveRange(allocations);

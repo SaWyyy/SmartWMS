@@ -11,9 +11,9 @@ public interface IShelfRepository
     Task<IEnumerable<ShelfDto>> GetAll();
     Task<IEnumerable<ShelfRackDto>> GetAllWithRackLanes();
     Task<ShelfDto> Get(int id);
-    Task<IEnumerable<OrderShelvesAllocation>> GetAllocationsByProduct(int productId);
+    Task<IEnumerable<OrderShelvesAllocation>> GetAllocationsByProductAndTask(int productId, int taskId);
     Task<Shelf> Delete(int id);
-    Task<IEnumerable<OrderShelvesAllocation>> DeleteAllocationsByProduct(int productId);
+    Task<IEnumerable<OrderShelvesAllocation>> DeleteAllocationsByProductAndTask(int productId, int taskId);
     Task<Shelf> Update(int id, ShelfDto dto);
     Task<IEnumerable<RacksLevelsDto>> GetAllRacksLevels(int rackId);
 }
