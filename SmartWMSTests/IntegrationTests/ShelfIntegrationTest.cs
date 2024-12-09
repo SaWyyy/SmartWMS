@@ -218,13 +218,11 @@ public class ShelfIntegrationTest : BaseIntegrationTest
     public async Task Delete_ShouldReturnOk()
     {
         // Arrange
-        var productId = await SeedProduct("shelf update");
         var rackId = await SeedRack(5);
         
         var shelf = new Shelf
         {
             RacksRackId = rackId,
-            ProductsProductId = productId,
             CurrentQuant = 0,
             MaxQuant = 10,
             Level = LevelType.P0,
@@ -247,11 +245,39 @@ public class ShelfIntegrationTest : BaseIntegrationTest
     }
     
     [Fact]
+    public async Task Delete_ShouldReturnConflict()
+    {
+        // Arrange
+        var productId = await SeedProduct("shelf update");
+        var rackId = await SeedRack(6);
+        
+        var shelf = new Shelf
+        {
+            RacksRackId = rackId,
+            ProductsProductId = productId,
+            CurrentQuant = 0,
+            MaxQuant = 10,
+            Level = LevelType.P0,
+        };
+
+        await _dbContext.Shelves.AddAsync(shelf);
+        await _dbContext.SaveChangesAsync();
+
+        var shelfId = shelf.ShelfId;
+        
+        // Act
+        var response = await _client.DeleteAsync($"/api/Shelf/{shelfId}");
+        
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.Conflict);
+    }
+    
+    [Fact]
     public async Task GetAllWithRackLanes_ShouldReturnOk()
     {
         // Arrange
         var productId = await SeedProduct("shelf getAll");
-        var rackId = await SeedRack(6);
+        var rackId = await SeedRack(7);
         
         var shelf = new Shelf
         {
@@ -278,11 +304,11 @@ public class ShelfIntegrationTest : BaseIntegrationTest
     }
     
     [Fact]
-    public async Task GetAllRackLevels_ShouldReturnOk()
+    public async Task GetAllRackLevels_ShouldReturnConflict()
     {
         // Arrange
         var productId = await SeedProduct("shelf getAll");
-        var rackId = await SeedRack(7);
+        var rackId = await SeedRack(8);
         
         var shelf = new Shelf
         {
