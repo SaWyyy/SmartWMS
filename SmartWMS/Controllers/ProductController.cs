@@ -185,7 +185,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    [Authorize("Admin, Manager")]
+    [Authorize(Roles = "Admin, Manager")]
     public async Task<IActionResult> Update(int id, ProductDto dto)
     {
         try
