@@ -183,10 +183,22 @@ public class UserRepository : IUserRepository
 
     public async Task<IdentityResult> DeleteUser(string id)
     {
-        var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
+        var user = await _dbContext.Users
+            .Include(x => x.UsersHasTasks)
+            .FirstOrDefaultAsync(x => x.Id == id);
         
         if (user is null)
             return IdentityResult.Failed( new IdentityError { Description = "User not found"} );
+
+        var employees = await _dbContext.Users
+            .Where(x => x.ManagerId == id)
+            .ToListAsync();
+        
+        if(employees.Any())
+            return IdentityResult.Failed( new IdentityError {Description = "Manager has assigned users"});
+        
+        if(user.UsersHasTasks.Any(x => x.UsersUserId == id))
+            return IdentityResult.Failed( new IdentityError {Description = "User has assigned tasks"});
 
         var result = await _userManager.DeleteAsync(user);
         if (result.Succeeded)
