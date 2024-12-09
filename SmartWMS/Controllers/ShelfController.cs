@@ -81,7 +81,7 @@ public class ShelfController : ControllerBase
         try
         {
             var deletedShelf = await _shelfRepository.Delete(id);
-            
+
             _logger.LogInformation("Shelf removed");
             return Ok(deletedShelf);
         }
@@ -89,6 +89,11 @@ public class ShelfController : ControllerBase
         {
             _logger.LogError(e.Message);
             return NotFound(e.Message);
+        }
+        catch (ConflictException e)
+        {
+            _logger.LogError(e.Message);
+            return Conflict(e.Message);
         }
     }
 

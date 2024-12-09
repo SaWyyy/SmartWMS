@@ -130,10 +130,15 @@ public class ShelfRepository : IShelfRepository
 
     public async Task<Shelf> Delete(int id)
     {
-        var shelf = await _dbContext.Shelves.FirstOrDefaultAsync(r => r.ShelfId == id);
+        var shelf = await _dbContext.Shelves
+            .Include(x => x.ProductsProduct)
+            .FirstOrDefaultAsync(r => r.ShelfId == id);
 
         if (shelf is null)
             throw new SmartWMSExceptionHandler("Shelf with specified id hasn't been found");
+
+        if (shelf.ProductsProduct is not null)
+            throw new ConflictException("Product is assigned to shelf");
 
         _dbContext.Shelves.Remove(shelf);
         var result = await _dbContext.SaveChangesAsync();
