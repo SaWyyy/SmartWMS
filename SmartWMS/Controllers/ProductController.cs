@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartWMS.Models.DTOs;
 using SmartWMS.Models.DTOs.CreateOrderDtos;
@@ -8,7 +9,7 @@ namespace SmartWMS.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-
+[Authorize]
 public class ProductController : ControllerBase
 {
     private readonly IProductRepository _repository;
@@ -23,6 +24,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin, Manager")]
     public async Task<IActionResult> Add(ProductDto dto)
     {
         try
@@ -40,6 +42,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPost("createAndAssignToShelves")]
+    [Authorize(Roles = "Admin, Manager")]
     public async Task<IActionResult> CreateAndAssignToShelves(CreateProductAsssignShelfDto dto)
     {
         try
@@ -159,6 +162,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin, Manager")]
     public async Task<IActionResult> Delete(int id)
     {
         try
@@ -181,6 +185,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize("Admin, Manager")]
     public async Task<IActionResult> Update(int id, ProductDto dto)
     {
         try

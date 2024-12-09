@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SmartWMS.Models.DTOs;
 using SmartWMS.Repositories.Interfaces;
 
@@ -6,6 +7,7 @@ namespace SmartWMS.Controllers;
 
 [Route("/api/[controller]")]
 [ApiController]
+[Authorize]
 public class ReportController: ControllerBase
 {
     private readonly IReportRepository _repository;
@@ -18,6 +20,7 @@ public class ReportController: ControllerBase
     }
 
     [HttpPut("uploadFile/{id}")]
+    [Authorize(Roles = "Admin, Manager")]
     public async Task<IActionResult> AttachFile(IFormFile file, int id)
     {
         try
@@ -35,6 +38,7 @@ public class ReportController: ControllerBase
     }
     
     [HttpPost]
+    [Authorize(Roles = "Admin, Manager")]
     public async Task<IActionResult> Add(ReportDto dto)
     {
         try
@@ -76,6 +80,7 @@ public class ReportController: ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin, Manager")]
     public async Task<IActionResult> Delete(int id)
     {
         try
@@ -93,6 +98,7 @@ public class ReportController: ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin, Manager")]
     public async Task<IActionResult> Update(int id, ReportDto dto)
     {
         try

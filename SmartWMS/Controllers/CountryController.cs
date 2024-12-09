@@ -7,9 +7,9 @@ using SmartWMS.Repositories.Interfaces;
 
 namespace SmartWMS.Controllers;
 
-//[Authorize]
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class CountryController : ControllerBase
 {
     private readonly ICountryRepository _countryRepository;

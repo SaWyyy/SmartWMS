@@ -11,6 +11,7 @@ namespace SmartWMS.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class ShelfController : ControllerBase
 {
     private readonly IShelfRepository _shelfRepository;
@@ -23,7 +24,7 @@ public class ShelfController : ControllerBase
     }
 
     [HttpPost]
-    //[Authorize(Roles = "Manager, Admin")]
+    [Authorize(Roles = "Manager, Admin")]
     public async Task<IActionResult> AddShelf(ShelfDto dto)
     {
         try
@@ -74,6 +75,7 @@ public class ShelfController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin, Manager")]
     public async Task<IActionResult> Delete(int id)
     {
         try
@@ -91,6 +93,7 @@ public class ShelfController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin, Manager")]
     public async Task<IActionResult> Update(int id, ShelfDto dto)
     {
         try

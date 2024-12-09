@@ -13,7 +13,7 @@ namespace SmartWMS.Controllers;
 
 [Route("/api/[controller]")]
 [ApiController]
-
+[Authorize]
 public class TaskController : ControllerBase
 {
     private readonly ITaskRepository _repository;
@@ -27,7 +27,7 @@ public class TaskController : ControllerBase
         this._service = service;
     }
 
-    [Authorize(Roles = "Manager")]
+    [Authorize(Roles = "Admin, Manager")]
     [HttpPost]
     public async Task<IActionResult> AddTask(TaskDto dto)
     {
@@ -71,6 +71,7 @@ public class TaskController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin, Manager")]
     public async Task<IActionResult> Delete(int id)
     {
         try
@@ -88,6 +89,7 @@ public class TaskController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin, Manager")]
     public async Task<IActionResult> Update(int id, TaskDto dto)
     {
         try

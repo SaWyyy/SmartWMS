@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartWMS.Models.DTOs;
 using SmartWMS.Repositories.Interfaces;
@@ -6,7 +7,7 @@ namespace SmartWMS.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-
+[Authorize]
 public class OrderDetailController : ControllerBase
 {
     private readonly IOrderDetailRepository _repository;
@@ -19,6 +20,7 @@ public class OrderDetailController : ControllerBase
     }
     
     [HttpPost]
+    [Authorize(Roles = "Admin, Manager")]
     public async Task<IActionResult> AddOrderDetail(OrderDetailDto dto)
     {
         try
@@ -75,6 +77,7 @@ public class OrderDetailController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin, Manager")]
     public async Task<IActionResult> Update(int id, OrderDetailDto dto)
     {
         try
@@ -92,6 +95,7 @@ public class OrderDetailController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin, Manager")]
     public async Task<IActionResult> Delete(int id)
     {
         try

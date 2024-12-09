@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartWMS.Models.DTOs;
 using SmartWMS.Repositories.Interfaces;
@@ -6,6 +7,7 @@ namespace SmartWMS.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class LaneController : ControllerBase
 {
     private readonly ILaneRepository _repository;

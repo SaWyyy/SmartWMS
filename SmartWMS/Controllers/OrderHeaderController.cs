@@ -32,6 +32,7 @@ public class OrderHeaderController : ControllerBase
     }
 
     [HttpPost("createOrder")]
+    [Authorize(Roles = "Admin, Manager")]
     public async Task<IActionResult> CreateOrder(CreateOrderDto dto)
     {
         try
@@ -46,6 +47,7 @@ public class OrderHeaderController : ControllerBase
     }
 
     [HttpDelete("cancelOrder/{orderHeaderId}")]
+    [Authorize(Roles = "Admin, Manager")]
     public async Task<IActionResult> CancelOrder(int orderHeaderId)
     {
         try
@@ -60,6 +62,7 @@ public class OrderHeaderController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin, Manager")]
     public async Task<IActionResult> AddOrderHeader(OrderHeaderDto dto)
     {
         try
@@ -112,6 +115,7 @@ public class OrderHeaderController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin, Manager")]
     public async Task<IActionResult> Delete(int id)
     {
         try
@@ -129,6 +133,7 @@ public class OrderHeaderController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin, Manager")]
     public async Task<IActionResult> Update(int id, OrderHeaderDto dto)
     {
         try
